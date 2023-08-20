@@ -29,12 +29,14 @@
 
 							$data = array(
 								"id_pegawai" => $id,
+								"id_role_respon" => $_POST["f_jabatan"],
 								"nama" => $nama,
 								"nip" => $nip,
 								"jabatan" => $jabatan,
 							);
 							$_SESSION["data_array"][] = $data;
 							// echo "Data berhasil disimpan.";
+							no_resubmit();
 						}
 						?>
 
@@ -148,7 +150,7 @@
 										<div class="input-group-prepend">
 											<div class="input-group-text" id="inputGroup-sizing-sm">Rp.</div>
 										</div>
-										<input type="text" value="<?= $realisasilalu ?>" class="form-control form-control-sm" id="realisasi" name="realisasi">
+										<input type="text" value="<?= number_format($realisasilalu) ?>" class="form-control form-control-sm" id="realisasi" name="realisasi" readonly>
 									</div>
 								</div>
 								<div class="form-group">
