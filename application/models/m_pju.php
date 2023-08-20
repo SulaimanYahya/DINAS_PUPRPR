@@ -68,8 +68,9 @@ class m_pju extends CI_Model
 				if (isset($_SESSION["data_array"])) {
 					foreach ($_SESSION["data_array"] as $key => $r) {
 						$data2[] = [
-							'id_pegawai' => $r['id_pegawai'],
-							'kode_spm' => $kd_spm
+							'id_pegawai' 	 => $r['id_pegawai'],
+							'id_role_respon' => $r['id_role_respon'],
+							'kode_spm' 		 => $kd_spm
 						];
 					}
 					$this->db->insert_batch('daftar_nama_ttd', $data2);
