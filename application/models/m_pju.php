@@ -41,6 +41,7 @@ class m_pju extends CI_Model
 			$this->load->library('upload', $config);
 
 			if ($this->upload->do_upload('gambar')) {
+				$this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert"><a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a> Data Berhasil Disimpan!</div>');
 				$new_image = $this->upload->data('file_name');
 				// $this->db->set('tanda_bukti', $new_image);
 				$data = [
@@ -50,7 +51,7 @@ class m_pju extends CI_Model
 					'tgl_spm'       => $this->input->post('tgl_spm'),
 					'nilai'         => cleanKarakter($this->input->post('nilai')),
 					'jml_angg'      => cleanKarakter($this->input->post('jml_angg')),
-					'realisasi'     => cleanKarakter($this->input->post('realisasi')),
+					'realisasi'     => $total_realisasi,
 					'sisa_angg1'    => cleanKarakter($this->input->post('sisa_angg1')),
 					'jml_diminta'   => cleanKarakter($this->input->post('jml_yg_diminta')),
 					'sisa_angg2'    => cleanKarakter($this->input->post('sisa_angg2')),
@@ -80,9 +81,9 @@ class m_pju extends CI_Model
 					$this->db->where('id_belanja', dekrip($this->input->post('id_belanja'))); // Update the user with id = 1
 					$this->db->set('total_realisasi', $total_realisasi);
 					$this->db->update('tb_belanja');
-					return redirect(base_url('homekeu/program'));
+					return redirect(base_url('daftar_tagihan'));
 				} else {
-					return redirect(base_url('homekeu/program'));
+					return redirect(base_url('daftar_tagihan'));
 				}
 			}
 			return redirect(base_url('homekeu/program'));
