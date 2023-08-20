@@ -51,7 +51,7 @@ class m_pju extends CI_Model
 					'tgl_spm'       => $this->input->post('tgl_spm'),
 					'nilai'         => cleanKarakter($this->input->post('nilai')),
 					'jml_angg'      => cleanKarakter($this->input->post('jml_angg')),
-					'realisasi'     => cleanKarakter($this->input->post('realisasi')),
+					'realisasi'     => $total_realisasi,
 					'sisa_angg1'    => cleanKarakter($this->input->post('sisa_angg1')),
 					'jml_diminta'   => cleanKarakter($this->input->post('jml_yg_diminta')),
 					'sisa_angg2'    => cleanKarakter($this->input->post('sisa_angg2')),
