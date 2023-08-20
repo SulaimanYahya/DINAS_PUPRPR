@@ -65,6 +65,7 @@ class m_pju extends CI_Model
 					'kode_spm'      => $kd_spm,
 					'tanda_bukti'   => $new_image
 				];
+
 				if (isset($_SESSION["data_array"])) {
 					foreach ($_SESSION["data_array"] as $key => $r) {
 						$data2[] = [

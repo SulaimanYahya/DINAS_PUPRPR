@@ -1,5 +1,26 @@
 <?php
 
+function tanggalIndonesiaTanpaDay($date)
+{
+	$days = [
+		'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'
+	];
+
+	$months = [
+		'', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+	];
+
+	$dateComponents = explode('-', $date);
+	$year = $dateComponents[0];
+	$month = (int)$dateComponents[1];
+	$day = (int)$dateComponents[2];
+
+	$timestamp = mktime(0, 0, 0, $month, $day, $year);
+	$dayOfWeek = date('w', $timestamp);
+
+	return $months[$month] . ' ' . $year;
+}
+
 function tanggalIndonesia($date)
 {
 	$days = [

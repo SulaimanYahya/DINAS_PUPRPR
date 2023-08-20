@@ -1,114 +1,127 @@
 <?php
-Class Format1pdf extends CI_Controller{
-    
-    function __construct() {
+class Format1pdf extends CI_Controller
+{
+
+    function __construct()
+    {
         parent::__construct();
         $this->load->library('Pdf');
     }
-    
-    function cetak($kode){
-        $pdf = new exFPDF('p','mm',array(210,330));
+
+    function cetak($kode)
+    {
+        $pdf = new exFPDF('p', 'mm', array(210, 330));
         // membuat halaman baru
         $pdf->SetLeftMargin(23);
         $pdf->SetRightMargin(23);
         $pdf->SetTopMargin(23);
         $pdf->AddPage();
-        $pdf->Image('assets/img/profile/logo_bonbol.png',23,25,10,13);
+        $pdf->Image('assets/img/profile/logo_bonbol.png', 23, 25, 10, 13);
         // setting jenis font yang akan digunakan
-        $pdf->SetFont('Arial','B',12);
-        $pdf->Cell(0,6,'PEMERINTAH KABUPATEN BONE BOLANGO',0,1, 'C');
-        $pdf->SetFont('Arial', 'B',10);
-        $pdf->Cell(0,6,'DINAS PEKERJAAN UMUM PENATAAN RUANG DAN PERUMAHAN RAKYAT',0,1,'C');
-        $pdf->SetFont('Arial','B',10);
-        $pdf->Cell(0,6,'Alamat Jl. Makam Nani Wartabone Kec. Suwawa Kab. Bone Bolango',0,1,'C');
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(0, 6, 'PEMERINTAH KABUPATEN BONE BOLANGO', 0, 1, 'C');
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(0, 6, 'DINAS PEKERJAAN UMUM PENATAAN RUANG DAN PERUMAHAN RAKYAT', 0, 1, 'C');
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(0, 6, 'Alamat Jl. Makam Nani Wartabone Kec. Suwawa Kab. Bone Bolango', 0, 1, 'C');
         $pdf->SetLineWidth(1);
-        $pdf->Line(23,42,180,42);
+        $pdf->Line(23, 42, 180, 42);
         $pdf->SetLineWidth(0);
-        $pdf->Line(23,43,180.3,43);
-        
-        $pdf->Cell(10,8,'',0,1);
-        $pdf->SetFont('Arial','',11);
-        $pdf->Cell(0,6,'SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK (SPTJM)',0,1,'C');
-        $pdf->Cell(0,6,'DINAS PEKERJAAN UMUM PENATAAN RUANG KAB. BONE BOLANGO',0,1,'C');
-        $pdf->SetFont('Arial','',10);
-        $pdf->Cell(0,6,'Yang bertanda tangan dibawah ini :',0,1);
+        $pdf->Line(23, 43, 180.3, 43);
 
-        $this->db->join('tb_pegawai','tb_pegawai.id=daftar_nama_ttd.id_pegawai');
-        $pegawai = $this->db->get_where('daftar_nama_ttd', ['kode_spm'=> $kode])->result();
+        $pdf->Cell(10, 8, '', 0, 1);
+        $pdf->SetFont('Arial', '', 11);
+        $pdf->Cell(0, 6, 'SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK (SPTJM)', 0, 1, 'C');
+        $pdf->Cell(0, 6, 'DINAS PEKERJAAN UMUM PENATAAN RUANG KAB. BONE BOLANGO', 0, 1, 'C');
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(0, 6, 'Yang bertanda tangan dibawah ini :', 0, 1);
+
+        $this->db->join('tb_pegawai', 'tb_pegawai.id=daftar_nama_ttd.id_pegawai');
+        $this->db->join('tb_role_respon', 'tb_role_respon.id_role_respon=daftar_nama_ttd.id_role_respon');
+        $pegawai = $this->db->get_where('daftar_nama_ttd', ['kode_spm' => $kode])->result();
 
         $no = 1;
-        foreach ($pegawai as $rowpg){
-            
-            $pdf->Cell(20,5,'',0,0); 
-	        $pdf->Cell(5,5,$no,0,0);
-	        $pdf->Cell(30,5,'Nama',0,0);
-	        $pdf->Cell(5,5,':',0,0);
-	        $pdf->Cell(50,5,$rowpg->nama,0,1);
-	        $pdf->Cell(25,5,'',0,0);
-	        $pdf->Cell(30,5,'NIP',0,0);
-	        $pdf->Cell(5,5,':',0,0);
-	        $pdf->Cell(50,5,$rowpg->nip,0,1);
-	        $pdf->Cell(25,5,'',0,0); 
-	        $pdf->Cell(30,5,'Jabatan',0,0);
-	        $pdf->Cell(5,5,':',0,0);
-	        $pdf->Cell(50,5,$rowpg->jabatan,0,1);
+        foreach ($pegawai as $rowpg) {
+
+            $pdf->Cell(20, 5, '', 0, 0);
+            $pdf->Cell(5, 5, $no, 0, 0);
+            $pdf->Cell(30, 5, 'Nama', 0, 0);
+            $pdf->Cell(5, 5, ':', 0, 0);
+            $pdf->Cell(50, 5, $rowpg->nama, 0, 1);
+            $pdf->Cell(25, 5, '', 0, 0);
+            $pdf->Cell(30, 5, 'NIP', 0, 0);
+            $pdf->Cell(5, 5, ':', 0, 0);
+            $pdf->Cell(50, 5, $rowpg->nip, 0, 1);
+            $pdf->Cell(25, 5, '', 0, 0);
+            $pdf->Cell(30, 5, 'Jabatan', 0, 0);
+            $pdf->Cell(5, 5, ':', 0, 0);
+            $pdf->Cell(50, 5, strtoupper($rowpg->nama_role), 0, 1);
 
 
             $no++;
         }
 
-        $get_spm = $this->db->get_where('tb_spm', ['kode_spm'=> $kode])->row_array();
+        $get_spm = $this->db->get_where('tb_spm', ['kode_spm' => $kode])->row_array();
+        if ($get_spm['jenis_spm'] = "LS") {
+            $jenis_blnja = "Langsung";
+        } else if ($get_spm['jenis_spm'] = "UP") {
+            $jenis_blnja = "Uang Persediaan";
+        } else if ($get_spm['jenis_spm'] = "GU") {
+            $jenis_blnja = "Ganti Uang";
+        } else if ($get_spm['jenis_spm'] = "TU") {
+            $jenis_blnja = "Tambah Uang";
+        }
 
-        $get_program = $this->db->get_where('tb_jenis_program', ['id_jenis_program'=> $get_spm['id_prog']])->row_array();
-        $get_kegiatan = $this->db->get_where('tb_jenis_kegiatan', ['id_jenis_kegiatan'=> $get_spm['id_keg']])->row_array();
-        $get_sub_kegiatan = $this->db->get_where('tb_jenis_sub_kegiatan', ['id_jenis_sub_kegiatan'=> $get_spm['id_subkeg']])->row_array();
+        $get_program = $this->db->get_where('tb_jenis_program', ['id_jenis_program' => $get_spm['id_prog']])->row_array();
+        $get_kegiatan = $this->db->get_where('tb_jenis_kegiatan', ['id_jenis_kegiatan' => $get_spm['id_keg']])->row_array();
+        $get_sub_kegiatan = $this->db->get_where('tb_jenis_sub_kegiatan', ['id_jenis_sub_kegiatan' => $get_spm['id_subkeg']])->row_array();
 
         $id_belanja = $get_spm['id_belanja'];
         $this->db->join('tb_kp_belanja', 'tb_kp_belanja.id_kp_belanja=tb_belanja.id_kp_belanja');
         $this->db->join('tb_renja_sub', 'tb_renja_sub.id_renja_sub=tb_kp_belanja.id_renja_sub');
         $this->db->join('tb_rek', 'tb_rek.id_rek=tb_kp_belanja.id_rek');
-        $get_belanja = $this->db->get_where('tb_belanja', ['tb_belanja.id_belanja'=> $id_belanja])->row_array();
+        $get_belanja = $this->db->get_where('tb_belanja', ['tb_belanja.id_belanja' => $id_belanja])->row_array();
 
-        $pdf->Cell(10,8,'',0,1);    
-        $pdf->SetFont('Arial','',10);
-        $pdf->MultiCell(0,5,'Berdasarkan Peraturan Menteri Dalam Negeri Nomor 77 Tahun 2020 tentang Pedoman Pengelolaan Keuangan Daerah., Maka dengan ini kami menyatakan :',0);
-        $pdf->SetFont('Arial','',10);
-        $pdf->Cell(2,4,'',0,1); 
-        $pdf->Cell(5,5,'1',0,0);
-        $pdf->MultiCell(00,5,'Bahwa kami bertanggungjawab penuh atas kelengkapan administrasi dan bukti - bukti yang dipersyaratkan dalam peraturan perundang-undangan yang berlaku.',0);
-        $pdf->SetFont('Arial','',10);
-        $pdf->Cell(2,4,'',0,1); 
-        $pdf->Cell(5,5,'2',0,0);
-        $pdf->MultiCell(00,5,'Bahwa kami bertanggungjawab penuh atas kebenaran perhitungan, pencairan dan Penggunaan dana pembayaran tagihan blanja langsung sesuai Surat Perintah Membayar (SPM) Nomor: '.$get_spm['no_spm'].' Tanggal '.tanggalIndonesia($get_spm['tgl_spm']).' dengan nilai Rp. '.number_format($get_spm['nilai'], 0, ',', '.').' ('.terbilang($get_spm['nilai']).') Melalui Kegiatan '.$get_kegiatan['nama_jenis_kegiatan'].' Tahun Anggaran '.$get_belanja['rs_tahun'],0);
-        $pdf->SetFont('Arial','',10);
-        $pdf->Cell(2,4,'',0,1); 
-        $pdf->Cell(5,5,'3',0,0);
-        $pdf->MultiCell(0,5,'Bukti-bukti realisasi pembayaran disimpan sesuai ketentua yang berlaku untuk kelengkapan administrasi dan keperluan pemeriksaan dan pengawas fungsional dan auditor eksternal.',0);
-        $pdf->Cell(2,4,'',0,1); 
-        $pdf->Cell(5,5,'',0,0); 
-        $pdf->Cell(50,5,'Demikian Pernyataan ini kami buat dengan sesungguhnya.',0,1);
-        $pdf->Cell(5,5,'',0,0);
+        $pdf->Cell(10, 8, '', 0, 1);
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->MultiCell(0, 5, 'Berdasarkan Peraturan Menteri Dalam Negeri Nomor 77 Tahun 2020 tentang Pedoman Pengelolaan Keuangan Daerah., Maka dengan ini kami menyatakan :', 0);
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(2, 4, '', 0, 1);
+        $pdf->Cell(5, 5, '1', 0, 0);
+        $pdf->MultiCell(00, 5, 'Bahwa kami bertanggungjawab penuh atas kelengkapan administrasi dan bukti - bukti yang dipersyaratkan dalam peraturan perundang-undangan yang berlaku.', 0);
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(2, 4, '', 0, 1);
+        $pdf->Cell(5, 5, '2', 0, 0);
+        $pdf->MultiCell(00, 5, 'Bahwa kami bertanggungjawab penuh atas kebenaran perhitungan, pencairan dan Penggunaan dana pembayaran tagihan belanja ' . $jenis_blnja . ' sesuai Surat Perintah Membayar (SPM) Nomor: ' . $get_spm['no_spm'] . ' Tanggal ' . tanggalIndonesia($get_spm['tgl_spm']) . ' dengan nilai Rp. ' . number_format($get_spm['nilai'], 0, ',', '.') . ' (' . terbilang($get_spm['nilai']) . ') Melalui Kegiatan ' . $get_kegiatan['nama_jenis_kegiatan'] . ' Tahun Anggaran ' . $get_belanja['rs_tahun'], 0);
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(2, 4, '', 0, 1);
+        $pdf->Cell(5, 5, '3', 0, 0);
+        $pdf->MultiCell(0, 5, 'Bukti-bukti realisasi pembayaran disimpan sesuai ketentuan yang berlaku untuk kelengkapan administrasi dan keperluan pemeriksaan dan pengawas fungsional dan auditor eksternal.', 0);
+        $pdf->Cell(2, 4, '', 0, 1);
+        $pdf->Cell(5, 5, '', 0, 0);
+        $pdf->Cell(50, 5, 'Demikian Pernyataan ini kami buat dengan sesungguhnya.', 0, 1);
+        $pdf->Cell(5, 5, '', 0, 0);
         date_default_timezone_set('Asia/Makassar');
         $tanggalskrg = date('Y-m-d');
-        $pdf->Cell(50,5,'Bone Bolango, '.tanggalIndonesia($tanggalskrg),0,1);
-        $pdf->SetFont('Arial','',10);
+        $pdf->Cell(50, 5, 'Bone Bolango, ' . tanggalIndonesia($tanggalskrg), 0, 1);
+        $pdf->SetFont('Arial', '', 10);
 
         $nons = 1;
-        foreach ($pegawai as $rowpg){
-            
-            $pdf->Cell(20,5,'',0,0); 
-	        $pdf->Cell(5,5,$nons,0,0);
-	        $pdf->Cell(30,5,'Nama',0,0);
-	        $pdf->Cell(5,5,':',0,0);
-	        $pdf->Cell(50,5,$rowpg->nama,0,1);
-	        $pdf->Cell(25,5,'',0,0);
-	        $pdf->Cell(30,5,'NIP',0,0);
-	        $pdf->Cell(5,5,':',0,0);
-	        $pdf->Cell(50,5,$rowpg->nip,0,1);
-	        $pdf->Cell(25,5,'',0,0); 
-	        $pdf->Cell(30,5,'Tanda Tangan',0,0);
-	        $pdf->Cell(5,5,':',0,0);
-	        $pdf->Cell(50,8,'',0,1);
+        foreach ($pegawai as $rowpg) {
+
+            $pdf->Cell(20, 5, '', 0, 0);
+            $pdf->Cell(5, 5, $nons, 0, 0);
+            $pdf->Cell(30, 5, 'Nama', 0, 0);
+            $pdf->Cell(5, 5, ':', 0, 0);
+            $pdf->Cell(50, 5, $rowpg->nama, 0, 1);
+            $pdf->Cell(25, 5, '', 0, 0);
+            $pdf->Cell(30, 5, 'NIP', 0, 0);
+            $pdf->Cell(5, 5, ':', 0, 0);
+            $pdf->Cell(50, 5, $rowpg->nip, 0, 1);
+            $pdf->Cell(25, 5, '', 0, 0);
+            $pdf->Cell(30, 5, 'Tanda Tangan', 0, 0);
+            $pdf->Cell(5, 5, ':', 0, 0);
+            $pdf->Cell(50, 8, '', 0, 1);
 
 
             $nons++;
@@ -116,297 +129,317 @@ Class Format1pdf extends CI_Controller{
 
         // slide beda
 
-       	$pdf->SetLeftMargin(20);
+        $pdf->SetLeftMargin(20);
         $pdf->SetRightMargin(23);
         $pdf->SetTopMargin(23);
         $pdf->AddPage();
 
 
-        $pdf->SetFont('Arial','',10);
-        $pdf->Cell(0,5,'LEMBAR VERIFIKASI SKPD',0,1,'C');
-        $pdf->Cell(0,5,'PENERBITAN SURAT PERINTAH PENCAIRAN DANA (SP2D)',0,1,'C');
-        $pdf->SetFont('Arial','',9);
-        $pdf->Cell(10,5,'',0,1);
-        $pdf->Cell(5,7,'1.',0,0);
-        $pdf->Cell(39,7,'SPM Nomor',0,0);
-        $pdf->Cell(2,7,':',0,0);
-        $pdf->Cell(0,7,$get_spm['no_spm'].' TANGGAL '.strtoupper(tanggalIndonesia($get_spm['tgl_spm'])),0,1);
-        $pdf->Cell(5,7,'',0,0);
-        $pdf->Cell(39,7,'Jenis SPM',0,0);
-        $pdf->Cell(4,7,':',0,0, 'C'); $pdf->DrawSquare(4);
-        $pdf->Cell(4,7,'',0,0);
-        $pdf->Cell(30,7,'Uang Persediaan',0,0);
-        $pdf->Cell(4,7,':',0,0, 'C'); $pdf->DrawSquare(4);
-        $pdf->Cell(4,7,'',0,0);
-        $pdf->Cell(20,7,'Tambahan Uang',0,1);
-        $pdf->Cell(5,7,'',0,0);
-        $pdf->Cell(39,7,'',0,0);
-        $pdf->Cell(4,7,':',0,0, 'C'); $pdf->DrawSquare(4);
-        $pdf->Cell(4,7,'',0,0);
-        $pdf->Cell(30,7,'Ganti Uang',0,0);
-        $pdf->Cell(4,7,':',0,0, 'C'); $pdf->DrawSquare(4);
-        $pdf->Cell(4,7,'',0,0);
-        $pdf->Cell(20,7,'Langsung',0,1);
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(0, 5, 'LEMBAR VERIFIKASI SKPD', 0, 1, 'C');
+        $pdf->Cell(0, 5, 'PENERBITAN SURAT PERINTAH PENCAIRAN DANA (SP2D)', 0, 1, 'C');
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(10, 5, '', 0, 1);
+        $pdf->Cell(5, 7, '1.', 0, 0);
+        $pdf->Cell(39, 7, 'SPM Nomor', 0, 0);
+        $pdf->Cell(2, 7, ':', 0, 0);
+        $pdf->Cell(0, 7, $get_spm['no_spm'] . ' TANGGAL ' . strtoupper(tanggalIndonesia($get_spm['tgl_spm'])), 0, 1);
+        $pdf->Cell(5, 7, '', 0, 0);
+        $pdf->Cell(39, 7, 'Jenis SPM', 0, 0);
+        $pdf->Cell(4, 7, ':', 0, 0, 'C');
+        $pdf->DrawSquare(4);
+        $pdf->Cell(4, 7, '', 0, 0);
+        $pdf->Cell(30, 7, 'Uang Persediaan', 0, 0);
+        $pdf->Cell(4, 7, ':', 0, 0, 'C');
+        $pdf->DrawSquare(4);
+        $pdf->Cell(4, 7, '', 0, 0);
+        $pdf->Cell(20, 7, 'Tambahan Uang', 0, 1);
+        $pdf->Cell(5, 7, '', 0, 0);
+        $pdf->Cell(39, 7, '', 0, 0);
+        $pdf->Cell(4, 7, ':', 0, 0, 'C');
+        $pdf->DrawSquare(4);
+        $pdf->Cell(4, 7, '', 0, 0);
+        $pdf->Cell(30, 7, 'Ganti Uang', 0, 0);
+        $pdf->Cell(4, 7, ':', 0, 0, 'C');
+        $pdf->DrawSquare(4);
+        $pdf->Cell(4, 7, '', 0, 0);
+        $pdf->Cell(20, 7, 'Langsung', 0, 1);
 
-        $pdf->Cell(5,7,'2.',0,0);
-        $pdf->Cell(39,7,'Unit Kerja /Sektor',0,0);
-        $pdf->Cell(2,7,':',0,0);
-        $pdf->SetFont('Arial','',7);
-        $pdf->Cell(0,7,'DINAS PEKERJAAN UMUM PENATAAN RUANG DAN PERUMAHAN RAKYAT KABUPATEN BONE BOLANGO',0,1);
-        $pdf->SetFont('Arial','',9);
-        $pdf->Cell(5,7,'3.',0,0);
-        $pdf->Cell(39,7,'Program',0,0);
-        $pdf->Cell(2,7,':',0,0);
-        $pdf->SetFont('Arial','',8);
-        $pdf->MultiCell(0,7,$get_program['nama_jenis_program'],0);
-        $pdf->SetFont('Arial','',9);
-        $pdf->Cell(5,7,'4.',0,0);
-        $pdf->Cell(39,7,'Kegiatan',0,0);
-        $pdf->Cell(2,7,':',0,0);
-        $pdf->MultiCell(0,7,$get_kegiatan['nama_jenis_kegiatan'],0);
-        $pdf->SetFont('Arial','',9);
-        $pdf->Cell(5,7,'',0,0);
-        $pdf->Cell(39,7,'Sub Kegiatan',0,0);
-        $pdf->Cell(2,7,'',0,0);
-        $pdf->MultiCell(0,7,$get_sub_kegiatan['nama_jenis_sub_kegiatan'],0);
+        $pdf->Cell(5, 7, '2.', 0, 0);
+        $pdf->Cell(39, 7, 'Unit Kerja /Sektor', 0, 0);
+        $pdf->Cell(2, 7, ':', 0, 0);
+        $pdf->SetFont('Arial', '', 7);
+        $pdf->Cell(0, 7, 'DINAS PEKERJAAN UMUM PENATAAN RUANG DAN PERUMAHAN RAKYAT KABUPATEN BONE BOLANGO', 0, 1);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(5, 7, '3.', 0, 0);
+        $pdf->Cell(39, 7, 'Program', 0, 0);
+        $pdf->Cell(2, 7, ':', 0, 0);
+        $pdf->SetFont('Arial', '', 8);
+        $pdf->MultiCell(0, 7, $get_program['nama_jenis_program'], 0);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(5, 7, '4.', 0, 0);
+        $pdf->Cell(39, 7, 'Kegiatan', 0, 0);
+        $pdf->Cell(2, 7, ':', 0, 0);
+        $pdf->MultiCell(0, 7, $get_kegiatan['nama_jenis_kegiatan'], 0);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(5, 7, '', 0, 0);
+        $pdf->Cell(39, 7, 'Sub Kegiatan', 0, 0);
+        $pdf->Cell(2, 7, '', 0, 0);
+        $pdf->MultiCell(0, 7, $get_sub_kegiatan['nama_jenis_sub_kegiatan'], 0);
 
-        $pdf->Cell(5,7,'5.',0,0);
-        $pdf->Cell(39,7,'Uraian Pembayaran',0,0);
-        $pdf->Cell(2,7,':',0,0);
-        $pdf->MultiCell(0,7,$get_belanja['uraian_belanja'],0);
+        $pdf->Cell(5, 7, '5.', 0, 0);
+        $pdf->Cell(39, 7, 'Uraian Pembayaran', 0, 0);
+        $pdf->Cell(2, 7, ':', 0, 0);
+        $pdf->MultiCell(0, 7, $get_belanja['uraian_belanja'], 0);
 
-        $pdf->Cell(5,7,'6.',0,0);
-        $pdf->Cell(39,7,'No. Rekening Anggaran',0,0);
-        $pdf->Cell(2,7,':',0,0);
-        $pdf->Cell(55,7,$get_belanja['no_rek'],'B',0);
-        $pdf->Cell(4,7,'',0,0);
+        $pdf->Cell(5, 7, '6.', 0, 0);
+        $pdf->Cell(39, 7, 'No. Rekening Anggaran', 0, 0);
+        $pdf->Cell(2, 7, ':', 0, 0);
+        $pdf->Cell(55, 7, $get_belanja['no_rek'], 'B', 0);
+        $pdf->Cell(4, 7, '', 0, 0);
         $pdf->DrawPersegiPanjang(62, 50);
-        $pdf->SetFont('Arial','I',9);
+        $pdf->SetFont('Arial', 'I', 9);
         $pdf->SetFillColor(200, 220, 255);
-        $pdf->Cell(0,7,'JUMLAH POTONGAN',1,1, 'C', true);
+        $pdf->Cell(0, 7, 'JUMLAH POTONGAN', 1, 1, 'C', true);
 
-        $pdf->Cell(5,4,'',0,1);
-        $pdf->SetFont('Arial','',9);
-        $pdf->Cell(5,7,'7.',0,0);
-        $pdf->Cell(39,7,'Jumlah Anggaran',0,0);
-        $pdf->Cell(2,7,':',0,0);
-        $pdf->Cell(55,7,'Rp. '.number_format($get_spm['jml_angg'], 0, ',', '.'),'B',0);
-        $pdf->Cell(7,7,'',0,0);
+        $pdf->Cell(5, 4, '', 0, 1);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(5, 7, '7.', 0, 0);
+        $pdf->Cell(39, 7, 'Jumlah Anggaran', 0, 0);
+        $pdf->Cell(2, 7, ':', 0, 0);
+        $pdf->Cell(55, 7, 'Rp. ' . number_format($get_spm['jml_angg'], 0, ',', '.'), 'B', 0);
+        $pdf->Cell(7, 7, '', 0, 0);
         $pdf->DrawSquare(4);
-        $pdf->SetFont('Arial','I',7);
-        $pdf->Cell(4,7,'',0,0);
-        $pdf->Cell(15,7,'PPn',0,0);
-        $pdf->SetFont('Arial','',7);
-        $pdf->Cell(8,7,'Rp.',0,0);
-        $pdf->Cell(0,7,number_format($get_spm['ppn'], 0, ',', '.'),'B',1);
+        $pdf->SetFont('Arial', 'I', 7);
+        $pdf->Cell(4, 7, '', 0, 0);
+        $pdf->Cell(15, 7, 'PPn', 0, 0);
+        $pdf->SetFont('Arial', '', 7);
+        $pdf->Cell(8, 7, 'Rp.', 0, 0);
+        $pdf->Cell(0, 7, number_format($get_spm['ppn'], 0, ',', '.'), 'B', 1);
 
-        $pdf->SetFont('Arial','',9);
-        $pdf->Cell(5,7,'8.',0,0);
-        $pdf->Cell(39,7,'Realisasi s/d SPP Lalu',0,0);
-        $pdf->Cell(2,7,':',0,0);
-        $pdf->Cell(55,7,'Rp. '.number_format($get_spm['realisasi'], 0, ',', '.'),'B',0);
-        $pdf->Cell(7,7,'',0,0);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(5, 7, '8.', 0, 0);
+        $pdf->Cell(39, 7, 'Realisasi s/d SPP Lalu', 0, 0);
+        $pdf->Cell(2, 7, ':', 0, 0);
+        $pdf->Cell(55, 7, 'Rp. ' . number_format($get_spm['realisasi'], 0, ',', '.'), 'B', 0);
+        $pdf->Cell(7, 7, '', 0, 0);
         $pdf->DrawSquare(4);
-        $pdf->SetFont('Arial','I',7);
-        $pdf->Cell(4,7,'',0,0);
-        $pdf->Cell(15,7,'PPh Psl 21',0,0);
-        $pdf->SetFont('Arial','',7);
-        $pdf->Cell(8,7,'Rp.',0,0);
-        $pdf->Cell(0,7,number_format($get_spm['pp21'], 0, ',', '.'),'B',1);
+        $pdf->SetFont('Arial', 'I', 7);
+        $pdf->Cell(4, 7, '', 0, 0);
+        $pdf->Cell(15, 7, 'PPh Psl 21', 0, 0);
+        $pdf->SetFont('Arial', '', 7);
+        $pdf->Cell(8, 7, 'Rp.', 0, 0);
+        $pdf->Cell(0, 7, number_format($get_spm['pp21'], 0, ',', '.'), 'B', 1);
 
-        $pdf->SetFont('Arial','',9);
-        $pdf->Cell(5,7,'9.',0,0);
-        $pdf->Cell(39,7,'Sisa Anggaran (7-8)',0,0);
-        $pdf->Cell(2,7,':',0,0);
- 
-        $pdf->Cell(55,7,'Rp. '.number_format($get_spm['sisa_angg1'], 0, ',', '.'),'B',0);
-        $pdf->Cell(7,7,'',0,0);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(5, 7, '9.', 0, 0);
+        $pdf->Cell(39, 7, 'Sisa Anggaran (7-8)', 0, 0);
+        $pdf->Cell(2, 7, ':', 0, 0);
+
+        $pdf->Cell(55, 7, 'Rp. ' . number_format($get_spm['sisa_angg1'], 0, ',', '.'), 'B', 0);
+        $pdf->Cell(7, 7, '', 0, 0);
         $pdf->DrawSquare(4);
-        $pdf->SetFont('Arial','I',7);
-        $pdf->Cell(4,7,'',0,0);
-        $pdf->Cell(15,7,'PPh Psl 22',0,0);
-        $pdf->SetFont('Arial','',7);
-        $pdf->Cell(8,7,'Rp.',0,0);
-        $pdf->Cell(0,7,number_format($get_spm['pp22'], 0, ',', '.'),'B',1);
+        $pdf->SetFont('Arial', 'I', 7);
+        $pdf->Cell(4, 7, '', 0, 0);
+        $pdf->Cell(15, 7, 'PPh Psl 22', 0, 0);
+        $pdf->SetFont('Arial', '', 7);
+        $pdf->Cell(8, 7, 'Rp.', 0, 0);
+        $pdf->Cell(0, 7, number_format($get_spm['pp22'], 0, ',', '.'), 'B', 1);
 
-        $pdf->SetFont('Arial','',9);
-        $pdf->Cell(5,7,'10.',0,0);
-        $pdf->SetFont('Arial','',7);
-        $pdf->Cell(39,7,'Jmh Yg diminta pd saat SPP ini',0,0);
-        $pdf->Cell(2,7,':',0,0);
-        $pdf->SetFont('Arial','',9);
-        $pdf->Cell(55,7,'Rp. '.number_format($get_spm['jml_diminta'], 0, ',', '.'),'B',0);
-        $pdf->Cell(7,7,'',0,0);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(5, 7, '10.', 0, 0);
+        $pdf->SetFont('Arial', '', 7);
+        $pdf->Cell(39, 7, 'Jmh Yg diminta pd saat SPP ini', 0, 0);
+        $pdf->Cell(2, 7, ':', 0, 0);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(55, 7, 'Rp. ' . number_format($get_spm['jml_diminta'], 0, ',', '.'), 'B', 0);
+        $pdf->Cell(7, 7, '', 0, 0);
         $pdf->DrawSquare(4);
-        $pdf->SetFont('Arial','I',7);
-        $pdf->Cell(4,7,'',0,0);
-        $pdf->Cell(15,7,'PPh Psl 23',0,0);
-        $pdf->SetFont('Arial','',7);
-        $pdf->Cell(8,7,'Rp.',0,0);
-        $pdf->Cell(0,7,number_format($get_spm['pp23'], 0, ',', '.'),'B',1);
+        $pdf->SetFont('Arial', 'I', 7);
+        $pdf->Cell(4, 7, '', 0, 0);
+        $pdf->Cell(15, 7, 'PPh Psl 23', 0, 0);
+        $pdf->SetFont('Arial', '', 7);
+        $pdf->Cell(8, 7, 'Rp.', 0, 0);
+        $pdf->Cell(0, 7, number_format($get_spm['pp23'], 0, ',', '.'), 'B', 1);
 
-        $pdf->SetFont('Arial','',9);
-        $pdf->Cell(5,7,'11.',0,0);
-        $pdf->SetFont('Arial','',7);
-        $pdf->Cell(39,7,'Sisa Anggaran S/D SSP ini (9-10)',0,0);
-        $pdf->Cell(2,7,':',0,0);
-        $pdf->SetFont('Arial','',9);
-        $pdf->Cell(55,7,'Rp. '.number_format($get_spm['sisa_angg2'], 0, ',', '.'),'B',0);
-        $pdf->Cell(7,7,'',0,0);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(5, 7, '11.', 0, 0);
+        $pdf->SetFont('Arial', '', 7);
+        $pdf->Cell(39, 7, 'Sisa Anggaran S/D SSP ini (9-10)', 0, 0);
+        $pdf->Cell(2, 7, ':', 0, 0);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(55, 7, 'Rp. ' . number_format($get_spm['sisa_angg2'], 0, ',', '.'), 'B', 0);
+        $pdf->Cell(7, 7, '', 0, 0);
         $pdf->DrawSquare(4);
-        $pdf->SetFont('Arial','I',7);
-        $pdf->Cell(4,7,'',0,0);
-        $pdf->Cell(15,7,'PPh Psl 25',0,0);
-        $pdf->SetFont('Arial','',7);
-        $pdf->Cell(8,7,'Rp.',0,0);
-        $pdf->Cell(0,7,number_format($get_spm['pp25'], 0, ',', '.'),'B',1);
+        $pdf->SetFont('Arial', 'I', 7);
+        $pdf->Cell(4, 7, '', 0, 0);
+        $pdf->Cell(15, 7, 'PPh Psl 25', 0, 0);
+        $pdf->SetFont('Arial', '', 7);
+        $pdf->Cell(8, 7, 'Rp.', 0, 0);
+        $pdf->Cell(0, 7, number_format($get_spm['pp25'], 0, ',', '.'), 'B', 1);
 
-        $this->db->join('tb_pegawai','tb_pegawai.id=daftar_nama_ttd.id_pegawai');
-        $pegawai_satu = $this->db->get_where('daftar_nama_ttd', ['kode_spm'=> $kode, 'jabatan'=>'KUASA PENGGUNA ANGGARAN'])->row_array();
+        $this->db->join('tb_pegawai', 'tb_pegawai.id=daftar_nama_ttd.id_pegawai');
+        $this->db->join('tb_role_respon', 'tb_role_respon.id_role_respon=daftar_nama_ttd.id_role_respon');
+        $cek_pa = $this->db->get_where('daftar_nama_ttd', ['kode_spm' => $kode, 'daftar_nama_ttd.id_role_respon' => '1'])->num_rows();
+        if ($cek_pa > 0) {
+            $this->db->join('tb_pegawai', 'tb_pegawai.id=daftar_nama_ttd.id_pegawai');
+            $this->db->join('tb_role_respon', 'tb_role_respon.id_role_respon=daftar_nama_ttd.id_role_respon');
+            $pegawai_satu = $this->db->get_where('daftar_nama_ttd', ['kode_spm' => $kode, 'daftar_nama_ttd.id_role_respon' => '1'])->row_array();
+        } else {
+            $this->db->join('tb_pegawai', 'tb_pegawai.id=daftar_nama_ttd.id_pegawai');
+            $this->db->join('tb_role_respon', 'tb_role_respon.id_role_respon=daftar_nama_ttd.id_role_respon');
+            $pegawai_satu = $this->db->get_where('daftar_nama_ttd', ['kode_spm' => $kode, 'daftar_nama_ttd.id_role_respon' => '2'])->row_array();
+        }
 
-        $this->db->join('tb_pegawai','tb_pegawai.id=daftar_nama_ttd.id_pegawai');
-        $pegawai_dua = $this->db->get_where('daftar_nama_ttd', ['kode_spm'=> $kode, 'jabatan'=>'PPTK'])->row_array();
+        $this->db->join('tb_pegawai', 'tb_pegawai.id=daftar_nama_ttd.id_pegawai');
+        $this->db->join('tb_role_respon', 'tb_role_respon.id_role_respon=daftar_nama_ttd.id_role_respon');
+        $pegawai_dua = $this->db->get_where('daftar_nama_ttd', ['kode_spm' => $kode, 'daftar_nama_ttd.id_role_respon' => '3'])->row_array();
 
-        $this->db->join('tb_pegawai','tb_pegawai.id=daftar_nama_ttd.id_pegawai');
-        $pegawai_tiga = $this->db->get_where('daftar_nama_ttd', ['kode_spm'=> $kode, 'jabatan'=>'PEJABAT PENATAUSAHAAN KEUANGAN'])->row_array();
+        $this->db->join('tb_pegawai', 'tb_pegawai.id=daftar_nama_ttd.id_pegawai');
+        $this->db->join('tb_role_respon', 'tb_role_respon.id_role_respon=daftar_nama_ttd.id_role_respon');
+        $pegawai_tiga = $this->db->get_where('daftar_nama_ttd', ['kode_spm' => $kode, 'daftar_nama_ttd.id_role_respon' => '5'])->row_array();
 
-        $pdf->SetFont('Arial','',8);
-        $pdf->Cell(5,10,'',0,1);
-        $pdf->Cell(8,7,'NO',1,0,'C');
-        $pdf->Cell(100,7,'DIVERIFIKASI OLEH',1,0, 'C');
-        $pdf->Cell(20,7,'PARAF',1,0, 'C');
-        $pdf->Cell(10,5,'',0,0, 'C');
-        $pdf->Cell(0,7,'Diinput Pada SIMDA',1,1,'C');
+        $this->db->join('tb_pegawai', 'tb_pegawai.id=daftar_nama_ttd.id_pegawai');
+        $this->db->join('tb_role_respon', 'tb_role_respon.id_role_respon=daftar_nama_ttd.id_role_respon');
+        $pegawai_empat = $this->db->get_where('daftar_nama_ttd', ['kode_spm' => $kode, 'daftar_nama_ttd.id_role_respon' => '4'])->row_array();
 
-
-        $pdf->Cell(8,5,'1.','LTR',0,'C');
-        $pdf->Cell(100,5,'Kuasa Pengguna Anggaran / '.$pegawai_satu['nama'],'LTR',0);
-        $pdf->Cell(20,5,'','LTR',0,'C');
-        $pdf->Cell(10,5,'',0,0, 'C');
-        $pdf->Cell(8,5,'S','LTR',0,'C');
-        $pdf->Cell(0,5,'','LTR',1,'C');
-
-        $pdf->Cell(8,5,'','LR',0,'C');
-        $pdf->Cell(20,5,'Catatan :','L',0);
-        $pdf->Cell(80,5,'...............................................................................','R',0);
-        $pdf->Cell(20,5,'','LR',0,'C');
-        $pdf->Cell(10,5,'',0,0, 'C');
-        $pdf->Cell(8,5,'P','LR',0,'C');
-        $pdf->Cell(0,5,'','LR',1,'C');
-
-        $pdf->Cell(8,5,'','LR',0,'C');
-        $pdf->Cell(20,5,'','L',0);
-        $pdf->Cell(80,5,'...............................................................................','R',0);
-        $pdf->Cell(20,5,'','LR',0,'C');
-        $pdf->Cell(10,5,'',0,0, 'C');
-        $pdf->Cell(8,5,'J','LBR',0,'C');
-        $pdf->Cell(0,5,'','LBR',1,'C');
-
-        $pdf->Cell(8,5,'','LR',0,'C');
-        $pdf->Cell(20,5,'','L',0);
-        $pdf->Cell(80,5,'...............................................................................','R',0);
-        $pdf->Cell(20,5,'','LR',0,'C');
-        $pdf->Cell(10,5,'',0,0, 'C');
-        $pdf->Cell(8,5,'S','LTR',0,'C');
-        $pdf->Cell(0,5,'','LTR',1,'C');
-
-        $pdf->Cell(8,2,'','LBR',0,'C');
-        $pdf->Cell(20,2,'','LB',0);
-        $pdf->Cell(80,2,'','RB',0);
-        $pdf->Cell(20,2,'','LBR',0,'C');
-        $pdf->Cell(10,2,'',0,0, 'C');
-        $pdf->Cell(8,2,'P','LR',0,'C');
-        $pdf->Cell(0,2,'','LR',1,'C');
+        $pdf->SetFont('Arial', '', 8);
+        $pdf->Cell(5, 10, '', 0, 1);
+        $pdf->Cell(8, 7, 'NO', 1, 0, 'C');
+        $pdf->Cell(100, 7, 'DIVERIFIKASI OLEH', 1, 0, 'C');
+        $pdf->Cell(20, 7, 'PARAF', 1, 0, 'C');
+        $pdf->Cell(10, 5, '', 0, 0, 'C');
+        $pdf->Cell(0, 7, 'Diinput Pada SIMDA', 1, 1, 'C');
 
 
-        $pdf->Cell(8,5,'2.','LTR',0,'C');
-        $pdf->Cell(100,5,'Pejabat Pelaksana Teknis Kegiatan / '.$pegawai_dua['nama'],'LTR',0);
-        $pdf->Cell(20,5,'','LTR',0,'C');
-        $pdf->Cell(10,5,'',0,0, 'C');
-        $pdf->Cell(8,5,'P','LBR',0,'C');
-        $pdf->Cell(0,5,'','LBR',1,'C');
+        $pdf->Cell(8, 5, '1.', 'LTR', 0, 'C');
+        $pdf->Cell(100, 5, $pegawai_satu['nama_role'] . ' / ' . $pegawai_satu['nama'], 'LTR', 0);
+        $pdf->Cell(20, 5, '', 'LTR', 0, 'C');
+        $pdf->Cell(10, 5, '', 0, 0, 'C');
+        $pdf->Cell(8, 5, 'S', 'LTR', 0, 'C');
+        $pdf->Cell(0, 5, '', 'LTR', 1, 'C');
 
-        $pdf->Cell(8,5,'','LR',0,'C');
-        $pdf->Cell(20,5,'Catatan :','L',0);
-        $pdf->Cell(80,5,'...............................................................................','R',0);
-        $pdf->Cell(20,5,'','LR',0,'C');
-        $pdf->Cell(10,5,'',0,0, 'C');
-        $pdf->Cell(8,5,'S','LTR',0,'C');
-        $pdf->Cell(0,5,'','LTR',1,'C');
+        $pdf->Cell(8, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(20, 5, 'Catatan :', 'L', 0);
+        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
+        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(10, 5, '', 0, 0, 'C');
+        $pdf->Cell(8, 5, 'P', 'LR', 0, 'C');
+        $pdf->Cell(0, 5, '', 'LR', 1, 'C');
 
-        $pdf->Cell(8,5,'','LR',0,'C');
-        $pdf->Cell(20,5,'','L',0);
-        $pdf->Cell(80,5,'...............................................................................','R',0);
-        $pdf->Cell(20,5,'','LR',0,'C');
-        $pdf->Cell(10,5,'',0,0, 'C');
-        $pdf->Cell(8,5,'P','LR',0,'C');
-        $pdf->Cell(0,5,'','LR',1,'C');
+        $pdf->Cell(8, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(20, 5, '', 'L', 0);
+        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
+        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(10, 5, '', 0, 0, 'C');
+        $pdf->Cell(8, 5, 'J', 'LBR', 0, 'C');
+        $pdf->Cell(0, 5, '', 'LBR', 1, 'C');
 
-        $pdf->Cell(8,5,'','LR',0,'C');
-        $pdf->Cell(20,5,'','L',0);
-        $pdf->Cell(80,5,'...............................................................................','R',0);
-        $pdf->Cell(20,5,'','LR',0,'C');
-        $pdf->Cell(10,5,'',0,0, 'C');
-        $pdf->Cell(8,5,'M','LBR',0,'C');
-        $pdf->Cell(0,5,'','LBR',1,'C');
+        $pdf->Cell(8, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(20, 5, '', 'L', 0);
+        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
+        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(10, 5, '', 0, 0, 'C');
+        $pdf->Cell(8, 5, 'S', 'LTR', 0, 'C');
+        $pdf->Cell(0, 5, '', 'LTR', 1, 'C');
 
-        $pdf->Cell(8,2,'','LBR',0,'C');
-        $pdf->Cell(20,2,'','LB',0);
-        $pdf->Cell(80,2,'','RB',0);
-        $pdf->Cell(20,2,'','LBR',0,'C');
-        $pdf->Cell(10,2,'',0,0, 'C');
-        $pdf->Cell(8,2,'','LTR',0,'C');
-        $pdf->Cell(0,2,'','LTR',1,'C');
+        $pdf->Cell(8, 2, '', 'LBR', 0, 'C');
+        $pdf->Cell(20, 2, '', 'LB', 0);
+        $pdf->Cell(80, 2, '', 'RB', 0);
+        $pdf->Cell(20, 2, '', 'LBR', 0, 'C');
+        $pdf->Cell(10, 2, '', 0, 0, 'C');
+        $pdf->Cell(8, 2, 'P', 'LR', 0, 'C');
+        $pdf->Cell(0, 2, '', 'LR', 1, 'C');
 
 
-        $pdf->Cell(8,5,'3.','LTR',0,'C');
-        $pdf->Cell(100,5,'PEJABAT PENATAUSAHAAN KEUANGAN / '.$pegawai_tiga['nama'],'LTR',0);
-        $pdf->Cell(20,5,'','LTR',0,'C');
-        $pdf->Cell(10,5,'',0,0, 'C');
-        $pdf->Cell(8,5,'S','LR',0,'C');
-        $pdf->Cell(0,5,'','LR',1,'C');
+        $pdf->Cell(8, 5, '2.', 'LTR', 0, 'C');
+        $pdf->Cell(100, 5, 'Pejabat Pelaksana Teknis Kegiatan / ' . $pegawai_dua['nama'], 'LTR', 0);
+        $pdf->Cell(20, 5, '', 'LTR', 0, 'C');
+        $pdf->Cell(10, 5, '', 0, 0, 'C');
+        $pdf->Cell(8, 5, 'P', 'LBR', 0, 'C');
+        $pdf->Cell(0, 5, '', 'LBR', 1, 'C');
 
-        $pdf->Cell(8,5,'','LR',0,'C');
-        $pdf->Cell(20,5,'Catatan :','L',0);
-        $pdf->Cell(80,5,'...............................................................................','R',0);
-        $pdf->Cell(20,5,'','LR',0,'C');
-        $pdf->Cell(10,5,'',0,0, 'C');
-        $pdf->Cell(8,5,'P','LR',0,'C');
-        $pdf->Cell(0,5,'','LR',1,'C');
+        $pdf->Cell(8, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(20, 5, 'Catatan :', 'L', 0);
+        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
+        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(10, 5, '', 0, 0, 'C');
+        $pdf->Cell(8, 5, 'S', 'LTR', 0, 'C');
+        $pdf->Cell(0, 5, '', 'LTR', 1, 'C');
 
-        $pdf->Cell(8,5,'','LR',0,'C');
-        $pdf->Cell(20,5,'','L',0);
-        $pdf->Cell(80,5,'...............................................................................','R',0);
-        $pdf->Cell(20,5,'','LR',0,'C');
-        $pdf->Cell(10,5,'',0,0, 'C');
-        $pdf->Cell(8,5,'2','LR',0,'C');
-        $pdf->Cell(0,5,'','LR',1,'C');
+        $pdf->Cell(8, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(20, 5, '', 'L', 0);
+        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
+        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(10, 5, '', 0, 0, 'C');
+        $pdf->Cell(8, 5, 'P', 'LR', 0, 'C');
+        $pdf->Cell(0, 5, '', 'LR', 1, 'C');
 
-        $pdf->Cell(8,5,'','LR',0,'C');
-        $pdf->Cell(20,5,'','L',0);
-        $pdf->Cell(80,5,'...............................................................................','R',0);
-        $pdf->Cell(20,5,'','LR',0,'C');
-        $pdf->Cell(10,5,'',0,0, 'C');
-        $pdf->Cell(8,5,'D','LBR',0,'C');
-        $pdf->Cell(0,5,'','LBR',1,'C');
-        $pdf->Cell(8,4,'','LBR',0,'C');
-        $pdf->Cell(20,4,'','LB',0);
-        $pdf->Cell(80,4,'','RB',0);
-        $pdf->Cell(20,4,'','LBR',0,'C');
-        $pdf->Cell(10,4,'',0,0, 'C');
+        $pdf->Cell(8, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(20, 5, '', 'L', 0);
+        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
+        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(10, 5, '', 0, 0, 'C');
+        $pdf->Cell(8, 5, 'M', 'LBR', 0, 'C');
+        $pdf->Cell(0, 5, '', 'LBR', 1, 'C');
+
+        $pdf->Cell(8, 2, '', 'LBR', 0, 'C');
+        $pdf->Cell(20, 2, '', 'LB', 0);
+        $pdf->Cell(80, 2, '', 'RB', 0);
+        $pdf->Cell(20, 2, '', 'LBR', 0, 'C');
+        $pdf->Cell(10, 2, '', 0, 0, 'C');
+        $pdf->Cell(8, 2, '', 'LTR', 0, 'C');
+        $pdf->Cell(0, 2, '', 'LTR', 1, 'C');
+
+
+        $pdf->Cell(8, 5, '3.', 'LTR', 0, 'C');
+        $pdf->Cell(100, 5, 'PEJABAT PENATAUSAHAAN KEUANGAN / ' . $pegawai_tiga['nama'], 'LTR', 0);
+        $pdf->Cell(20, 5, '', 'LTR', 0, 'C');
+        $pdf->Cell(10, 5, '', 0, 0, 'C');
+        $pdf->Cell(8, 5, 'S', 'LR', 0, 'C');
+        $pdf->Cell(0, 5, '', 'LR', 1, 'C');
+
+        $pdf->Cell(8, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(20, 5, 'Catatan :', 'L', 0);
+        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
+        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(10, 5, '', 0, 0, 'C');
+        $pdf->Cell(8, 5, 'P', 'LR', 0, 'C');
+        $pdf->Cell(0, 5, '', 'LR', 1, 'C');
+
+        $pdf->Cell(8, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(20, 5, '', 'L', 0);
+        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
+        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(10, 5, '', 0, 0, 'C');
+        $pdf->Cell(8, 5, '2', 'LR', 0, 'C');
+        $pdf->Cell(0, 5, '', 'LR', 1, 'C');
+
+        $pdf->Cell(8, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(20, 5, '', 'L', 0);
+        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
+        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
+        $pdf->Cell(10, 5, '', 0, 0, 'C');
+        $pdf->Cell(8, 5, 'D', 'LBR', 0, 'C');
+        $pdf->Cell(0, 5, '', 'LBR', 1, 'C');
+        $pdf->Cell(8, 4, '', 'LBR', 0, 'C');
+        $pdf->Cell(20, 4, '', 'LB', 0);
+        $pdf->Cell(80, 4, '', 'RB', 0);
+        $pdf->Cell(20, 4, '', 'LBR', 0, 'C');
+        $pdf->Cell(10, 4, '', 0, 0, 'C');
         $pdf->SetFillColor(200, 220, 255);
-        $pdf->Cell(8,4,'','LBR',0,'C', true);
+        $pdf->Cell(8, 4, '', 'LBR', 0, 'C', true);
         $pdf->SetFillColor(200, 220, 255);
-        $pdf->Cell(0,4,'','LBR',1,'C', true);
+        $pdf->Cell(0, 4, '', 'LBR', 1, 'C', true);
 
-        $pdf->SetFont('Arial','UI',8);
-        $pdf->Cell(0,7,'',0,1);
+        $pdf->SetFont('Arial', 'UI', 8);
+        $pdf->Cell(0, 7, '', 0, 1);
 
-        $pdf->Cell(0,7,'Catatan:',0,1);
-        $pdf->SetFont('Arial','',7);
-        $pdf->Cell(0,4,'1. Untuk lebih mempercepat penginputan pada aplikasi SIMDA mohon lembar Verifikasi ini diisi dengan lengkap',0,1);
-        $pdf->Cell(0,4,'2. Total Potongan Mengurangi Jumlah Yang DIminta pada SPP ini',0,1);
-        
+        $pdf->Cell(0, 7, 'Catatan:', 0, 1);
+        $pdf->SetFont('Arial', '', 7);
+        $pdf->Cell(0, 4, '1. Untuk lebih mempercepat penginputan pada aplikasi SIMDA mohon lembar Verifikasi ini diisi dengan lengkap', 0, 1);
+        $pdf->Cell(0, 4, '2. Total Potongan Mengurangi Jumlah Yang DIminta pada SPP ini', 0, 1);
+
 
         // slide kedua
 
@@ -414,62 +447,62 @@ Class Format1pdf extends CI_Controller{
         $pdf->SetRightMargin(23);
         $pdf->SetTopMargin(23);
         $pdf->AddPage();
-        $pdf->Image('assets/img/profile/logo_bonbol.png',23,25,10,13);
+        $pdf->Image('assets/img/profile/logo_bonbol.png', 23, 25, 10, 13);
         // setting jenis font yang akan digunakan
-        $pdf->SetFont('Arial','B',12);
-        $pdf->Cell(0,6,'PEMERINTAH KABUPATEN BONE BOLANGO',0,1, 'C');
-        $pdf->SetFont('Arial', 'B',10);
-        $pdf->Cell(0,6,'DINAS PEKERJAAN UMUM PENATAAN RUANG DAN PERUMAHAN RAKYAT',0,1,'C');
-        $pdf->SetFont('Arial','B',10);
-        $pdf->Cell(0,6,'Alamat Jl. Makam Nani Wartabone Kec. Suwawa Kab. Bone Bolango',0,1,'C');
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(0, 6, 'PEMERINTAH KABUPATEN BONE BOLANGO', 0, 1, 'C');
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(0, 6, 'DINAS PEKERJAAN UMUM PENATAAN RUANG DAN PERUMAHAN RAKYAT', 0, 1, 'C');
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(0, 6, 'Alamat Jl. Makam Nani Wartabone Kec. Suwawa Kab. Bone Bolango', 0, 1, 'C');
         $pdf->SetLineWidth(1);
-        $pdf->Line(23,42,180,42);
+        $pdf->Line(23, 42, 180, 42);
         $pdf->SetLineWidth(0);
-        $pdf->Line(23,43,180.3,43);
+        $pdf->Line(23, 43, 180.3, 43);
 
-        
-        $pdf->Cell(10,8,'',0,1);
-        $pdf->SetFont('Arial','BU',12);
-        $pdf->Cell(0,6,'SURAT PERNYATAAN PENGAJUAN SPP-LS',0,1,'C');
-        $pdf->SetFont('Arial','',10);
-        $pdf->Cell(10,8,'',0,1);
-        $pdf->MultiCell(0,6,'      Sehubungan dengan Surat Permintaan Pembayaran Langsung (SPP-LS) Nomor : '.$get_spm['no_spm'].' Tanggal '.tanggalIndonesia($get_spm['tgl_spm']).' dengan nilai Rp. '.number_format($get_spm['nilai'], 0, ',', '.').' ('.terbilang($get_spm['nilai']).') untuk Keperluan SKPD pada Dinas Pekerjaan Umum, Penataan Ruang Dan Perumahan Rakyat Kabupaten Bone Bolango Tahun Anggaran '.$get_belanja['rs_tahun'].'. Dengan perincian sebagai berikut:',0);
-        $pdf->SetFont('Arial','B',10);
-        $pdf->Cell(15,4,'',0,1);
-        $pdf->Cell(15,6,'',0,0);  
-        $pdf->Cell(5,6,'1.',0,0);
-        $pdf->MultiCell(0,6,$get_belanja['nama_rek'].' No Rek : '.$get_belanja['no_rek'].' Melalui Kegiatan '.$get_kegiatan['nama_jenis_kegiatan'],0);
-        $pdf->SetFont('Arial','',10);
-        $pdf->Cell(15,6,'',0,0);  
-        $pdf->Cell(5,6,'2.',0,0);
-        $pdf->MultiCell(0,6,'Jumlah Belanja Langsung (LS) di atas akan dipergunakan untuk keperluan membiayai kegiatan yang akan kami laksanakan sesuai DPA-SKPD',0);
-        $pdf->Cell(15,6,'',0,0);  
-        $pdf->Cell(5,6,'3.',0,0);
-        $pdf->MultiCell(0,6,'Jumlah Belanja Langsung (LS) tersebut tidak akan dipergunakan untuk membiayai pengeluaran-pengeluaran menurut ketentuan yang berlaku harus dilakukan dengan pembayaran langsung.',0);
-        $pdf->Cell(15,6,'',0,1);  
-        $pdf->Cell(13,6,'',0,0);
-        $pdf->MultiCell(0,6,'      Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan pengajuan SPP-LS SKPD Kami.',0);
-        $pdf->Cell(10,8,'',0,1);
-        $pdf->SetFont('Arial','',10);
-        $pdf->Cell(90,8,'',0,0);
+
+        $pdf->Cell(10, 8, '', 0, 1);
+        $pdf->SetFont('Arial', 'BU', 12);
+        $pdf->Cell(0, 6, 'SURAT PERNYATAAN PENGAJUAN SPP-' . $get_spm['jenis_spm'], 0, 1, 'C');
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(10, 8, '', 0, 1);
+        $pdf->MultiCell(0, 6, '      Sehubungan dengan Surat Permintaan Pembayaran ' . $jenis_blnja . ' (SPP-' . $get_spm['jenis_spm'] . ') Nomor : ' . $get_spm['no_spm'] . ' Tanggal ' . tanggalIndonesia($get_spm['tgl_spm']) . ' dengan nilai Rp. ' . number_format($get_spm['nilai'], 0, ',', '.') . ' (' . terbilang($get_spm['nilai']) . ') untuk Keperluan SKPD pada Dinas Pekerjaan Umum, Penataan Ruang Dan Perumahan Rakyat Kabupaten Bone Bolango Tahun Anggaran ' . $get_belanja['rs_tahun'] . '. Dengan perincian sebagai berikut:', 0);
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(15, 4, '', 0, 1);
+        $pdf->Cell(15, 6, '', 0, 0);
+        $pdf->Cell(5, 6, '1.', 0, 0);
+        $pdf->MultiCell(0, 6, $get_belanja['nama_rek'] . ' No Rek : ' . $get_belanja['no_rek'] . ' Melalui Kegiatan ' . $get_kegiatan['nama_jenis_kegiatan'], 0);
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(15, 6, '', 0, 0);
+        $pdf->Cell(5, 6, '2.', 0, 0);
+        $pdf->MultiCell(0, 6, 'Jumlah Belanja ' . $jenis_blnja . ' (' . $get_spm['jenis_spm'] . ') di atas akan dipergunakan untuk keperluan membiayai kegiatan yang akan kami laksanakan sesuai DPA-SKPD', 0);
+        $pdf->Cell(15, 6, '', 0, 0);
+        $pdf->Cell(5, 6, '3.', 0, 0);
+        $pdf->MultiCell(0, 6, 'Jumlah Belanja ' . $jenis_blnja . ' (' . $get_spm['jenis_spm'] . ') tersebut tidak akan dipergunakan untuk membiayai pengeluaran-pengeluaran menurut ketentuan yang berlaku harus dilakukan dengan pembayaran langsung.', 0);
+        $pdf->Cell(15, 6, '', 0, 1);
+        $pdf->Cell(13, 6, '', 0, 0);
+        $pdf->MultiCell(0, 6, '      Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan pengajuan SPP-LS SKPD Kami.', 0);
+        $pdf->Cell(10, 8, '', 0, 1);
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(90, 8, '', 0, 0);
         date_default_timezone_set('Asia/Makassar');
         $tanggalskrg = date('Y-m-d');
-        $pdf->Cell(0,5,'Suwawa, '.tanggalIndonesia($tanggalskrg),0,1, 'C');
-        $pdf->Cell(90,8,'',0,0);
-        $pdf->Cell(0,6,'Mengetahui Penggunaan Anggaran',0,1,'C');
-        $pdf->Cell(90,8,'',0,0);
-        $pdf->Cell(0,6,'KEPALA DINAS',0,1,'C');
-        $pdf->Cell(10,10,'',0,1);
-        $pdf->SetFont('Arial','B',10);
-        $pdf->Cell(35,6,'',0,1);
-        $pdf->Cell(90,8,'',0,0);
+        $pdf->Cell(0, 5, 'Suwawa, ' . tanggalIndonesia($tanggalskrg), 0, 1, 'C');
+        $pdf->Cell(90, 8, '', 0, 0);
+        $pdf->Cell(0, 6, 'Mengetahui Penggunaan Anggaran', 0, 1, 'C');
+        $pdf->Cell(90, 8, '', 0, 0);
+        $pdf->Cell(0, 6, 'KEPALA DINAS', 0, 1, 'C');
+        $pdf->Cell(10, 10, '', 0, 1);
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(35, 6, '', 0, 1);
+        $pdf->Cell(90, 8, '', 0, 0);
 
-        $get_kadis = $this->db->get_where('tb_pegawai', ['jabatan'=> 'KEPALA DINAS'])->row_array();
+        $get_kadis = $this->db->get_where('tb_pegawai', ['jabatan' => 'KEPALA DINAS'])->row_array();
 
-        $pdf->Cell(0,6,$get_kadis['nama'],0,1, 'C');
-        $pdf->SetFont('Arial','',10);
-        $pdf->Cell(90,5,'',0,0);
-        $pdf->Cell(0,5,'NIP. '.$get_kadis['nip'],0,1, 'C');
+        $pdf->Cell(0, 6, $get_kadis['nama'], 0, 1, 'C');
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(90, 5, '', 0, 0);
+        $pdf->Cell(0, 5, 'NIP. ' . $get_kadis['nip'], 0, 1, 'C');
 
 
         // slide ketiga
@@ -479,64 +512,138 @@ Class Format1pdf extends CI_Controller{
         $pdf->SetRightMargin(23);
         $pdf->SetTopMargin(23);
         $pdf->AddPage();
-        $pdf->Image('assets/img/profile/logo_bonbol.png',23,25,10,13);
+        $pdf->Image('assets/img/profile/logo_bonbol.png', 23, 25, 10, 13);
         // setting jenis font yang akan digunakan
-        $pdf->SetFont('Arial','B',12);
-        $pdf->Cell(0,6,'PEMERINTAH KABUPATEN BONE BOLANGO',0,1, 'C');
-        $pdf->SetFont('Arial', 'B',10);
-        $pdf->Cell(0,6,'DINAS PEKERJAAN UMUM PENATAAN RUANG DAN PERUMAHAN RAKYAT',0,1,'C');
-        $pdf->SetFont('Arial','B',10);
-        $pdf->Cell(0,6,'Alamat Jl. Makam Nani Wartabone Kec. Suwawa Kab. Bone Bolango',0,1,'C');
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(0, 6, 'PEMERINTAH KABUPATEN BONE BOLANGO', 0, 1, 'C');
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(0, 6, 'DINAS PEKERJAAN UMUM PENATAAN RUANG DAN PERUMAHAN RAKYAT', 0, 1, 'C');
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(0, 6, 'Alamat Jl. Makam Nani Wartabone Kec. Suwawa Kab. Bone Bolango', 0, 1, 'C');
         $pdf->SetLineWidth(1);
-        $pdf->Line(23,42,180,42);
+        $pdf->Line(23, 42, 180, 42);
         $pdf->SetLineWidth(0);
-        $pdf->Line(23,43,180.3,43);
-     
-        $pdf->Cell(10,8,'',0,1);
-        $pdf->SetFont('Arial','BU',11);
-        $pdf->Cell(0,6,'SURAT PERNYATAAN TANGGUNGJAWAB',0,1,'C');
-        $pdf->SetFont('Arial','',11);
-        $pdf->Cell(10,8,'',0,1); 
-        $pdf->Cell(0,6,'Saya yang bertanda tangan dibawah ini',0,1);
-        $pdf->SetFont('Arial','',11);
-        $pdf->Cell(20,6,'',0,1);
-        $pdf->Cell(30,6,'Nama',0,0);
-        $pdf->Cell(5,6,':',0,0);
-        $pdf->Cell(50,6,$pegawai_satu['nama'],0,1);
-        $pdf->Cell(30,6,'NIP',0,0);
-        $pdf->Cell(5,6,':',0,0);
-        $pdf->Cell(50,6,$pegawai_satu['nip'],0,1);
-        $pdf->Cell(30,6,'Pangkat',0,0);
-        $pdf->Cell(5,6,':',0,0);
-        $pdf->Cell(50,6,$pegawai_satu['golongan'],0,1);
-        $pdf->Cell(30,6,'Jabatan',0,0);
-        $pdf->Cell(5,6,':',0,0);
-        $pdf->Cell(50,6,$pegawai_satu['jabatan'],0,1);
-        $pdf->SetFont('Arial','',11);
-        $pdf->Cell(15,6,'',0,1);
-        $pdf->MultiCell(0,6,'      Dengan ini menyatakan bertanggungjawab atas Surat Perintah Membayar (SPM) dengan Nomor Register : '.$get_spm['no_spm'].' Tanggal '.tanggalIndonesia($get_spm['tgl_spm']).' telah dilakukan pengujian atas kelengkapan tagihan berdasarkan ketentuan yang berlaku dan dinyatakan memenuhi syarat untuk diterbitkan Surat Perintah Pencairan Dana (SP2D).',0);
-        $pdf->Cell(15,6,'',0,1);
-        $pdf->MultiCell(0,6,'      Demikian pernyataan ini dibuat untuk digunakan dalam proses penerbitan SP2D oleh Kuasa Bendahara Umum Daerah (BUD) Kabupaten Bone Bolango.',0);
-        $pdf->Cell(10,8,'',0,1);
-        $pdf->SetFont('Arial','',11);
-        $pdf->Cell(90,8,'',0,0);
+        $pdf->Line(23, 43, 180.3, 43);
+
+        $pdf->Cell(10, 8, '', 0, 1);
+        $pdf->SetFont('Arial', 'BU', 11);
+        $pdf->Cell(0, 6, 'SURAT PERNYATAAN TANGGUNGJAWAB', 0, 1, 'C');
+        $pdf->SetFont('Arial', '', 11);
+        $pdf->Cell(10, 8, '', 0, 1);
+        $pdf->Cell(0, 6, 'Saya yang bertanda tangan dibawah ini', 0, 1);
+        $pdf->SetFont('Arial', '', 11);
+        $pdf->Cell(20, 6, '', 0, 1);
+        $pdf->Cell(30, 6, 'Nama', 0, 0);
+        $pdf->Cell(5, 6, ':', 0, 0);
+        $pdf->Cell(50, 6, $pegawai_satu['nama'], 0, 1);
+        $pdf->Cell(30, 6, 'NIP', 0, 0);
+        $pdf->Cell(5, 6, ':', 0, 0);
+        $pdf->Cell(50, 6, $pegawai_satu['nip'], 0, 1);
+        $pdf->Cell(30, 6, 'Pangkat', 0, 0);
+        $pdf->Cell(5, 6, ':', 0, 0);
+        $pdf->Cell(50, 6, $pegawai_satu['golongan'], 0, 1);
+        $pdf->Cell(30, 6, 'Jabatan', 0, 0);
+        $pdf->Cell(5, 6, ':', 0, 0);
+        $pdf->Cell(50, 6, $pegawai_satu['nama_role'], 0, 1);
+        $pdf->SetFont('Arial', '', 11);
+        $pdf->Cell(15, 6, '', 0, 1);
+        $pdf->MultiCell(0, 6, '      Dengan ini menyatakan bertanggungjawab atas Surat Perintah Membayar (SPM) dengan Nomor Register : ' . $get_spm['no_spm'] . ' Tanggal ' . tanggalIndonesia($get_spm['tgl_spm']) . ' telah dilakukan pengujian atas kelengkapan tagihan berdasarkan ketentuan yang berlaku dan dinyatakan memenuhi syarat untuk diterbitkan Surat Perintah Pencairan Dana (SP2D).', 0);
+        $pdf->Cell(15, 6, '', 0, 1);
+        $pdf->MultiCell(0, 6, '      Demikian pernyataan ini dibuat untuk digunakan dalam proses penerbitan SP2D oleh Kuasa Bendahara Umum Daerah (BUD) Kabupaten Bone Bolango.', 0);
+        $pdf->Cell(10, 8, '', 0, 1);
+        $pdf->SetFont('Arial', '', 11);
+        $pdf->Cell(90, 8, '', 0, 0);
         date_default_timezone_set('Asia/Makassar');
         $tanggalskrg = date('Y-m-d');
-        $pdf->Cell(0,5,'Bone Bolango, '.tanggalIndonesia($tanggalskrg),0,1, 'C');
-        $pdf->Cell(90,8,'',0,0);
-        $pdf->Cell(0,6,'Kuasa Pengguna Anggaran',0,1,'C');
-        $pdf->Cell(10,10,'',0,1);
-        $pdf->SetFont('Arial','BU',11);
-        $pdf->Cell(35,6,'',0,1);
-        $pdf->Cell(90,8,'',0,0);
+        $pdf->Cell(0, 5, 'Bone Bolango, ' . tanggalIndonesia($tanggalskrg), 0, 1, 'C');
+        $pdf->Cell(90, 8, '', 0, 0);
+        $pdf->Cell(0, 6, $pegawai_satu['nama_role'], 0, 1, 'C');
+        $pdf->Cell(10, 10, '', 0, 1);
+        $pdf->SetFont('Arial', 'BU', 11);
+        $pdf->Cell(35, 6, '', 0, 1);
+        $pdf->Cell(90, 8, '', 0, 0);
 
-        $pdf->Cell(0,6,$pegawai_satu['nama'],0,1, 'C');
-        $pdf->SetFont('Arial','',11);
-        $pdf->Cell(90,5,'',0,0);
-        $pdf->Cell(0,5,'NIP. '.$pegawai_satu['nip'],0,1, 'C');
-		 
+        $pdf->Cell(0, 6, $pegawai_satu['nama'], 0, 1, 'C');
+        $pdf->SetFont('Arial', '', 11);
+        $pdf->Cell(90, 5, '', 0, 0);
+        $pdf->Cell(0, 5, 'NIP. ' . $pegawai_satu['nip'], 0, 1, 'C');
 
+
+        // slide ketiga
+
+
+        $pdf->SetLeftMargin(23);
+        $pdf->SetRightMargin(23);
+        $pdf->SetTopMargin(23);
+        $pdf->AddPage();
+
+        $pdf->SetFont('Arial', '', 11);
+        $pdf->Cell(135, 6, '', 0, 0);
+        $pdf->Cell(0, 6, 'Lembar Ke :', 0, 1);
+        $pdf->Cell(0, 6, '', 0, 1);
+
+        $pdf->SetFont('Arial', 'BU', 14);
+        $pdf->Cell(0, 6, 'TANDA PENERIMAAN', 0, 1, 'C');
+        $pdf->Cell(0, 10, '', 0, 1);
+
+        $pdf->SetFont('Arial', 'I', 11);
+        $pdf->Cell(50, 6, 'Sudah terima dari', 0, 0);
+        $pdf->SetFont('Arial', '', 11);
+        $pdf->Cell(4, 6, ':', 0, 0);
+        $pdf->MultiCell(0, 6, 'BENDAHARA PENGELUARAN DINAS PEKERJAAN UMUM KAB. BONE BOLANGO', 0);
+        $pdf->Cell(0, 2, '', 0, 1);
+
+        $pdf->SetFont('Arial', 'I', 11);
+        $pdf->Cell(50, 6, 'Sejumlah Uang', 0, 0);
+        $pdf->SetFont('Arial', '', 11);
+        $pdf->Cell(4, 6, ':', 0, 0);
+        $pdf->MultiCell(0, 6, terbilang($get_spm['nilai']), 0);
+        $pdf->Cell(0, 2, '', 0, 1);
+
+        $pdf->SetFont('Arial', 'I', 11);
+        $pdf->Cell(50, 6, 'Untuk Pembayaran', 0, 0);
+        $pdf->SetFont('Arial', '', 11);
+        $pdf->Cell(4, 6, ':', 0, 0);
+        $pdf->MultiCell(0, 6, strtoupper($get_belanja['uraian_belanja']) . ' MELALUI KEGIATAN ' . strtoupper($get_kegiatan['nama_jenis_kegiatan']) . ' TA ' . $get_belanja['rs_tahun'], 0);
+        $pdf->Cell(0, 15, '', 0, 1);
+
+        $pdf->SetFont('Arial', 'I', 11);
+        $pdf->Cell(25, 8, 'Terbilang', 0, 0);
+        $pdf->SetFont('Arial', '', 14);
+        $pdf->Cell(15, 8, 'Rp', 'LBT', 0);
+        $pdf->Cell(35, 8, number_format($get_spm['nilai']), 'RBT', 0, 'R');
+        $pdf->SetFont('Arial', '', 11);
+        $pdf->Cell(0, 8, 'Suwawa,        ' . tanggalIndonesiaTanpaDay($tanggalskrg), 0, 1, 'R');
+        $pdf->Cell(0, 10, '', 0, 1);
+
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(50, 4, 'MENGETAHUI', 0, 0, 'C');
+        $pdf->Cell(70, 4, 'BENDAHARA PENGELUARAN', 0, 0, 'C');
+        $pdf->Cell(0, 4, 'YANG MENERIMA', 0, 1, 'C');
+
+        $pdf->Cell(50, 4, strtoupper($pegawai_satu['nama_role']), 0, 0, 'C');
+        $pdf->Cell(0, 30, '', 0, 1);
+
+        $pdf->SetFont('Arial', 'U', 9);
+        $pdf->Cell(50, 4, strtoupper($pegawai_satu['nama']), 0, 0, 'C');
+        $pdf->Cell(70, 4, strtoupper($pegawai_empat['nama']), 0, 0, 'C');
+        $pdf->Cell(0, 4, "......................................", 0, 1, 'C');
+        $pdf->Cell(0, 20, '', 0, 1);
+        $pdf->SetFont('Arial', 'BI', 12);
+        $pdf->Cell(100, 6, 'KODE REKENING', 1, 0, 'C');
+        $pdf->Cell(0, 6, 'DIBUKUKAN', 1, 1, 'C');
+        $pdf->Cell(100, 6, '', 'LR', 0, 'C');
+        $pdf->Cell(0, 6, '', 'R', 1);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(100, 6, $get_belanja['no_rek'], 'LR', 0, 'C');
+        $pdf->SetFont('Arial', 'I', 9);
+        $pdf->Cell(0, 6, 'Tanggal', 'R', 1);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(100, 6, $get_belanja['nama_rek'], 'LR', 0, 'C');
+        $pdf->SetFont('Arial', 'I', 9);
+        $pdf->Cell(0, 6, 'Nomor BKU', 'R', 1);
+        $pdf->Cell(100, 6, '', 'LBR', 0, 'C');
+        $pdf->Cell(0, 6, '', 'RB', 1);
         $pdf->Output();
-        
     }
- }
+}
