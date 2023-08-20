@@ -11,7 +11,7 @@
  Target Server Version : 100113 (10.1.13-MariaDB)
  File Encoding         : 65001
 
- Date: 13/08/2023 21:42:02
+ Date: 20/08/2023 03:37:51
 */
 
 SET NAMES utf8mb4;
@@ -26,7 +26,7 @@ CREATE TABLE `crud`  (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of crud
@@ -39,17 +39,29 @@ DROP TABLE IF EXISTS `daftar_nama_ttd`;
 CREATE TABLE `daftar_nama_ttd`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_pegawai` int NULL DEFAULT NULL,
+  `id_role_respon` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `kode_spm` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of daftar_nama_ttd
 -- ----------------------------
-INSERT INTO `daftar_nama_ttd` VALUES (29, 7, 'iYKCZWVoZmpna2JlbGJqZWZp');
-INSERT INTO `daftar_nama_ttd` VALUES (30, 8, 'iYKCZWVoZmpna2JlbGJqZWZp');
-INSERT INTO `daftar_nama_ttd` VALUES (31, 9, 'iYKCZWVoZmpna2JlbGJqZWZp');
-INSERT INTO `daftar_nama_ttd` VALUES (32, 10, 'iYKCZWVoZmpna2JlbGJqZWZp');
+INSERT INTO `daftar_nama_ttd` VALUES (29, 7, NULL, 'iYKCZWVoZmpna2JlbGJqZWZp');
+INSERT INTO `daftar_nama_ttd` VALUES (30, 8, NULL, 'iYKCZWVoZmpna2JlbGJqZWZp');
+INSERT INTO `daftar_nama_ttd` VALUES (31, 9, NULL, 'iYKCZWVoZmpna2JlbGJqZWZp');
+INSERT INTO `daftar_nama_ttd` VALUES (32, 10, NULL, 'iYKCZWVoZmpna2JlbGJqZWZp');
+INSERT INTO `daftar_nama_ttd` VALUES (33, 1, NULL, 'iYKCZWVoZmpna2Jlb2VmZWZp');
+INSERT INTO `daftar_nama_ttd` VALUES (34, 2, NULL, 'iYKCZWVoZmpna2Jlb2VmZWZp');
+INSERT INTO `daftar_nama_ttd` VALUES (35, 1, NULL, 'iYKCZWVuZmpna2Jlb2VnZWZp');
+INSERT INTO `daftar_nama_ttd` VALUES (36, 2, NULL, 'iYKCZWVuZmpna2Jlb2VnZWZp');
+INSERT INTO `daftar_nama_ttd` VALUES (37, 1, NULL, 'iYKCZWVuZmpna2JmZmJmZWZp');
+INSERT INTO `daftar_nama_ttd` VALUES (38, 2, NULL, 'iYKCZWVuZmpna2JmZmJmZWZp');
+INSERT INTO `daftar_nama_ttd` VALUES (39, 1, NULL, 'iYKCZWVuZmpna2JmZmNnZWZp');
+INSERT INTO `daftar_nama_ttd` VALUES (40, 2, NULL, 'iYKCZWVuZmpna2JmZmNnZWZp');
+INSERT INTO `daftar_nama_ttd` VALUES (41, 1, NULL, 'iYKCZWVuZmpna2JnZ2dpZWZp');
+INSERT INTO `daftar_nama_ttd` VALUES (42, 2, NULL, 'iYKCZWVuZmpna2JnZ2dpZWZp');
+INSERT INTO `daftar_nama_ttd` VALUES (43, 6, NULL, 'iYKCZWVuZmpna2JnZ2dpZWZp');
 
 -- ----------------------------
 -- Table structure for dt_desa
@@ -64,7 +76,7 @@ CREATE TABLE `dt_desa`  (
   INDEX `kd_kecamatan`(`kd_kecamatan` ASC) USING BTREE,
   INDEX `kd_desa`(`kd_desa` ASC) USING BTREE,
   CONSTRAINT `dt_desa_ibfk_1` FOREIGN KEY (`kd_kecamatan`) REFERENCES `dt_kecamatan` (`kd_kecamatan`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of dt_desa
@@ -244,7 +256,7 @@ CREATE TABLE `dt_kecamatan`  (
   `kecamatan` varchar(512) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`kd_kecamatan`) USING BTREE,
   INDEX `KD_KECAMATAN`(`kd_kecamatan` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of dt_kecamatan
@@ -290,30 +302,13 @@ CREATE TABLE `tb_admin`  (
   INDEX `id_bidang`(`id_bidang` ASC) USING BTREE,
   CONSTRAINT `tb_admin_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `tb_role` (`id_role`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_admin_ibfk_2` FOREIGN KEY (`id_bidang`) REFERENCES `tb_bidang` (`id_bidang`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_admin
 -- ----------------------------
 INSERT INTO `tb_admin` VALUES (1, 1, 8, 'Holis Nur', 'Limboto', '085256874123', 'holis@gmail.com', 'admin', '$2y$10$sI77M2IUJVG0PT5cHDurDOP0heBN0G82bU33uURX27N2I.Y/f.JkC', 'abbc88ca7948e082d34f8cd03f34e37e.jpg', 12345678, 1676297536);
 INSERT INTO `tb_admin` VALUES (8, 2, 2, 'Nur Anisa Antula', 'Belum Diisi', 'Belum Disi', 'Belum Disi', 'nur123', '$2y$10$AIwZhq6lHwgpMAB6LhiMTu6DuF4o7t6G/XUBcOkvkOkWGpxoIPV7e', 'Fiqah.jpg', 12345678, 1691834508);
-
--- ----------------------------
--- Table structure for tb_aktivitas
--- ----------------------------
-DROP TABLE IF EXISTS `tb_aktivitas`;
-CREATE TABLE `tb_aktivitas`  (
-  `id_aktivitas` int NOT NULL AUTO_INCREMENT,
-  `id_kp_belanja` int NOT NULL,
-  `nama_aktivitas` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `total_belanja_aktivitas` double NOT NULL,
-  PRIMARY KEY (`id_aktivitas`) USING BTREE,
-  INDEX `id_rek`(`id_kp_belanja` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of tb_aktivitas
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for tb_belanja
@@ -327,7 +322,7 @@ CREATE TABLE `tb_belanja`  (
   `volume` double NOT NULL,
   `harga_satuan` double NOT NULL,
   `total` double NOT NULL,
-  `sisa_anggaran` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `total_realisasi` double NULL DEFAULT NULL,
   `kode_rup` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `id_rek` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_belanja`) USING BTREE,
@@ -335,14 +330,14 @@ CREATE TABLE `tb_belanja`  (
   INDEX `id_kp_belanja`(`id_kp_belanja` ASC) USING BTREE,
   CONSTRAINT `tb_belanja_ibfk_3` FOREIGN KEY (`id_satuan`) REFERENCES `tb_satuan` (`id_satuan`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_belanja_ibfk_4` FOREIGN KEY (`id_kp_belanja`) REFERENCES `tb_kp_belanja` (`id_kp_belanja`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_belanja
 -- ----------------------------
-INSERT INTO `tb_belanja` VALUES (6, 1, 'BAYAR BELANJA TAGIHAN REKENING LISTRIK PRA BAYAR S.B OKTOBER TAHUN 2022 PADA DINAS PU, PENATAAN RUANG DAN PERUMAHAN RAKYAT MEL. KEG. URUSAN PENYELENGGARAAN PSU PERUMAHAN TA. 2022 (PAD)', 4, 5, 3000000, 20, NULL, '12323.23123', '4');
-INSERT INTO `tb_belanja` VALUES (7, 1, 'Uraian lagi', 4, 2, 2000000, 20, NULL, '12323.2312', '7');
-INSERT INTO `tb_belanja` VALUES (8, 2, 'URAIAN 1', 4, 2, 740000, 1621500000, '1621500000', '12323.2312', '7');
+INSERT INTO `tb_belanja` VALUES (6, 1, 'BAYAR BELANJA TAGIHAN REKENING LISTRIK PRA BAYAR S.B OKTOBER TAHUN 2022 PADA DINAS PU, PENATAAN RUANG DAN PERUMAHAN RAKYAT MEL. KEG. URUSAN PENYELENGGARAAN PSU PERUMAHAN TA. 2022 (PAD)', 4, 1, 84165400, 84165400, 0, '12323.23123', '4');
+INSERT INTO `tb_belanja` VALUES (7, 1, 'Uraian lagi', 4, 2, 2000000, 20, 20, '12323.2312', '7');
+INSERT INTO `tb_belanja` VALUES (8, 2, 'URAIAN 1', 4, 2, 740000, 1621500000, 0, '12323.2312', '7');
 INSERT INTO `tb_belanja` VALUES (9, 2, 'URAIAN 2', 4, 2, 740000, 60, NULL, '12323.2312', '7');
 
 -- ----------------------------
@@ -353,7 +348,7 @@ CREATE TABLE `tb_bidang`  (
   `id_bidang` int NOT NULL AUTO_INCREMENT,
   `nama_bidang` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id_bidang`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_bidang
@@ -399,7 +394,7 @@ CREATE TABLE `tb_format3`  (
   `status` enum('PROCESS','DONE') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'PROCESS',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `kode_spm`(`kode_spm` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_format3
@@ -442,7 +437,7 @@ CREATE TABLE `tb_format4`  (
   `status` enum('PROCESS','DONE') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'PROCESS',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `kode_spm`(`kode_spm` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_format4
@@ -495,7 +490,7 @@ CREATE TABLE `tb_format5`  (
   `kode_spm` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `kode_spm`(`pot_uang_muka1` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 36 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 36 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_format5
@@ -510,12 +505,12 @@ CREATE TABLE `tb_jenis_kegiatan`  (
   `id_jenis_kegiatan` int NOT NULL AUTO_INCREMENT,
   `nama_jenis_kegiatan` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id_jenis_kegiatan`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_jenis_kegiatan
 -- ----------------------------
-INSERT INTO `tb_jenis_kegiatan` VALUES (3, 'Penyelenggaran Jalan Kabupaten / Kota');
+INSERT INTO `tb_jenis_kegiatan` VALUES (3, 'Urusan Penyelenggaraan PSU Rumah');
 INSERT INTO `tb_jenis_kegiatan` VALUES (4, 'Pengembangan dan Pengelolaan Sistem Irigasi Primer dan Sekunder pada Daerah Irigasi yang Luasnya dibawah 1000 Ha dalam 1 (Satu) Daerah\r\nKabupaten/Kota');
 INSERT INTO `tb_jenis_kegiatan` VALUES (5, 'Pengelolaan SDA dan Bangunan Pengaman Pantai pada Wilayah Sungai (WS) dalam 1 (Satu) Daerah Kabupaten/Kota');
 
@@ -530,12 +525,12 @@ CREATE TABLE `tb_jenis_program`  (
   PRIMARY KEY (`id_jenis_program`) USING BTREE,
   INDEX `id_bidang`(`id_bidang` ASC) USING BTREE,
   CONSTRAINT `tb_jenis_program_ibfk_1` FOREIGN KEY (`id_bidang`) REFERENCES `tb_bidang` (`id_bidang`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_jenis_program
 -- ----------------------------
-INSERT INTO `tb_jenis_program` VALUES (3, 'PENYELENGGARAAN JALAN', 2);
+INSERT INTO `tb_jenis_program` VALUES (3, 'PROGRAM PENINGKATAN SARANA DAN PRASARANA, SARANA DAN UTILITAS UMUM (PSU)', 2);
 INSERT INTO `tb_jenis_program` VALUES (4, 'PROGRAM TES', 2);
 
 -- ----------------------------
@@ -546,7 +541,7 @@ CREATE TABLE `tb_jenis_sasaran`  (
   `id_jenis_sasaran` int NOT NULL AUTO_INCREMENT,
   `nama_jenis_sasaran` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id_jenis_sasaran`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_jenis_sasaran
@@ -562,12 +557,12 @@ CREATE TABLE `tb_jenis_sub_kegiatan`  (
   `id_jenis_sub_kegiatan` int NOT NULL AUTO_INCREMENT,
   `nama_jenis_sub_kegiatan` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id_jenis_sub_kegiatan`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_jenis_sub_kegiatan
 -- ----------------------------
-INSERT INTO `tb_jenis_sub_kegiatan` VALUES (3, 'Penyusunan Rencana, Kebijakan, Strategi dan Teknis Sistem Pengembangan Jalan');
+INSERT INTO `tb_jenis_sub_kegiatan` VALUES (3, 'Penyediaan Prasarana, Sarana, dan Utilitas Umum di Perumahan untuk Menunjang Fungsi Hunian');
 INSERT INTO `tb_jenis_sub_kegiatan` VALUES (4, 'Pembangunan Bendung Irigasi');
 INSERT INTO `tb_jenis_sub_kegiatan` VALUES (5, 'Pembangunan Bangunan Perkuatan Tebing');
 
@@ -579,7 +574,7 @@ CREATE TABLE `tb_jenis_tagihan`  (
   `id_jenis_tagihan` int NOT NULL AUTO_INCREMENT,
   `nama_jenis_tagihan` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id_jenis_tagihan`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_jenis_tagihan
@@ -588,6 +583,7 @@ INSERT INTO `tb_jenis_tagihan` VALUES (1, 'Tidak Ada');
 INSERT INTO `tb_jenis_tagihan` VALUES (2, 'Belanja Modal');
 INSERT INTO `tb_jenis_tagihan` VALUES (3, 'Belanja Barang & Jasa');
 INSERT INTO `tb_jenis_tagihan` VALUES (5, 'Belanja Pegawai');
+INSERT INTO `tb_jenis_tagihan` VALUES (6, 'Belanja Pemeliharaan');
 
 -- ----------------------------
 -- Table structure for tb_kegiatan
@@ -605,7 +601,7 @@ CREATE TABLE `tb_kegiatan`  (
   INDEX `id_jenis_kegiatan`(`id_jenis_kegiatan` ASC) USING BTREE,
   CONSTRAINT `tb_kegiatan_ibfk_2` FOREIGN KEY (`id_jenis_kegiatan`) REFERENCES `tb_jenis_kegiatan` (`id_jenis_kegiatan`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_kegiatan_ibfk_3` FOREIGN KEY (`id_program`) REFERENCES `tb_program` (`id_program`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_kegiatan
@@ -620,7 +616,7 @@ CREATE TABLE `tb_kode`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `kode` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_kode
@@ -644,15 +640,35 @@ CREATE TABLE `tb_kp_belanja`  (
   INDEX `id_renja_sub`(`id_renja_sub` ASC) USING BTREE,
   CONSTRAINT `tb_kp_belanja_ibfk_1` FOREIGN KEY (`id_rek`) REFERENCES `tb_rek` (`id_rek`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_kp_belanja_ibfk_2` FOREIGN KEY (`id_renja_sub`) REFERENCES `tb_renja_sub` (`id_renja_sub`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_kp_belanja
 -- ----------------------------
-INSERT INTO `tb_kp_belanja` VALUES (1, 4, 1, 0, 'tunggu');
+INSERT INTO `tb_kp_belanja` VALUES (1, 4, 1, 84165400, 'tunggu');
 INSERT INTO `tb_kp_belanja` VALUES (2, 4, 2, 40000000, 'tunggu');
 INSERT INTO `tb_kp_belanja` VALUES (3, 6, 1, 40, 'tunggu');
 INSERT INTO `tb_kp_belanja` VALUES (4, 7, 1, 100, 'tunggu');
+
+-- ----------------------------
+-- Table structure for tb_lampiran_format1
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_lampiran_format1`;
+CREATE TABLE `tb_lampiran_format1`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `bahan` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `merk` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `volume` int NULL DEFAULT NULL,
+  `satuan` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `harga_satuan` int NULL DEFAULT NULL,
+  `jml_harga` int NULL DEFAULT NULL,
+  `ket` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of tb_lampiran_format1
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for tb_lampiran_format3
@@ -706,7 +722,7 @@ CREATE TABLE `tb_lampiran_format3`  (
   `kode_spm` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `status` enum('PROCESS','DONE') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_lampiran_format3
@@ -727,35 +743,12 @@ CREATE TABLE `tb_lampiran_format5`  (
   `nama_perusahaan` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `direktur_perusahaan` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_lampiran_format5
 -- ----------------------------
 INSERT INTO `tb_lampiran_format5` VALUES (1, 'Nilai Kontrak', 2147483647, 307122830, 309914853, NULL, NULL, NULL);
-
--- ----------------------------
--- Table structure for tb_nota_pesanan
--- ----------------------------
-DROP TABLE IF EXISTS `tb_nota_pesanan`;
-CREATE TABLE `tb_nota_pesanan`  (
-  `id_nota_pesanan` int NOT NULL AUTO_INCREMENT,
-  `id_tagihan` int NOT NULL,
-  `nama_barang` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `merek` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `jml_brg` double NOT NULL,
-  `satuan_brg` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `hrg_satuan` double NOT NULL,
-  `total_hrg` double NOT NULL,
-  `ket_nota` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  PRIMARY KEY (`id_nota_pesanan`) USING BTREE,
-  INDEX `id_tagihan`(`id_tagihan` ASC) USING BTREE,
-  CONSTRAINT `tb_nota_pesanan_ibfk_1` FOREIGN KEY (`id_tagihan`) REFERENCES `tb_tagihan` (`id_tagihan`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of tb_nota_pesanan
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for tb_pegawai
@@ -769,18 +762,17 @@ CREATE TABLE `tb_pegawai`  (
   `golongan` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `bidang` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_pegawai
 -- ----------------------------
-INSERT INTO `tb_pegawai` VALUES (1, 'Hi. NIRWAN UTIARAHMAN, ST., M.Si', '12345678 123456 1 001', 'KEPALA DINAS', 'PENATA III/d', 'DINAS PUPR');
+INSERT INTO `tb_pegawai` VALUES (1, 'Hi. NIRWAN UTIARAHMAN, ST., M.Si', '197310132003121007', 'KEPALA DINAS', 'PENATA III/d', 'DINAS PUPR');
 INSERT INTO `tb_pegawai` VALUES (2, 'VERONIKA ALI, S.Akun.', '12345678 123456 1 001', 'BENDAHARA', 'PENATA III/d', 'SEKRETARIAT');
 INSERT INTO `tb_pegawai` VALUES (3, 'ANITA THERESIA DJAKARIA, ST', '19810811 200604 2 014', 'SEKRETARIS', NULL, NULL);
-INSERT INTO `tb_pegawai` VALUES (4, 'HI. NIRWAN UTIARAHMAN, ST.,M.Si', '19731013 200312 1 007', 'KEPALA DINAS', NULL, NULL);
 INSERT INTO `tb_pegawai` VALUES (5, 'FEVI PONGOLIU, S.AP', '19821219 201407 2 002', NULL, NULL, NULL);
 INSERT INTO `tb_pegawai` VALUES (6, 'AZWAR KABADO, ST', NULL, NULL, NULL, NULL);
-INSERT INTO `tb_pegawai` VALUES (7, 'RAHMAN HASAN., ST. M.Si', '19700619 200501 1 011', 'KUASA PENGGUNA ANGGARAN', NULL, NULL);
+INSERT INTO `tb_pegawai` VALUES (7, 'RAHMAN HASAN., ST. M.Si', '19700619 200501 1 011', 'KUASA PENGGUNA ANGGARAN', 'PENATA III/d', NULL);
 INSERT INTO `tb_pegawai` VALUES (8, 'NASRUDIN M., ST.', '1980015 201001 1 019', 'PPTK', NULL, NULL);
 INSERT INTO `tb_pegawai` VALUES (9, 'WAHYUDIN USULU, SE', '19770719 200604 1 012', 'PEJABAT PENATAUSAHAAN KEUANGAN', NULL, NULL);
 INSERT INTO `tb_pegawai` VALUES (10, 'SRI YULIN VAN GOBEL', '19840703 201407 2 005', 'BENDAHARA PENGELUARAN PEMBANTU', NULL, NULL);
@@ -818,7 +810,7 @@ CREATE TABLE `tb_pembayaran`  (
   `kode_spm` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `status` enum('PROCESS','DONE') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_pembayaran
@@ -842,7 +834,7 @@ CREATE TABLE `tb_perumahan_rakyat`  (
   INDEX `kd_kecamatan`(`kd_kecamatan` ASC) USING BTREE,
   CONSTRAINT `desa` FOREIGN KEY (`kd_desa`) REFERENCES `dt_desa` (`kd_desa`) ON DELETE SET NULL ON UPDATE SET NULL,
   CONSTRAINT `kecamatan` FOREIGN KEY (`kd_kecamatan`) REFERENCES `dt_kecamatan` (`kd_kecamatan`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_perumahan_rakyat
@@ -886,7 +878,7 @@ CREATE TABLE `tb_pihak_kedua`  (
   `nama` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `jabatan` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_pihak_kedua
@@ -899,15 +891,12 @@ INSERT INTO `tb_pihak_kedua` VALUES (1, 'CV. BANGUNTAMA JOHAN SEJAHTERA', 'TUTIK
 DROP TABLE IF EXISTS `tb_pot_tagihan`;
 CREATE TABLE `tb_pot_tagihan`  (
   `id_pot_tagihan` int NOT NULL AUTO_INCREMENT,
-  `id_tagihan` int NOT NULL,
   `id_potongan` int NOT NULL,
   `ket_tambahan` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id_pot_tagihan`) USING BTREE,
-  INDEX `id_tagihan`(`id_tagihan` ASC) USING BTREE,
   INDEX `id_potongan`(`id_potongan` ASC) USING BTREE,
-  CONSTRAINT `tb_pot_tagihan_ibfk_1` FOREIGN KEY (`id_potongan`) REFERENCES `tb_potongan` (`id_potongan`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `tb_pot_tagihan_ibfk_2` FOREIGN KEY (`id_tagihan`) REFERENCES `tb_tagihan` (`id_tagihan`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+  CONSTRAINT `tb_pot_tagihan_ibfk_1` FOREIGN KEY (`id_potongan`) REFERENCES `tb_potongan` (`id_potongan`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_pot_tagihan
@@ -924,7 +913,7 @@ CREATE TABLE `tb_potongan`  (
   `ket_pot` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `kd_pot` int NOT NULL,
   PRIMARY KEY (`id_potongan`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_potongan
@@ -953,7 +942,7 @@ CREATE TABLE `tb_ppb`  (
   `total` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `kd_spm` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_ppb
@@ -975,7 +964,7 @@ CREATE TABLE `tb_program`  (
   INDEX `id_sasaran`(`id_sasaran` ASC) USING BTREE,
   INDEX `id_jenis_program`(`id_jenis_program` ASC) USING BTREE,
   CONSTRAINT `tb_program_ibfk_2` FOREIGN KEY (`id_jenis_program`) REFERENCES `tb_jenis_program` (`id_jenis_program`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_program
@@ -994,13 +983,13 @@ CREATE TABLE `tb_rek`  (
   PRIMARY KEY (`id_rek`) USING BTREE,
   INDEX `id_jenis_tagihan`(`id_jenis_tagihan` ASC) USING BTREE,
   CONSTRAINT `tb_rek_ibfk_1` FOREIGN KEY (`id_jenis_tagihan`) REFERENCES `tb_jenis_tagihan` (`id_jenis_tagihan`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_rek
 -- ----------------------------
 INSERT INTO `tb_rek` VALUES (3, '5.1.01.03.07.0001', 'Belanja Honorarium Penanggungjawaban Pengelola Keuangan', 3);
-INSERT INTO `tb_rek` VALUES (4, '5.1.02.02.01.0041', 'Belanja Honorarium Pengadaan Barang/Jasa', 3);
+INSERT INTO `tb_rek` VALUES (4, '5.1.02.02.01.0041', 'Belanja Jasa Pemasangan Instalasi Telepon, Air, dan Listrik', 3);
 INSERT INTO `tb_rek` VALUES (5, '5.1.02.01.01.0024', 'Belanja Alat/Bahan untuk Kegiatan Kantor-Alat Tulis Kantor', 2);
 INSERT INTO `tb_rek` VALUES (6, '5.1.02.02.01.0026', 'Belanja Jasa Tenaga Administrasi', 3);
 INSERT INTO `tb_rek` VALUES (7, '5.1.02.04.01.0001', 'Belanja Perjalanan Dinas', 5);
@@ -1018,7 +1007,7 @@ CREATE TABLE `tb_renja_kegiatan`  (
   PRIMARY KEY (`id_renja_kegiatan`) USING BTREE,
   INDEX `id_kegiatan`(`id_kegiatan` ASC) USING BTREE,
   CONSTRAINT `tb_renja_kegiatan_ibfk_1` FOREIGN KEY (`id_kegiatan`) REFERENCES `tb_kegiatan` (`id_kegiatan`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_renja_kegiatan
@@ -1039,7 +1028,7 @@ CREATE TABLE `tb_renja_program`  (
   PRIMARY KEY (`id_renja_program`) USING BTREE,
   INDEX `id_program`(`id_program` ASC) USING BTREE,
   CONSTRAINT `tb_renja_program_ibfk_1` FOREIGN KEY (`id_program`) REFERENCES `tb_program` (`id_program`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_renja_program
@@ -1060,7 +1049,7 @@ CREATE TABLE `tb_renja_sub`  (
   PRIMARY KEY (`id_renja_sub`) USING BTREE,
   INDEX `id_sub_kegiatan`(`id_sub_kegiatan` ASC) USING BTREE,
   CONSTRAINT `tb_renja_sub_ibfk_1` FOREIGN KEY (`id_sub_kegiatan`) REFERENCES `tb_sub_kegiatan` (`id_sub_kegiatan`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_renja_sub
@@ -1083,7 +1072,7 @@ CREATE TABLE `tb_respon`  (
   INDEX `id_bidang`(`id_bidang` ASC) USING BTREE,
   CONSTRAINT `tb_respon_ibfk_1` FOREIGN KEY (`id_role_respon`) REFERENCES `tb_role_respon` (`id_role_respon`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_respon_ibfk_2` FOREIGN KEY (`id_bidang`) REFERENCES `tb_bidang` (`id_bidang`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_respon
@@ -1101,7 +1090,7 @@ CREATE TABLE `tb_role`  (
   `id_role` int NOT NULL AUTO_INCREMENT,
   `role` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id_role`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_role
@@ -1120,7 +1109,7 @@ CREATE TABLE `tb_role_respon`  (
   `nama_role` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `singkatan` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id_role_respon`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_role_respon
@@ -1144,7 +1133,7 @@ CREATE TABLE `tb_sasaran`  (
   PRIMARY KEY (`id_sasaran`) USING BTREE,
   INDEX `id_jenis_sasaran`(`id_jenis_sasaran` ASC) USING BTREE,
   CONSTRAINT `tb_sasaran_ibfk_1` FOREIGN KEY (`id_jenis_sasaran`) REFERENCES `tb_jenis_sasaran` (`id_jenis_sasaran`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_sasaran
@@ -1160,7 +1149,7 @@ CREATE TABLE `tb_satuan`  (
   `id_satuan` int NOT NULL AUTO_INCREMENT,
   `satuan` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id_satuan`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_satuan
@@ -1197,12 +1186,13 @@ CREATE TABLE `tb_spm`  (
   `status` enum('PROCESS','DONE') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'PROCESS',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `kode_spm`(`kode_spm` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_spm
 -- ----------------------------
-INSERT INTO `tb_spm` VALUES (2, 8, '776/SPM-LS/DPUPRPR/2022', 'LS', '2022-10-17', 84165400, 1621500000, 946960666, 674539334, 84165400, 590373934, 3, 3, NULL, '0', '0', '0', '0', '0', 'iYKCZWVoZmpna2JlbGJqZWZp', 'BonBolfix4.jpg', 'PROCESS');
+INSERT INTO `tb_spm` VALUES (2, 6, '776/SPM-LS/DPUPRPR/2022', 'LS', '2022-10-17', 84165400, 84165400, 0, 84165400, 84165400, 0, 3, 3, 3, '0', '0', '0', '0', '0', 'iYKCZWVoZmpna2JlbGJqZWZp', 'BonBolfix4.jpg', 'PROCESS');
+INSERT INTO `tb_spm` VALUES (3, 8, '2134', 'LS', '2022-12-12', 2333345, 1621500000, 1000000000, 621500000, 621500000, 0, 3, 3, 3, '0', '0', '0', '0', '0', 'iYKCZWVoZmpna2Jlb2VmZWZp', 'logo_honda.png', 'PROCESS');
 
 -- ----------------------------
 -- Table structure for tb_sub_kegiatan
@@ -1220,44 +1210,12 @@ CREATE TABLE `tb_sub_kegiatan`  (
   INDEX `id_jenis_sub_kegiatan`(`id_jenis_sub_kegiatan` ASC) USING BTREE,
   CONSTRAINT `tb_sub_kegiatan_ibfk_2` FOREIGN KEY (`id_jenis_sub_kegiatan`) REFERENCES `tb_jenis_sub_kegiatan` (`id_jenis_sub_kegiatan`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_sub_kegiatan_ibfk_3` FOREIGN KEY (`id_kegiatan`) REFERENCES `tb_kegiatan` (`id_kegiatan`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_sub_kegiatan
 -- ----------------------------
 INSERT INTO `tb_sub_kegiatan` VALUES ('hu6iy2hnq4419sf34hbmttsyq30r32', 3, 'Tercapainya Panjang jalan yang dibangun dan ditingkatkan', 'Panjang jalan yang dibangun', 'M', 'w9y9e4ihiuq030ctj93dq9e2cpusz2');
-
--- ----------------------------
--- Table structure for tb_tagihan
--- ----------------------------
-DROP TABLE IF EXISTS `tb_tagihan`;
-CREATE TABLE `tb_tagihan`  (
-  `id_tagihan` int NOT NULL AUTO_INCREMENT,
-  `id_belanja` int NOT NULL,
-  `deskripsi_uraian` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `no_kontrak` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `tanggal_kontrak` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `nama_bendahara` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `nama_pa` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `nama_kpa` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `nama_perusahaan` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `nama_penerima` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `nip_penerima` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `jumlah_tagihan` double NOT NULL,
-  `persentase_fisik` double NOT NULL,
-  `foto_bukti` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `nilai_fisik` double NOT NULL,
-  `satuan_fisik` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `status_approval` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `tanggal_approval` date NOT NULL,
-  PRIMARY KEY (`id_tagihan`) USING BTREE,
-  INDEX `id_belanja`(`id_belanja` ASC) USING BTREE,
-  CONSTRAINT `tb_tagihan_ibfk_2` FOREIGN KEY (`id_belanja`) REFERENCES `tb_belanja` (`id_belanja`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of tb_tagihan
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for tb_target
@@ -1274,7 +1232,7 @@ CREATE TABLE `tb_target`  (
   PRIMARY KEY (`id_target`) USING BTREE,
   INDEX `id_sasaran`(`id_sasaran` ASC) USING BTREE,
   CONSTRAINT `tb_target_ibfk_1` FOREIGN KEY (`id_sasaran`) REFERENCES `tb_sasaran` (`id_sasaran`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_target
@@ -1306,7 +1264,7 @@ CREATE TABLE `tb_target_kegiatan`  (
   PRIMARY KEY (`id_target_kegiatan`) USING BTREE,
   INDEX `id_kegiatan`(`id_kegiatan` ASC) USING BTREE,
   CONSTRAINT `tb_target_kegiatan_ibfk_1` FOREIGN KEY (`id_kegiatan`) REFERENCES `tb_kegiatan` (`id_kegiatan`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_target_kegiatan
@@ -1333,7 +1291,7 @@ CREATE TABLE `tb_target_program`  (
   PRIMARY KEY (`id_target_program`) USING BTREE,
   INDEX `id_program`(`id_program` ASC) USING BTREE,
   CONSTRAINT `tb_target_program_ibfk_1` FOREIGN KEY (`id_program`) REFERENCES `tb_program` (`id_program`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_target_program
@@ -1360,7 +1318,7 @@ CREATE TABLE `tb_target_sub`  (
   PRIMARY KEY (`id_target_sub`) USING BTREE,
   INDEX `id_sub_kegiatan`(`id_sub_kegiatan` ASC) USING BTREE,
   CONSTRAINT `tb_target_sub_ibfk_1` FOREIGN KEY (`id_sub_kegiatan`) REFERENCES `tb_sub_kegiatan` (`id_sub_kegiatan`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tb_target_sub
