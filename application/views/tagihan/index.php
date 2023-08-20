@@ -132,7 +132,7 @@
 										<div class="input-group-prepend">
 											<div class="input-group-text" id="inputGroup-sizing-sm">Rp.</div>
 										</div>
-										<input type="text" value="0" oninput="formatAngka(this)" class="form-control form-control-sm" id="jumlah" name="nilai">
+										<input type="text" value="0" oninput="formatAngka(this)" class="form-control form-control-sm" id="jumlah" name="nilai" readonly>
 									</div>
 								</div>
 								<div class="form-group input-group-sm mb-2">
@@ -245,6 +245,8 @@
 </div>
 
 <script>
+	var jumlah = document.getElementById('jumlah');
+
 	//Format Angka dan Hitung
 	function formatAndCalculate() {
 		const numberInput1 = document.getElementById("jml_angg");
@@ -309,15 +311,9 @@
 
 	window.onload = formatAndCalculate;
 
-
-	// function total() {
-	//     var jumlah = document.getElementById('jumlah').value;
-	//     var jml_angg = document.getElementById('jml_angg').value;
-
-	//     // var harga_printer = document.getElementById('harga_printer').value * document.getElementById('qty_printer').value;
-	//     // var harga_harddisk = document.getElementById('harga_harddisk').value * document.getElementById('qty_harddisk').value;
-	//     const grand_total = jumlah - jml_angg;
-	//     document.getElementById('realisasi').value = grand_total;
-
-	// }
+	// Menambahkan event listener pada input form pertama
+	jml_yg_diminta.addEventListener('input', function() {
+		// Mengatur nilai input form kedua sama dengan input form pertama
+		jumlah.value = jml_yg_diminta.value;
+	});
 </script>
