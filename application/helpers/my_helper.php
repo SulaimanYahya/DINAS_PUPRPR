@@ -103,6 +103,16 @@ function terbilang($nilai)
 	return $hasil;
 }
 
+function angkaToHuruf($nilai)
+{
+	if ($nilai < 0) {
+		$hasil = "MINUS " . trim(penyebut($nilai));
+	} else {
+		$hasil = trim(penyebut($nilai));
+	}
+	return $hasil;
+}
+
 function getData($table)
 {
 	$ci = get_instance();

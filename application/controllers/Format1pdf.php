@@ -37,6 +37,7 @@ class Format1pdf extends CI_Controller
 		$pdf->SetFont('Arial', '', 10);
 		$pdf->Cell(0, 6, 'Yang bertanda tangan dibawah ini :', 0, 1);
 
+		$this->db->order_by('tb_role_respon.id_role_respon', 'ASC');
 		$this->db->join('tb_pegawai', 'tb_pegawai.id=daftar_nama_ttd.id_pegawai');
 		$this->db->join('tb_role_respon', 'tb_role_respon.id_role_respon=daftar_nama_ttd.id_role_respon');
 		$pegawai = $this->db->get_where('daftar_nama_ttd', ['kode_spm' => $kode])->result();
@@ -303,6 +304,10 @@ class Format1pdf extends CI_Controller
 		$this->db->join('tb_pegawai', 'tb_pegawai.id=daftar_nama_ttd.id_pegawai');
 		$this->db->join('tb_role_respon', 'tb_role_respon.id_role_respon=daftar_nama_ttd.id_role_respon');
 		$pegawai_empat = $this->db->get_where('daftar_nama_ttd', ['kode_spm' => $kode, 'daftar_nama_ttd.id_role_respon' => '4'])->row_array();
+
+		$this->db->join('tb_pegawai', 'tb_pegawai.id=daftar_nama_ttd.id_pegawai');
+		$this->db->join('tb_role_respon', 'tb_role_respon.id_role_respon=daftar_nama_ttd.id_role_respon');
+		$pegawai_lima = $this->db->get_where('daftar_nama_ttd', ['kode_spm' => $kode, 'daftar_nama_ttd.id_role_respon' => '6'])->row_array();
 
 		$pdf->SetFont('Arial', '', 8);
 		$pdf->Cell(5, 10, '', 0, 1);
@@ -623,12 +628,14 @@ class Format1pdf extends CI_Controller
 		$pdf->Cell(0, 4, 'YANG MENERIMA', 0, 1, 'C');
 
 		$pdf->Cell(50, 4, strtoupper($pegawai_satu['nama_role']), 0, 0, 'C');
+		$pdf->Cell(70, 4, '', 0, 0, 'C');
+		$pdf->Cell(0, 4, strtoupper($get_spm['rekanan']), 0, 1, 'C');
 		$pdf->Cell(0, 30, '', 0, 1);
 
 		$pdf->SetFont('Arial', 'U', 9);
 		$pdf->Cell(50, 4, strtoupper($pegawai_satu['nama']), 0, 0, 'C');
 		$pdf->Cell(70, 4, strtoupper($pegawai_empat['nama']), 0, 0, 'C');
-		$pdf->Cell(0, 4, "......................................", 0, 1, 'C');
+		$pdf->Cell(0, 4, strtoupper($get_spm['pemilik']), 0, 1, 'C');
 		$pdf->SetFont('Arial', '', 9);
 		$pdf->Cell(50, 4, strtoupper($pegawai_satu['nip']), 0, 0, 'C');
 		$pdf->Cell(70, 4, strtoupper($pegawai_empat['nip']), 0, 0, 'C');
@@ -710,13 +717,17 @@ class Format1pdf extends CI_Controller
 		$pdf->Cell(50, 4, 'BENDAHARA PENGELUARAN', 0, 0, 'C');
 		$pdf->Cell(70, 4, '', 0, 0, 'C');
 		$pdf->Cell(0, 4, 'YANG MENERIMA', 0, 1, 'C');
+		$pdf->Cell(50, 4, '', 0, 0, 'C');
+		$pdf->Cell(70, 4, '', 0, 0, 'C');
+		$pdf->Cell(0, 4, strtoupper($get_spm['rekanan']), 0, 1, 'C');
+
 
 		$pdf->Cell(0, 20, '', 0, 1);
 
 		$pdf->SetFont('Arial', 'U', 9);
 		$pdf->Cell(50, 4, strtoupper($pegawai_empat['nama']), 0, 0, 'C');
 		$pdf->Cell(70, 4, '', 0, 0, 'C');
-		$pdf->Cell(0, 4, "......................................", 0, 1, 'C');
+		$pdf->Cell(0, 4, strtoupper($get_spm['pemilik']), 0, 1, 'C');
 		$pdf->SetFont('Arial', '', 9);
 		$pdf->Cell(50, 4, strtoupper($pegawai_empat['nip']), 0, 0, 'C');
 		$pdf->Cell(70, 4, '', 0, 0, 'C');
@@ -792,8 +803,114 @@ class Format1pdf extends CI_Controller
 		$table->endTable(10);
 
 
+		// Berita Acara Penerimaan Barang
 
-		// $pdf->Output();
+		$pdf->SetLeftMargin(23);
+		$pdf->SetRightMargin(23);
+		$pdf->SetTopMargin(23);
+		$pdf->AddPage();
+
+		$pdf->SetFont('Times', 'BU', 14);
+		$pdf->Cell(0, 6, 'BERITA ACARA PENERIMAAN BARANG', 0, 1, 'C');
+		$pdf->SetFont('Arial', 'B', 10);
+		$pdf->Cell(0, 6, 'NOMOR:         /BA-PEMBA/' . $get_spm['jenis_spm'] . '/DPUPR-PR/         /' . $get_belanja['rs_tahun'], 0, 1, 'C');
+		$pdf->Cell(0, 10, '', 0, 1);
+
+		$pdf->SetFont('Arial', '', 10);
+		$pdf->MultiCell(0, 6, 'Pada hari                        Tanggal                                          Bulan                            Tahun ' . strtolower(angkaToHuruf($get_belanja['rs_tahun'])) . ', Kami yang bertanda tangan dibawah ini :', 0);
+		$pdf->Cell(0, 4, '', 0, 1);
+
+		$pdf->Cell(30, 6, 'Nama', 0, 0);
+		$pdf->Cell(4, 6, ':', 0, 0);
+		$pdf->Cell(0, 6, $pegawai_lima['nama'], 0, 1);
+		$pdf->Cell(30, 6, 'Jabatan', 0, 0);
+		$pdf->Cell(4, 6, ':', 0, 0);
+		$pdf->Cell(0, 6, $pegawai_lima['nama_role'], 0, 1);
+
+		$pdf->Cell(0, 7, '', 0, 1);
+		$pdf->MultiCell(0, 6, 'Berdasarkan surat keputusan Kepala Dinas Pekerjaan Umum, Penataan Ruang dan Perumahan Rakyat Kab. Bone Bolango Nomor : 08.a /SK.DPUPRPR/BB/' . $get_belanja['rs_tahun'] . ' Tanggal    Januari ' . $get_belanja['rs_tahun'] . ' Telah menerima barang yang diserahkan oleh Rekanan ' . strtoupper($get_spm['rekanan']) . ' sesuai dengan Berita Acara.', 0);
+		$pdf->Cell(0, 8, '', 0, 1);
+		$pdf->MultiCell(0, 6, 'Demikian Berita Acara Penerimaan Barang ini dibuat dalam Rangkap 6 (enam) untuk dipergunakan sebagaimana mestinya.', 0);
+
+
+		$pdf->Cell(0, 30, '', 0, 1);
+		$pdf->SetFont('Arial', 'B', 10);
+		$pdf->Cell(50, 4, 'YANG MENYERAHKAN', 0, 0, 'C');
+		$pdf->Cell(70, 4, '', 0, 0, 'C');
+		$pdf->Cell(0, 4, 'YANG MENERIMA', 0, 1, 'C');
+
+		$pdf->Cell(0, 30, '', 0, 1);
+
+		$pdf->SetFont('Arial', 'BU', 10);
+		$pdf->Cell(50, 4, strtoupper($get_spm['pemilik']), 0, 0, 'C');
+		$pdf->Cell(70, 4, '', 0, 0, 'C');
+		$pdf->Cell(0, 4, strtoupper($pegawai_lima['nama']), 0, 1, 'C');
+		$pdf->SetFont('Arial', '', 10);
+		$pdf->Cell(50, 4, 'PEMILIK', 0, 0, 'C');
+		$pdf->Cell(70, 4, '', 0, 0, 'C');
+		$pdf->Cell(0, 4, strtoupper($pegawai_lima['nip']), 0, 1, 'C');
+
+		// Berita Acara Pemeriksaan Barang
+
+		$pdf->SetLeftMargin(23);
+		$pdf->SetRightMargin(23);
+		$pdf->SetTopMargin(23);
+		$pdf->AddPage();
+
+		$pdf->SetFont('Times', 'BU', 14);
+		$pdf->Cell(0, 6, 'BERITA ACARA PEMERIKSAAN BARANG', 0, 1, 'C');
+		$pdf->SetFont('Arial', 'B', 10);
+		$pdf->Cell(0, 6, 'NOMOR:         /BA-PEMBA/' . $get_spm['jenis_spm'] . '/DPUPR-PR/         /' . $get_belanja['rs_tahun'], 0, 1, 'C');
+		$pdf->Cell(0, 10, '', 0, 1);
+
+		$pdf->SetFont('Arial', '', 10);
+		$pdf->MultiCell(0, 6, 'Pada hari                        Tanggal                                          Bulan                            Tahun ' . strtolower(angkaToHuruf($get_belanja['rs_tahun'])) . ', Kami yang bertanda tangan dibawah ini :', 0);
+		$pdf->Cell(0, 4, '', 0, 1);
+
+		$pdf->Cell(30, 6, 'Nama', 0, 0);
+		$pdf->Cell(4, 6, ':', 0, 0);
+		$pdf->Cell(0, 6, $pegawai_lima['nama'], 0, 1);
+		$pdf->Cell(30, 6, 'Jabatan', 0, 0);
+		$pdf->Cell(4, 6, ':', 0, 0);
+		$pdf->Cell(0, 6, $pegawai_lima['nama_role'], 0, 1);
+
+		$pdf->Cell(0, 7, '', 0, 1);
+		$pdf->MultiCell(0, 6, 'Berdasarkan surat keputusan Kepala Dinas Pekerjaan Umum, Penataan Ruang dan Perumahan Rakyat Kab. Bone Bolango Nomor : 08.a /SK.DPUPRPR/BB/' . $get_belanja['rs_tahun'] . ' Tanggal    Januari ' . $get_belanja['rs_tahun'] . ' Telah memeriksa barang yang diserahkan oleh Rekanan ' . strtoupper($get_spm['rekanan']) . ' sesuai dengan Berita Acara.', 0);
+		$pdf->Cell(0, 6, '', 0, 1);
+
+		$pdf->Cell(15, 6, '', 0, 0);
+		$pdf->Cell(5, 6, 'a.', 0, 0);
+		$pdf->Cell(0, 6, 'Terdapat baik, sesuai Surat Pesanan / SPK / Kontrak', 0, 1);
+		$pdf->Cell(15, 6, '', 0, 0);
+		$pdf->Cell(5, 6, 'b.', 0, 0);
+		$pdf->Cell(0, 6, 'Kurang / tidak baik', 0, 1);
+
+		$pdf->Cell(0, 6, '', 0, 1);
+		$pdf->MultiCell(0, 6, 'Barang yang terdapat baik kami beri Tanda B, yang selanjutnya akan diserahkan oleh rekanan kepada Bendaharawan Barang sedangkan yang tidak baik kami beri tanda K.', 0);
+
+		$pdf->Cell(0, 6, '', 0, 1);
+		$pdf->MultiCell(0, 6, 'Demikian Berita Acara ini dibuat dalam Rangkap 6 (enam) untuk dipergunakan sebagaimana mestinya.', 0);
+
+
+		$pdf->Cell(0, 10, '', 0, 1);
+		$pdf->SetFont('Arial', 'B', 10);
+		$pdf->Cell(50, 4, 'REKANAN', 0, 0, 'C');
+		$pdf->Cell(70, 4, '', 0, 0, 'C');
+		$pdf->Cell(0, 4, 'PANITIA PEMERIKSA BARANG', 0, 1, 'C');
+
+		$pdf->Cell(0, 30, '', 0, 1);
+
+		$pdf->SetFont('Arial', 'BU', 10);
+		$pdf->Cell(50, 4, strtoupper($get_spm['pemilik']), 0, 0, 'C');
+		$pdf->Cell(70, 4, '', 0, 0, 'C');
+		$pdf->Cell(0, 4, strtoupper($pegawai_lima['nama']), 0, 1, 'C');
+		$pdf->SetFont('Arial', '', 10);
+		$pdf->Cell(50, 4, 'PEMILIK', 0, 0, 'C');
+		$pdf->Cell(70, 4, '', 0, 0, 'C');
+		$pdf->Cell(0, 4, strtoupper($pegawai_lima['nip']), 0, 1, 'C');
+
+
+
 		$pdf->Output('I', 'Format1-' . time() . '.pdf');
 	}
 }
