@@ -784,7 +784,7 @@ class Format1pdf extends CI_Controller
 		$table->easyCell("");
 		$table->easyCell("");
 		$table->easyCell("");
-		$table->easyCell("");
+		$table->easyCell(" ");
 		$table->printRow(true);
 
 
