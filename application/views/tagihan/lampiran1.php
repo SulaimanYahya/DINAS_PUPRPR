@@ -86,17 +86,7 @@
 							</button>
 						</div>
 						<form method="POST" action="<?= base_url('L_NotaPesanan') ?>" target="_blank">
-							<?php
-							if ($_SERVER["REQUEST_METHOD"] == "POST") {
-								$pptk = masterGetId('nama', 'tb_pegawai', 'id', $_POST["pptk"]);
-								$rekanan = $_POST["rekanan"];
-								$pemilik = $_POST["pemilik"];
 
-								$this->session->set_userdata('pptk', $pptk);
-								$this->session->set_userdata('rekanan', $rekanan);
-								$this->session->set_userdata('pemilik', $pemilik);
-							}
-							?>
 							<div class="modal-body">
 								<div class="form-group row">
 									<label for="rekanan" class="col-sm-2 col-form-label">Rekanan</label>
