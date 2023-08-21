@@ -74,7 +74,6 @@
 					</tbody>
 				</table>
 			</div>
-
 			<!-- MODAL CETAK -->
 			<div class="modal fade" id="cetak" tabindex="-1" aria-labelledby="cetakLabel" aria-hidden="true">
 				<div class="modal-dialog">
