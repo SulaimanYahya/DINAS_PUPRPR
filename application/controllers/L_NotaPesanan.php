@@ -10,6 +10,8 @@ class L_NotaPesanan extends CI_Controller
 
     function index()
     {
+
+
         $pdf = new exFPDF('p', 'mm', array(210, 330));
         $pdf->SetTitle('NOTA PESANAN ATK');
         // membuat halaman baru
