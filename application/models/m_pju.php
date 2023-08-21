@@ -64,6 +64,8 @@ class m_pju extends CI_Model
 					'pp23'          => $this->input->post('pph23'),
 					'pp25'          => $this->input->post('pph25'),
 					'kode_spm'      => $kd_spm,
+					'rekanan'       => $this->input->post('rekanan'),
+					'pemilik'       => $this->input->post('pemilik'),
 					'tanda_bukti'   => $new_image
 				];
 
