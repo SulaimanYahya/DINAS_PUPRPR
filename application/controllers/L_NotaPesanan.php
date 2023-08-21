@@ -7,19 +7,11 @@ class L_NotaPesanan extends CI_Controller
 		$this->load->library('Pdf');
 	}
 
-	function index()
-	{
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			$rekanan = $_POST["rekanan"];
-			$pemilik = $_POST["pemilik"];
-
-			$this->session->set_userdata('pptk', $_POST["pptk"]);
-			$this->session->set_userdata('rekanan', $rekanan);
-			$this->session->set_userdata('pemilik', $pemilik);
-
-			$pdf = new exFPDF('p', 'mm', array(210, 330));
-			$pdf->SetTitle('NOTA PESANAN ATK');
-			// membuat halaman baru
+    function index()
+    {
+        $pdf = new exFPDF('p', 'mm', array(210, 330));
+        $pdf->SetTitle('NOTA PESANAN ATK');
+        // membuat halaman baru
 
 			$pdf->SetLeftMargin(23);
 			$pdf->SetRightMargin(23);
