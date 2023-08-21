@@ -110,6 +110,10 @@
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
+									<label for="rekanan">Rekanan</label>
+									<input type="text" class="form-control form-control-sm" id="rekanan" placeholder="Nama Rekanan" name="rekanan">
+								</div>
+								<div class="form-group">
 									<label for="SPM">Nomor Surat Perintah Membayar (SPM)</label>
 									<input type="text" class="form-control form-control-sm" id="SPM" placeholder="Nomor SPM" name="no_spm">
 								</div>
@@ -182,6 +186,10 @@
 								</div>
 							</div>
 							<div class="col-6">
+								<div class="form-group">
+									<label for="pemilik">Pemilik</label>
+									<input type="text" class="form-control form-control-sm muted" id="pemilik" name="pemilik" value="DINAS PEKERJAAN UMUM PENATAAN RUANG DAN PERUMAHAN RAKYAT KABUPATEN BONE BOLANGO" readonly>
+								</div>
 								<div class="form-group">
 									<label for="unitkerja">Unit Kerja / Sektor</label>
 									<input type="text" class="form-control form-control-sm muted" id="unitkerja" name="unitkerja" value="DINAS PEKERJAAN UMUM PENATAAN RUANG DAN PERUMAHAN RAKYAT KABUPATEN BONE BOLANGO" readonly>
