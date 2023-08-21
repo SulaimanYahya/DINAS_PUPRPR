@@ -128,7 +128,7 @@ class Format1pdf extends CI_Controller
 			$nons++;
 		}
 
-		// slide beda
+		// SKPD
 
 		$pdf->SetLeftMargin(20);
 		$pdf->SetRightMargin(23);
@@ -442,7 +442,7 @@ class Format1pdf extends CI_Controller
 		$pdf->Cell(0, 4, '2. Total Potongan Mengurangi Jumlah Yang DIminta pada SPP ini', 0, 1);
 
 
-		// slide kedua
+		// SPP
 
 		$pdf->SetLeftMargin(23);
 		$pdf->SetRightMargin(23);
@@ -506,7 +506,7 @@ class Format1pdf extends CI_Controller
 		$pdf->Cell(0, 5, 'NIP. ' . $get_kadis['nip'], 0, 1, 'C');
 
 
-		// slide ketiga
+		// SPT
 
 
 		$pdf->SetLeftMargin(23);
@@ -570,7 +570,7 @@ class Format1pdf extends CI_Controller
 		$pdf->Cell(0, 5, 'NIP. ' . $pegawai_satu['nip'], 0, 1, 'C');
 
 
-		// slide ketiga
+		// TANDA TERIMA
 
 
 		$pdf->SetLeftMargin(23);
@@ -605,7 +605,7 @@ class Format1pdf extends CI_Controller
 		$pdf->Cell(50, 6, 'Untuk Pembayaran', 0, 0);
 		$pdf->SetFont('Arial', '', 11);
 		$pdf->Cell(4, 6, ':', 0, 0);
-		$pdf->MultiCell(0, 6, strtoupper($get_belanja['uraian_belanja']) . ' MELALUI KEGIATAN ' . strtoupper($get_kegiatan['nama_jenis_kegiatan']) . ' TA ' . $get_belanja['rs_tahun'], 0);
+		$pdf->MultiCell(0, 6, strtoupper($get_belanja['uraian_belanja']) . ' PADA SUB KEGIATAN ' . strtoupper($get_sub_kegiatan['nama_jenis_sub_kegiatan']) . ' TA ' . $get_belanja['rs_tahun'], 0);
 		$pdf->Cell(0, 15, '', 0, 1);
 
 		$pdf->SetFont('Arial', 'I', 11);
@@ -629,6 +629,11 @@ class Format1pdf extends CI_Controller
 		$pdf->Cell(50, 4, strtoupper($pegawai_satu['nama']), 0, 0, 'C');
 		$pdf->Cell(70, 4, strtoupper($pegawai_empat['nama']), 0, 0, 'C');
 		$pdf->Cell(0, 4, "......................................", 0, 1, 'C');
+		$pdf->SetFont('Arial', '', 9);
+		$pdf->Cell(50, 4, strtoupper($pegawai_satu['nip']), 0, 0, 'C');
+		$pdf->Cell(70, 4, strtoupper($pegawai_empat['nip']), 0, 0, 'C');
+		$pdf->Cell(0, 4, "", 0, 1, 'C');
+
 		$pdf->Cell(0, 20, '', 0, 1);
 		$pdf->SetFont('Arial', 'BI', 12);
 		$pdf->Cell(100, 6, 'KODE REKENING', 1, 0, 'C');
@@ -645,6 +650,150 @@ class Format1pdf extends CI_Controller
 		$pdf->Cell(0, 6, 'Nomor BKU', 'R', 1);
 		$pdf->Cell(100, 6, '', 'LBR', 0, 'C');
 		$pdf->Cell(0, 6, '', 'RB', 1);
-		$pdf->Output();
+
+		// KWITANSI
+
+
+		$pdf->SetLeftMargin(23);
+		$pdf->SetRightMargin(23);
+		$pdf->SetTopMargin(23);
+		$pdf->AddPage();
+
+		$pdf->SetFont('Arial', 'B', 11);
+		$pdf->Cell(0, 6, 'PEMERINTAH KABUPATEN BONE BOLANGO', 0, 1);
+		$pdf->Cell(0, 6, 'DINAS PEKERJAAN UMUM PENATAAN RUANG DAN PERUMAHAN RAKYAT', 0, 1);
+		$pdf->Cell(0, 6, '', 0, 1);
+
+		$pdf->SetFont('Times', 'BU', 14);
+		$pdf->Cell(0, 6, 'K W I T A N S I', 0, 1, 'C');
+		$pdf->SetFont('Arial', '', 9);
+		$pdf->Cell(50, 4, '', 0, 0);
+		$pdf->Cell(30, 4, 'Nomor', 0, 0);
+		$pdf->Cell(4, 4, ':', 0, 1);
+		$pdf->Cell(50, 4, '', 0, 0);
+		$pdf->Cell(30, 4, 'Jenis Pembayaran', 0, 0);
+		$pdf->Cell(4, 4, ': LS/GU', 0, 1);
+
+		$pdf->Cell(0, 6, '', 0, 1);
+
+		$pdf->SetFont('Arial', 'I', 11);
+		$pdf->Cell(50, 6, 'Sudah terima dari', 0, 0);
+		$pdf->SetFont('Arial', '', 9);
+		$pdf->Cell(4, 6, ':', 0, 0);
+		$pdf->MultiCell(0, 6, 'BENDAHARA PENGELUARAN DINAS PEKERJAAN UMUM KAB. BONE BOLANGO', 0);
+		$pdf->Cell(0, 2, '', 0, 1);
+
+		$pdf->SetFont('Arial', 'I', 11);
+		$pdf->Cell(50, 6, 'Terbilang', 0, 0);
+		$pdf->SetFont('Arial', '', 9);
+		$pdf->Cell(4, 6, ':', 0, 0);
+		$pdf->MultiCell(0, 6, terbilang($get_spm['nilai']), 0);
+		$pdf->Cell(0, 2, '', 0, 1);
+
+		$pdf->SetFont('Arial', 'I', 11);
+		$pdf->Cell(50, 6, 'Yakni', 0, 0);
+		$pdf->SetFont('Arial', '', 9);
+		$pdf->Cell(4, 6, ':', 0, 0);
+		$pdf->MultiCell(0, 6, strtoupper($get_belanja['uraian_belanja']) . ' PADA SUB KEGIATAN ' . strtoupper($get_sub_kegiatan['nama_jenis_sub_kegiatan']) . ' TA ' . $get_belanja['rs_tahun'], 0);
+		$pdf->Cell(0, 6, '', 0, 1);
+
+		$pdf->SetFont('Arial', 'I', 11);
+		$pdf->Cell(25, 8, 'Sejumlah', 0, 0);
+		$pdf->SetFont('Arial', '', 14);
+		$pdf->Cell(15, 8, 'Rp', 'LBT', 0);
+		$pdf->Cell(35, 8, number_format($get_spm['nilai']), 'RBT', 1, 'R');
+		$pdf->SetFont('Arial', '', 11);
+		$pdf->Cell(0, 8, 'Suwawa,        ' . tanggalIndonesiaTanpaDay($tanggalskrg), 0, 1, 'R');
+		$pdf->Cell(0, 4, '', 0, 1);
+
+		$pdf->SetFont('Arial', '', 9);
+		$pdf->Cell(50, 4, 'BENDAHARA PENGELUARAN', 0, 0, 'C');
+		$pdf->Cell(70, 4, '', 0, 0, 'C');
+		$pdf->Cell(0, 4, 'YANG MENERIMA', 0, 1, 'C');
+
+		$pdf->Cell(0, 20, '', 0, 1);
+
+		$pdf->SetFont('Arial', 'U', 9);
+		$pdf->Cell(50, 4, strtoupper($pegawai_empat['nama']), 0, 0, 'C');
+		$pdf->Cell(70, 4, '', 0, 0, 'C');
+		$pdf->Cell(0, 4, "......................................", 0, 1, 'C');
+		$pdf->SetFont('Arial', '', 9);
+		$pdf->Cell(50, 4, strtoupper($pegawai_empat['nip']), 0, 0, 'C');
+		$pdf->Cell(70, 4, '', 0, 0, 'C');
+		$pdf->Cell(0, 4, "", 0, 1, 'C');
+		$pdf->Cell(0, 6, '', 0, 1);
+
+		$pdf->Cell(0, 4, 'MENYETUJUI', 0, 1, 'C');
+		$pdf->Cell(0, 4, strtoupper($pegawai_satu['nama_role']), 0, 1, 'C');
+		$pdf->Cell(0, 20, '', 0, 1);
+		$pdf->SetFont('Arial', 'U', 9);
+		$pdf->Cell(0, 4, strtoupper($pegawai_satu['nama']), 0, 1, 'C');
+		$pdf->SetFont('Arial', '', 9);
+		$pdf->Cell(0, 4, strtoupper($pegawai_satu['nip']), 0, 1, 'C');
+		$pdf->Cell(0, 10, '', 0, 1);
+
+		$pdf->SetFont('helvetica', '', 8);
+		$pdf->AddFont('FontUTF8', '', 'Arimo-Regular.php');
+		$pdf->AddFont('FontUTF8', 'B', 'Arimo-Bold.php');
+		$pdf->AddFont('FontUTF8', 'I', 'Arimo-Italic.php');
+		$pdf->AddFont('FontUTF8', 'BI', 'Arimo-BoldItalic.php');
+
+		$table = new easyTable($pdf, '{30, 50, 20, 20, 20, 20, 20}', 'width:220; border-color:#000000; font-size:8; border:1; paddingY:2;');
+
+		$table->rowStyle('align:{CCCCCC}; font-style:B');
+		$table->easyCell("KODE REKENING", 'colspan:1; align:C');
+		$table->easyCell("PPTK", 'colspan:1; align:C');
+		$table->easyCell("VERIFIKATOR", 'colspan:3; align:C');
+		$table->easyCell("BUKU KAS UMUM", 'colspan:2; align:C');
+		$table->printRow();
+
+		$table->rowStyle('align:{CC}; font-style:B');
+		$table->easyCell($get_belanja['no_rek'], 'align:C');
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("NOMOR");
+		$table->easyCell("TANGGAL");
+		$table->printRow(true);
+
+		$table->rowStyle('align:{CC}; border:LTR;');
+		$table->easyCell($get_belanja['nama_rek'], 'align:C');
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->printRow(true);
+
+		$table->rowStyle('border:LR');
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->printRow(true);
+
+		$table->rowStyle('border:LBR');
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->easyCell("");
+		$table->printRow(true);
+
+
+
+		$table->endTable(10);
+
+
+
+		// $pdf->Output();
+		$pdf->Output('I', 'Format1-' . time() . '.pdf');
 	}
 }
