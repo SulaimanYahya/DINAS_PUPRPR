@@ -37,6 +37,50 @@ class L_NotaPesanan extends CI_Controller
 			$pdf->MultiCell(0, 6, 'Harap dalam waktu singkat dapat memasukkan barang / alat tersebut dibawah ini sebagai pesanan : Belanja ATK yang dipakai pada Dinas PUPRPR Kab. Bone Bolango sebagai berikut :', 0);
 			$pdf->Cell(0, 6, '', 0, 1);
 
+			$pdf->SetFont('helvetica', '', 10);
+			$pdf->AddFont('FontUTF8', '', 'Arimo-Regular.php');
+			$pdf->AddFont('FontUTF8', 'B', 'Arimo-Bold.php');
+			$pdf->AddFont('FontUTF8', 'I', 'Arimo-Italic.php');
+			$pdf->AddFont('FontUTF8', 'BI', 'Arimo-BoldItalic.php');
+
+			$table = new easyTable($pdf, '{10, 40, 20, 30, 10, 40, 10, 40, 30}', 'width:220; border-color:#000000; font-size:8; border:1; paddingY:2;');
+
+			$table->rowStyle('align:{CCCCCCC}; font-style:B');
+			$table->easyCell("No", 'rowspan:1');
+			$table->easyCell("JENIS ALAT/BAHAN", 'rowspan:1');
+			$table->easyCell("MERK", 'rowspan:1');
+			$table->easyCell("UKURAN", 'rowspan:1');
+			$table->easyCell("HARGA SATUAN", 'colspan:2');
+			$table->easyCell("JUMLAH HARGA", 'colspan:2');
+			$table->easyCell("KET.", 'rowspan:1');
+			$table->printRow();
+
+			$this->db->order_by('id', 'DESC');
+			$datalap = $this->db->get_where('tb_lampiran_format1')->result_array();
+			$no = 1;
+			foreach ($datalap as $row) {
+
+				$table->easyCell($no, 'align:C');
+				$table->easyCell($row['bahan']);
+				$table->easyCell($row['merk']);
+				$table->easyCell($row['volume'] . " " . $row['satuan'], 'align:C');
+				$table->easyCell("Rp", 'border: LBT');
+				$table->easyCell(number_format($row['harga_satuan']), 'align:R; border: RBT');
+				$table->easyCell("Rp", 'border: LBT');
+				$table->easyCell(number_format($row['jml_harga']), 'align:R; border: RBT');
+				$table->easyCell($row['ket']);
+				$table->printRow(true);
+
+				$no++;
+			}
+
+			$this->db->select('SUM(jml_harga) as total');
+			$totalsmua = $this->db->get_where('tb_lampiran_format1')->row_array();
+			$pdf->Cell(10, 8, "", 1, 0);
+			$pdf->Cell(50, 8, number_format($totalsmua['total']), 1, 1);
+
+
+			$table->endTable(10);
 
 			$pdf->Cell(0, 10, '', 0, 1);
 			$pdf->SetFont('Arial', 'B', 10);
