@@ -85,7 +85,7 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<form method="POST" action="">
+						<form method="POST" action="<?= base_url('L_NotaPesanan') ?>" target="_blank">
 							<?php
 							if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								$pptk = masterGetId('nama', 'tb_pegawai', 'id', $_POST["pptk"]);
