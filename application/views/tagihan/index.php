@@ -188,7 +188,7 @@
 							<div class="col-6">
 								<div class="form-group">
 									<label for="pemilik">Pemilik</label>
-									<input type="text" class="form-control form-control-sm muted" id="pemilik" name="pemilik" value="DINAS PEKERJAAN UMUM PENATAAN RUANG DAN PERUMAHAN RAKYAT KABUPATEN BONE BOLANGO" readonly>
+									<input type="text" class="form-control form-control-sm muted" id="pemilik" name="pemilik" value="">
 								</div>
 								<div class="form-group">
 									<label for="unitkerja">Unit Kerja / Sektor</label>
