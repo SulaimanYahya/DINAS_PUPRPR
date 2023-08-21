@@ -21,6 +21,7 @@ class m_pju extends CI_Model
 		$query = $this->db->get('tb_spm');
 		// if (count( $query->result() ) > 0) {
 		return $query->result();
+
 		// }
 	}
 
