@@ -2,6 +2,7 @@
 	<h5><strong>Form Pembayaran SPPD</strong></h5>
 	<hr>
 	<form method="POST" action="<?= base_url('Pembayaran/simpan') ?>">
+		<input type="text" name="id_belanja" value="<?= enkrip($id_belanja) ?>" readonly>
 		<div class="card">
 			<div class="card-body">
 				<div class="alert alert-warning" role="alert">
@@ -123,7 +124,7 @@
 								<div class="input-group-prepend">
 									<div class="input-group-text" id="inputGroup-sizing-sm">Rp.</div>
 								</div>
-								<input type="text" class="form-control form-control-sm" id="jml_yg_diminta" name="jml_diminta" value="0">
+								<input type="text" class="form-control form-control-sm" id="jml_yg_diminta" name="jml_yg_diminta" value="0">
 							</div>
 						</div>
 						<div class="form-group">

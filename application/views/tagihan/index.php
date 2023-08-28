@@ -236,7 +236,7 @@
 							<div class="col-6">
 								<div class="form-group">
 									<div class="custom-file">
-										<input type="file" class="custom-file-input form-control-sm" id="gambar" name="gambar">
+										<input type="file" class="custom-file-input form-control-sm" id="gambar" name="gambar" required>
 										<label class="custom-file-label" for="gambar" aria-describedby="gambar">Upload Tanda Bukti</label>
 									</div>
 								</div>
