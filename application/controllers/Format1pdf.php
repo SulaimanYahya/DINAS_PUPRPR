@@ -34,7 +34,7 @@ class Format1pdf extends CI_Controller
 		$pdf->SetFont('Arial', '', 11);
 		$pdf->Cell(0, 6, 'SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK (SPTJM)', 0, 1, 'C');
 		$pdf->Cell(0, 6, 'DINAS PEKERJAAN UMUM PENATAAN RUANG KAB. BONE BOLANGO', 0, 1, 'C');
-		$pdf->SetFont('Arial', '', 10);
+		$pdf->SetFont('Arial', '', 9);
 		$pdf->Cell(0, 6, 'Yang bertanda tangan dibawah ini :', 0, 1);
 
 		$this->db->order_by('tb_role_respon.id_role_respon', 'ASC');
