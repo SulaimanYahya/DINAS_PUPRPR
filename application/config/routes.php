@@ -51,5 +51,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 $route['default_controller'] = 'auth';
 $route['tagihan/(:any)/(:any)/(:any)/(:any)'] = 'tagihan/index/$1/$2/$3/$4';
+$route['pembayaran/(:any)/(:any)/(:any)/(:any)'] = 'pembayaran/index/$1/$2/$3/$4';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
