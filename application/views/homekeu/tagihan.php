@@ -61,7 +61,7 @@
 											<a href="<?= base_url('tagihan/' . enkrip($i['id_belanja']) . '/' . enkrip($tagihan_data['id_jenis_program']) . '/' . enkrip($tagihan_data['id_jenis_kegiatan']) . '/' . enkrip($tagihan_data['id_jenis_sub_kegiatan'])) ?>" class="btn btn-primary btn-sm">
 												<i class="fas fa-hand-holding-usd"></i>
 											</a>
-											<a href="<?= base_url('pembayaran/' . enkrip($i['id_belanja']) . '/' . enkrip($tagihan_data['id_jenis_program']) . '/' . enkrip($tagihan_data['id_jenis_kegiatan']) . '/' . enkrip($tagihan_data['id_jenis_sub_kegiatan'])) ?>" class="btn btn-primary btn-sm">
+											<a href="<?= base_url('pembayaran/' . enkrip($i['id_belanja']) . '/' . enkrip($tagihan_data['id_jenis_program']) . '/' . enkrip($tagihan_data['id_jenis_kegiatan']) . '/' . enkrip($tagihan_data['id_jenis_sub_kegiatan'])) ?>" class="btn btn-success btn-sm">
 												<i class="fas fa-hand-holding-usd"></i>
 											</a>
 										</form>

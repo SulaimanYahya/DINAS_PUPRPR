@@ -162,10 +162,6 @@
 												?>" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 
-				<a class="collapse-item <?php if ($title == 'Format 2') {
-											echo "bghover";
-										} ?>" href="<?= base_url('pembayaran'); ?>"><i class="fas fa-fw fa-list-ul"></i>&nbsp;Format 2</a>
-
 				<a class="collapse-item <?php if ($title == 'format3') {
 											echo "bghover";
 										} ?>" href="<?= base_url('format3'); ?>"><i class="fas fa-fw fa-list-alt"></i>&nbsp;Format 3</a>
