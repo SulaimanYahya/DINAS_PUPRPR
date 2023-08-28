@@ -15,9 +15,9 @@ class Format1pdf extends CI_Controller
 		// membuat halaman baru
 		$pdf->SetLeftMargin(23);
 		$pdf->SetRightMargin(23);
-		$pdf->SetTopMargin(23);
+		$pdf->SetTopMargin(18);
 		$pdf->AddPage();
-		$pdf->Image('assets/img/profile/logo_bonbol.png', 23, 25, 10, 13);
+		$pdf->Image('assets/img/profile/logo_bonbol.png', 23, 20, 10, 13);
 		// setting jenis font yang akan digunakan
 		$pdf->SetFont('Arial', 'B', 12);
 		$pdf->Cell(0, 6, 'PEMERINTAH KABUPATEN BONE BOLANGO', 0, 1, 'C');
@@ -26,15 +26,15 @@ class Format1pdf extends CI_Controller
 		$pdf->SetFont('Arial', 'B', 10);
 		$pdf->Cell(0, 6, 'Alamat Jl. Makam Nani Wartabone Kec. Suwawa Kab. Bone Bolango', 0, 1, 'C');
 		$pdf->SetLineWidth(1);
-		$pdf->Line(23, 42, 180, 42);
+		$pdf->Line(23, 38, 180, 38);
 		$pdf->SetLineWidth(0);
-		$pdf->Line(23, 43, 180.3, 43);
+		$pdf->Line(23, 39, 180.3, 39);
 
 		$pdf->Cell(10, 8, '', 0, 1);
 		$pdf->SetFont('Arial', '', 11);
 		$pdf->Cell(0, 6, 'SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK (SPTJM)', 0, 1, 'C');
 		$pdf->Cell(0, 6, 'DINAS PEKERJAAN UMUM PENATAAN RUANG KAB. BONE BOLANGO', 0, 1, 'C');
-		$pdf->SetFont('Arial', '', 9);
+		$pdf->SetFont('Arial', '', 10);
 		$pdf->Cell(0, 6, 'Yang bertanda tangan dibawah ini :', 0, 1);
 
 		$this->db->order_by('tb_role_respon.id_role_respon', 'ASC');
@@ -84,7 +84,7 @@ class Format1pdf extends CI_Controller
 		$this->db->join('tb_rek', 'tb_rek.id_rek=tb_kp_belanja.id_rek');
 		$get_belanja = $this->db->get_where('tb_belanja', ['tb_belanja.id_belanja' => $id_belanja])->row_array();
 
-		$pdf->Cell(10, 8, '', 0, 1);
+		$pdf->Cell(10, 6, '', 0, 1);
 		$pdf->SetFont('Arial', '', 10);
 		$pdf->MultiCell(0, 5, 'Berdasarkan Peraturan Menteri Dalam Negeri Nomor 77 Tahun 2020 tentang Pedoman Pengelolaan Keuangan Daerah., Maka dengan ini kami menyatakan :', 0);
 		$pdf->SetFont('Arial', '', 10);
