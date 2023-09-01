@@ -76,8 +76,16 @@ class L_NotaPesanan extends CI_Controller
 
 			$this->db->select('SUM(jml_harga) as total');
 			$totalsmua = $this->db->get_where('tb_lampiran_format1')->row_array();
-			$pdf->Cell(10, 8, "", 1, 0);
-			$pdf->Cell(50, 8, number_format($totalsmua['total']), 1, 1);
+			$table->easyCell('');
+			$table->easyCell('');
+			$table->easyCell('');
+			$table->easyCell('');
+			$table->easyCell("", 'border: LBT');
+			$table->easyCell('', 'align:R; border: RBT');
+			$table->easyCell("Rp. ", 'border: LBT');
+			$table->easyCell(number_format($totalsmua['total']), 'align:R; border: RBT; font-style:B');
+			$table->easyCell('');
+			$table->printRow(true);
 
 
 			$table->endTable(10);
