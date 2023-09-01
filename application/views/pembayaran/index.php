@@ -2,7 +2,7 @@
 	<h5><strong>Form Pembayaran SPPD</strong></h5>
 	<hr>
 	<form method="POST" action="<?= base_url('Pembayaran/simpan') ?>">
-		<input type="text" name="id_belanja" value="<?= enkrip($id_belanja) ?>" readonly>
+		<input type="hidden" name="id_belanja" value="<?= enkrip($id_belanja) ?>" readonly>
 		<div class="card">
 			<div class="card-body">
 				<div class="alert alert-warning" role="alert">
