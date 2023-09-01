@@ -168,6 +168,15 @@ class L_PerjalananDinas extends CI_Controller
 				$nom++;
 			}
 
+			$pdf->SetFont('Times', 'B', 11);
+			$table->easyCell('', 'border:LB');
+			$table->easyCell('', 'border:B');
+			$table->easyCell('JUMLAH', 'border:RB');
+			$table->easyCell(number_format($totals['total_uang']), 'align:R');
+			$table->easyCell('');
+			$table->easyCell('');
+			$table->printRow(true);
+
 			$table->endTable(10);
 
 			$pdf->Cell(140, 6, 'PENGGUNA ANGGARAN', 0, 0, 'C');
