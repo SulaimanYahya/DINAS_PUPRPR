@@ -85,7 +85,6 @@
 							</button>
 						</div>
 						<form method="POST" action="<?= base_url('L_NotaPesanan') ?>" target="_blank">
-
 							<div class="modal-body">
 								<div class="form-group row">
 									<label for="rekanan" class="col-sm-2 col-form-label">Rekanan</label>

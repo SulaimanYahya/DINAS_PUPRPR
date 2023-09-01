@@ -68,17 +68,6 @@ class Tagihan extends CI_Controller
 		$this->template->load('tagihan/v_DaftarTagihan', $data);
 	}
 
-	function lampiran($id)
-	{
-		$data = [
-			'title'   => 'Dashboard',
-			'user'    => $this->db->get_where('tb_admin', ['username' => $this->session->userdata('username')])->row_array(),
-			'nota'    => getData('tb_lampiran_format1'),
-			'pegawai' => $this->db->get('tb_pegawai')->result(),
-		];
-		$this->load->view('tagihan/lampiran' . $id, $data);
-	}
-
 	public function delSession($index = '', $seg1, $seg2, $seg3, $seg4)
 	{
 		if ($index != '') {

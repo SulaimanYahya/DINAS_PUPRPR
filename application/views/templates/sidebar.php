@@ -200,11 +200,11 @@
 
 				<a class="collapse-item <?php if ($title == 'Nota Pesanan') {
 											echo "bghover";
-										} ?>" href="<?= base_url('tagihan/lampiran/1'); ?>" target="_blank"><i class="fas fa-file-invoice-dollar"></i>&nbsp;Nota Pesanan</a>
+										} ?>" href="<?= base_url('lampiran/lamp1'); ?>" target="_blank"><i class="fas fa-file-invoice-dollar"></i>&nbsp;Nota Pesanan</a>
 
-				<a class="collapse-item <?php if ($title == 'Lampiran 2') {
+				<a class="collapse-item <?php if ($title == 'Perjalanan Dinas') {
 											echo "bghover";
-										} ?>" href=""><i class="fas fa-file-invoice-dollar"></i>&nbsp;Lampiran 2</a>
+										} ?>" href="<?= base_url('lampiran/lamp2'); ?>" target="_blank"><i class="fas fa-file-invoice-dollar"></i>&nbsp;Perjalanan Dinas</a>
 
 				<a class="collapse-item <?php if ($title == 'Lampiran 3') {
 											echo "bghover";
