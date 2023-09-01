@@ -58,7 +58,7 @@
 								<td><?= $r->jabatan ?></td>
 								<td><?= $r->golongan ?></td>
 								<td><?= 'Rp. ' . number_format($r->biaya) ?></td>
-								<td><?= $r->hari ?></td>
+								<td><?= $r->hari . " Hari" ?></td>
 								<td>
 									<a href="#" class="text-decoration-none badge badge-success" data-toggle="modal" data-target="#editData" data-id="<?= enkrip($r->id) ?>" data-nama="<?= $r->nama ?>" data-jabatan="<?= $r->jabatan ?>" data-golongan="<?= $r->golongan ?>" data-biaya="<?= $r->biaya ?>" data-hari="<?= $r->hari ?>" id="edit">
 										<i class="fas fa-fw fa-edit"></i>
@@ -83,7 +83,7 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<form method="POST" action="<?= base_url('L_NotaPesanan') ?>" target="_blank">
+						<form method="POST" action="<?= base_url('L_PerjalananDinas') ?>" target="_blank">
 							<div class="modal-body">
 								<div class="form-group row">
 									<label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
