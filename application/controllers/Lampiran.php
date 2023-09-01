@@ -35,6 +35,7 @@ class Lampiran extends CI_Controller
 				'golongan' => $this->input->post("golongan"),
 				'biaya' => cleanKarakter($this->input->post("biaya")),
 				'hari' => $this->input->post("hari"),
+				'total' => $this->input->post("total"),
 			];
 
 			$this->db->insert('tb_lampiran_format2', $data);
