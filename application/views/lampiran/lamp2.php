@@ -60,10 +60,10 @@
 								<td><?= 'Rp. ' . number_format($r->biaya) ?></td>
 								<td><?= $r->hari . " Hari" ?></td>
 								<td>
-									<a href="#" class="text-decoration-none badge badge-success" data-toggle="modal" data-target="#editData" data-id="<?= enkrip($r->id) ?>" data-nama="<?= $r->nama ?>" data-jabatan="<?= $r->jabatan ?>" data-golongan="<?= $r->golongan ?>" data-biaya="<?= $r->biaya ?>" data-hari="<?= $r->hari ?>" id="edit">
+									<a href="#" class="text-decoration-none badge badge-success" data-toggle="modal" data-target="#editData" data-id="<?= enkrip($r->id) ?>" data-nama="<?= $r->nama ?>" data-jabatan="<?= $r->jabatan ?>" data-golongan="<?= $r->golongan ?>" data-biaya="<?= $r->biaya ?>" data-hari="<?= $r->hari ?>" data-total="<?= $r->total ?> id=" edit">
 										<i class="fas fa-fw fa-edit"></i>
 									</a>
-									<a href="<?= base_url('Lampiran/delete/' . enkrip($r->id)) ?>" class="text-decoration-none badge badge-danger" data-toggle="tooltip" data-placement="top" title="Hapus Data">
+									<a href="<?= base_url('Lampiran/delete/lamp2/' . enkrip($r->id)) ?>" class="text-decoration-none badge badge-danger" data-toggle="tooltip" data-placement="top" title="Hapus Data">
 										<i class="fas fa-fw fa-trash"></i>
 									</a>
 								</td>
@@ -169,6 +169,71 @@
 					</div>
 				</div>
 			</div>
+
+			<!-- MODAL EDIT DATA -->
+			<div class="modal fade" id="editData" tabindex="-1" role="dialog" aria-labelledby="EditDataLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="EditDataLabel"><strong>Edit Data</strong> (Yang melakukan Perjalanan Dinas)</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<form id="pjuForm" method="POST" action="<?= base_url('Lampiran/update/lamp2') ?>">
+							<input type="text" id="idx" name="id" value="" readonly hidden>
+							<div class="modal-body">
+								<div class="form-group row">
+									<label for="nama" class="col-sm-2 col-form-label">Nama</label>
+									<div class="col-sm-10 row">
+										<input type="text" class="form-control form-control-sm" name="nama" id="namax" autocomplete="off">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="jabatan" class="col-sm-2 col-form-label">Jabatan</label>
+									<div class="col-sm-10 row">
+										<input type="text" class="form-control form-control-sm" name="jabatan" id="jabatanx" autocomplete="off">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="golongan" class="col-sm-2 col-form-label">Golongan</label>
+									<div class="col-sm-10 row">
+										<select name="golongan" id="golonganx" class="form-control form-control-sm">
+											<option value="I">Gol. I</option>
+											<option value="II">Gol. II</option>
+											<option value="III">Gol. III</option>
+											<option value="IV">Gol. IV</option>
+											<option value="PTT">PTT</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="uangsaku" class="col-sm-2 col-form-label">Biaya</label>
+									<div class="col-sm-10 row">
+										<input type="text" class="form-control form-control-sm" name="biaya" id="biayax" autocomplete="off">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="hari" class="col-sm-2 col-form-label">Berapa Hari</label>
+									<div class="col-sm-10 row">
+										<input type="text" min="1" class="form-control form-control-sm" name="hari" id="harix" autocomplete="off">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="total" class="col-sm-2 col-form-label">Total</label>
+									<div class="col-sm-10 row">
+										<input type="text" class="form-control form-control-sm" name="total" id="totalx" autocomplete="off" value="0" readonly>
+									</div>
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-sm btn-primary" id="saveBtn">Simpan</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- End of Page Wrapper -->
@@ -185,9 +250,10 @@
 			const total = document.getElementById("total");
 
 			// EDIT
-			// const biayax = document.getElementById("biayax");
-			// const harix = document.getElementById("harix");
-			// const totalx = document.getElementById("totalx");
+			const biayax = document.getElementById("biayax");
+			const harix = document.getElementById("harix");
+			const totalx = document.getElementById("totalx");
+
 
 			function formatNumber(input) {
 				// Dapatkan nilai dari input
@@ -217,17 +283,17 @@
 				const num2 = parseFloat(hari.value.replace(/\,/g, "")) || 0;
 				const num3 = parseFloat(total.value.replace(/\,/g, "")) || 0;
 
-				// const num1x = parseFloat(biayax.value.replace(/\,/g, "")) || 0;
-				// const num2x = parseFloat(harix.value.replace(/\,/g, "")) || 0;
-				// const num3x = parseFloat(totalx.value.replace(/\,/g, "")) || 0;
+				const num1x = parseFloat(biayax.value.replace(/\,/g, "")) || 0;
+				const num2x = parseFloat(harix.value.replace(/\,/g, "")) || 0;
+				const num3x = parseFloat(totalx.value.replace(/\,/g, "")) || 0;
 
 				const result = num1 * num2;
+				const resultx = num1x * num2x;
 
-				console.log(result);
+				// console.log(result);
 
 				total.value = result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-				// totalx.value = resultx.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-				// sisa_angg1.value = new Intl.NumberFormat().format(result);
+				totalx.value = resultx.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			}
 
 			biaya.addEventListener("input", function() {
@@ -245,20 +311,20 @@
 				calculate();
 			});
 
-			// biayax.addEventListener("input", function() {
-			// 	formatNumber(biayax);
-			// 	calculate();
-			// });
+			biayax.addEventListener("input", function() {
+				formatNumber(biayax);
+				calculate();
+			});
 
-			// harix.addEventListener("input", function() {
-			// 	formatNumber(harix);
-			// 	calculate();
-			// });
+			harix.addEventListener("input", function() {
+				formatNumber(harix);
+				calculate();
+			});
 
-			// totalx.addEventListener("input", function() {
-			// 	formatNumber(totalx);
-			// 	calculate();
-			// });
+			totalx.addEventListener("input", function() {
+				formatNumber(totalx);
+				calculate();
+			});
 
 		}
 
@@ -270,22 +336,24 @@
 			editLinks.forEach(function(link) {
 				link.addEventListener('click', function() {
 					var id = this.getAttribute('data-id');
-					var bahan = this.getAttribute('data-bahan');
-					var merk = this.getAttribute('data-merk');
-					var volume = this.getAttribute('data-volume');
-					var satuan = this.getAttribute('data-satuan');
-					var hargaSatuan = this.getAttribute('data-harga_satuan');
-					var jmlHarga = this.getAttribute('data-total');
-					var ket = this.getAttribute('data-ket');
+					var nama = this.getAttribute('data-nama');
+					var jabatan = this.getAttribute('data-jabatan');
+					var golongan = this.getAttribute('data-golongan');
+					var biaya = this.getAttribute('data-biaya');
+					var hari = this.getAttribute('data-hari');
+					var total = this.getAttribute('data-total');
 
 					$('#idx').val(id);
-					$('#bahanx').val(bahan);
-					$('#merkx').val(merk);
-					$('#volumex').val(formatNumber(volume));
-					$('#satuanx').val(satuan);
-					$('#harga_satuanx').val(formatNumber(hargaSatuan));
-					$('#totalx').val(formatNumber(jmlHarga));
-					$('#ketx').val(ket);
+					$('#namax').val(nama);
+					$('#jabatanx').val(jabatan);
+					$('#biayax').val(formatNumber(biaya));
+					$('#harix').val(hari);
+					$('#totalx').val(formatNumber(total));
+
+					$('#golonganx option').removeAttr('selected');
+
+					// Menambahkan atribut 'selected' pada elemen option yang sesuai
+					$('#golonganx option[value="' + golongan + '"]').attr('selected', 'selected');
 				});
 			});
 		});

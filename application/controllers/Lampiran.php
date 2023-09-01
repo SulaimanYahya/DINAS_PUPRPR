@@ -43,4 +43,34 @@ class Lampiran extends CI_Controller
 			redirect(base_url('Lampiran/lamp2'));
 		}
 	}
+
+
+	function update($lamp = 'lamp2')
+	{
+		$id = dekrip($this->input->post('id'));
+		if ($lamp == 'lamp1') {
+		} else {
+			$data = [
+				'nama'     => $this->input->post('nama'),
+				'jabatan'  => $this->input->post('jabatan'),
+				'golongan' => $this->input->post('golongan'),
+				'biaya'    => cleanKarakter($this->input->post('biaya')),
+				'hari' 	   => $this->input->post('hari'),
+				'total'    => cleanKarakter($this->input->post('total'))
+			];
+			$this->db->where('id', $id); // Update the user with id = 1
+			$this->db->update('tb_lampiran_format2', $data);
+			return redirect(base_url('Lampiran/lamp2'));
+		}
+	}
+
+	function delete($lamp = '', $idx)
+	{
+		$id = dekrip($idx);
+		if ($lamp == 'lamp1') {
+		} else {
+			$this->db->delete('tb_lampiran_format2', ['id' => $id]);
+			redirect(base_url('Lampiran/lamp2'));
+		}
+	}
 }
