@@ -205,134 +205,88 @@ class Format2pdf extends CI_Controller
         $pdf->Cell(0, 7, number_format($get_spm['pph25'], 0, ',', '.'), 'B', 1);
 
 
+        $titik_panjang = "............................................................................................................";
+
         $pdf->SetFont('Arial', '', 8);
         $pdf->Cell(5, 10, '', 0, 1);
         $pdf->Cell(8, 7, 'NO', 1, 0, 'C');
-        $pdf->Cell(100, 7, 'DIVERIFIKASI OLEH', 1, 0, 'C');
-        $pdf->Cell(20, 7, 'PARAF', 1, 0, 'C');
-        $pdf->Cell(10, 5, '', 0, 0, 'C');
-        $pdf->Cell(0, 7, 'Diinput Pada SIMDA', 1, 1, 'C');
+        $pdf->Cell(120, 7, 'DIVERIFIKASI OLEH', 1, 0, 'C');
+        $pdf->Cell(39, 7, 'PARAF', 1, 1, 'C');
 
 
         $pdf->Cell(8, 5, '1.', 'LTR', 0, 'C');
-        $pdf->Cell(100, 5, $jabatan_verif . ' / ' . $pegawai_satu['nama'], 'LTR', 0);
-        $pdf->Cell(20, 5, '', 'LTR', 0, 'C');
-        $pdf->Cell(10, 5, '', 0, 0, 'C');
-        $pdf->Cell(8, 5, 'S', 'LTR', 0, 'C');
-        $pdf->Cell(0, 5, '', 'LTR', 1, 'C');
+        $pdf->Cell(120, 5, $jabatan_verif . ' / ' . $pegawai_satu['nama'], 'LTR', 0);
+        $pdf->Cell(39, 5, '', 'LTR', 1, 'C');
 
         $pdf->Cell(8, 5, '', 'LR', 0, 'C');
         $pdf->Cell(20, 5, 'Catatan :', 'L', 0);
-        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
-        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
-        $pdf->Cell(10, 5, '', 0, 0, 'C');
-        $pdf->Cell(8, 5, 'P', 'LR', 0, 'C');
-        $pdf->Cell(0, 5, '', 'LR', 1, 'C');
+        $pdf->Cell(100, 5, $titik_panjang, 'R', 0);
+        $pdf->Cell(39, 5, '', 'LR', 1, 'C');
 
         $pdf->Cell(8, 5, '', 'LR', 0, 'C');
         $pdf->Cell(20, 5, '', 'L', 0);
-        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
-        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
-        $pdf->Cell(10, 5, '', 0, 0, 'C');
-        $pdf->Cell(8, 5, 'J', 'LBR', 0, 'C');
-        $pdf->Cell(0, 5, '', 'LBR', 1, 'C');
+        $pdf->Cell(100, 5, $titik_panjang, 'R', 0);
+        $pdf->Cell(39, 5, '', 'LR', 1, 'C');
 
         $pdf->Cell(8, 5, '', 'LR', 0, 'C');
         $pdf->Cell(20, 5, '', 'L', 0);
-        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
-        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
-        $pdf->Cell(10, 5, '', 0, 0, 'C');
-        $pdf->Cell(8, 5, 'S', 'LTR', 0, 'C');
-        $pdf->Cell(0, 5, '', 'LTR', 1, 'C');
+        $pdf->Cell(100, 5, $titik_panjang, 'R', 0);
+        $pdf->Cell(39, 5, '', 'LR', 1, 'C');
 
         $pdf->Cell(8, 2, '', 'LBR', 0, 'C');
         $pdf->Cell(20, 2, '', 'LB', 0);
-        $pdf->Cell(80, 2, '', 'RB', 0);
-        $pdf->Cell(20, 2, '', 'LBR', 0, 'C');
-        $pdf->Cell(10, 2, '', 0, 0, 'C');
-        $pdf->Cell(8, 2, 'P', 'LR', 0, 'C');
-        $pdf->Cell(0, 2, '', 'LR', 1, 'C');
+        $pdf->Cell(100, 2, '', 'RB', 0);
+        $pdf->Cell(39, 2, '', 'LBR', 1, 'C');
 
 
         $pdf->Cell(8, 5, '2.', 'LTR', 0, 'C');
-        $pdf->Cell(100, 5, '                                /                   ', 'LTR', 0);
-        $pdf->Cell(20, 5, '', 'LTR', 0, 'C');
-        $pdf->Cell(10, 5, '', 0, 0, 'C');
-        $pdf->Cell(8, 5, 'P', 'LBR', 0, 'C');
-        $pdf->Cell(0, 5, '', 'LBR', 1, 'C');
+        $pdf->Cell(120, 5, '                                /                   ', 'LTR', 0);
+        $pdf->Cell(39, 5, '', 'LTR', 1, 'C');
 
         $pdf->Cell(8, 5, '', 'LR', 0, 'C');
         $pdf->Cell(20, 5, 'Catatan :', 'L', 0);
-        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
-        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
-        $pdf->Cell(10, 5, '', 0, 0, 'C');
-        $pdf->Cell(8, 5, 'S', 'LTR', 0, 'C');
-        $pdf->Cell(0, 5, '', 'LTR', 1, 'C');
+        $pdf->Cell(100, 5, $titik_panjang, 'R', 0);
+        $pdf->Cell(39, 5, '', 'LR', 1, 'C');
 
         $pdf->Cell(8, 5, '', 'LR', 0, 'C');
         $pdf->Cell(20, 5, '', 'L', 0);
-        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
-        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
-        $pdf->Cell(10, 5, '', 0, 0, 'C');
-        $pdf->Cell(8, 5, 'P', 'LR', 0, 'C');
-        $pdf->Cell(0, 5, '', 'LR', 1, 'C');
+        $pdf->Cell(100, 5, $titik_panjang, 'R', 0);
+        $pdf->Cell(39, 5, '', 'LR', 1, 'C');
 
         $pdf->Cell(8, 5, '', 'LR', 0, 'C');
         $pdf->Cell(20, 5, '', 'L', 0);
-        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
-        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
-        $pdf->Cell(10, 5, '', 0, 0, 'C');
-        $pdf->Cell(8, 5, 'M', 'LBR', 0, 'C');
-        $pdf->Cell(0, 5, '', 'LBR', 1, 'C');
+        $pdf->Cell(100, 5, $titik_panjang, 'R', 0);
+        $pdf->Cell(39, 5, '', 'LR', 1, 'C');
 
         $pdf->Cell(8, 2, '', 'LBR', 0, 'C');
         $pdf->Cell(20, 2, '', 'LB', 0);
-        $pdf->Cell(80, 2, '', 'RB', 0);
-        $pdf->Cell(20, 2, '', 'LBR', 0, 'C');
-        $pdf->Cell(10, 2, '', 0, 0, 'C');
-        $pdf->Cell(8, 2, '', 'LTR', 0, 'C');
-        $pdf->Cell(0, 2, '', 'LTR', 1, 'C');
+        $pdf->Cell(100, 2, '', 'RB', 0);
+        $pdf->Cell(39, 2, '', 'LBR', 1, 'C');
 
 
         $pdf->Cell(8, 5, '3.', 'LTR', 0, 'C');
-        $pdf->Cell(100, 5, '                                 /                   ', 'LTR', 0);
-        $pdf->Cell(20, 5, '', 'LTR', 0, 'C');
-        $pdf->Cell(10, 5, '', 0, 0, 'C');
-        $pdf->Cell(8, 5, 'S', 'LR', 0, 'C');
-        $pdf->Cell(0, 5, '', 'LR', 1, 'C');
+        $pdf->Cell(120, 5, '                                 /                   ', 'LTR', 0);
+        $pdf->Cell(39, 5, '', 'LTR', 1, 'C');
 
         $pdf->Cell(8, 5, '', 'LR', 0, 'C');
         $pdf->Cell(20, 5, 'Catatan :', 'L', 0);
-        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
-        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
-        $pdf->Cell(10, 5, '', 0, 0, 'C');
-        $pdf->Cell(8, 5, 'P', 'LR', 0, 'C');
-        $pdf->Cell(0, 5, '', 'LR', 1, 'C');
+        $pdf->Cell(100, 5, $titik_panjang, 'R', 0);
+        $pdf->Cell(39, 5, '', 'LR', 1, 'C');
 
         $pdf->Cell(8, 5, '', 'LR', 0, 'C');
         $pdf->Cell(20, 5, '', 'L', 0);
-        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
-        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
-        $pdf->Cell(10, 5, '', 0, 0, 'C');
-        $pdf->Cell(8, 5, '2', 'LR', 0, 'C');
-        $pdf->Cell(0, 5, '', 'LR', 1, 'C');
+        $pdf->Cell(100, 5, $titik_panjang, 'R', 0);
+        $pdf->Cell(39, 5, '', 'LR', 1, 'C');
 
         $pdf->Cell(8, 5, '', 'LR', 0, 'C');
         $pdf->Cell(20, 5, '', 'L', 0);
-        $pdf->Cell(80, 5, '...............................................................................', 'R', 0);
-        $pdf->Cell(20, 5, '', 'LR', 0, 'C');
-        $pdf->Cell(10, 5, '', 0, 0, 'C');
-        $pdf->Cell(8, 5, 'D', 'LBR', 0, 'C');
-        $pdf->Cell(0, 5, '', 'LBR', 1, 'C');
+        $pdf->Cell(100, 5, $titik_panjang, 'R', 0);
+        $pdf->Cell(39, 5, '', 'LR', 1, 'C');
+
         $pdf->Cell(8, 4, '', 'LBR', 0, 'C');
         $pdf->Cell(20, 4, '', 'LB', 0);
-        $pdf->Cell(80, 4, '', 'RB', 0);
-        $pdf->Cell(20, 4, '', 'LBR', 0, 'C');
-        $pdf->Cell(10, 4, '', 0, 0, 'C');
-        $pdf->SetFillColor(200, 220, 255);
-        $pdf->Cell(8, 4, '', 'LBR', 0, 'C', true);
-        $pdf->SetFillColor(200, 220, 255);
-        $pdf->Cell(0, 4, '', 'LBR', 1, 'C', true);
+        $pdf->Cell(100, 4, '', 'RB', 0);
+        $pdf->Cell(39, 4, '', 'LBR', 1, 'C');
 
         $pdf->SetFont('Arial', 'UI', 8);
         $pdf->Cell(0, 7, '', 0, 1);
@@ -377,7 +331,7 @@ class Format2pdf extends CI_Controller
         $pdf->Cell(50, 6, 'Untuk Pembayaran', 0, 0);
         $pdf->SetFont('Arial', '', 11);
         $pdf->Cell(4, 6, ':', 0, 0);
-        $pdf->MultiCell(0, 6, strtoupper($get_belanja['uraian_belanja']) . ' PADA SUB KEGIATAN ' . strtoupper($get_sub_kegiatan['nama_jenis_sub_kegiatan']) . ' (DAU)', 0);
+        $pdf->MultiCell(0, 6, strtoupper($get_belanja['uraian_belanja']) . ' PADA SUB KEGIATAN ' . strtoupper($get_sub_kegiatan['nama_jenis_sub_kegiatan']), 0);
         $pdf->Cell(0, 15, '', 0, 1);
 
         $pdf->SetFont('Arial', 'I', 11);
@@ -468,7 +422,7 @@ class Format2pdf extends CI_Controller
         $pdf->Cell(50, 6, 'Yakni', 0, 0);
         $pdf->SetFont('Arial', '', 9);
         $pdf->Cell(4, 6, ':', 0, 0);
-        $pdf->MultiCell(0, 6, strtoupper($get_belanja['uraian_belanja']) . ' PADA SUB KEGIATAN ' . strtoupper($get_sub_kegiatan['nama_jenis_sub_kegiatan']) . ' (DAU)', 0);
+        $pdf->MultiCell(0, 6, strtoupper($get_belanja['uraian_belanja']) . ' PADA SUB KEGIATAN ' . strtoupper($get_sub_kegiatan['nama_jenis_sub_kegiatan']), 0);
         $pdf->Cell(0, 6, '', 0, 1);
 
         $pdf->SetFont('Arial', 'I', 11);
@@ -547,6 +501,138 @@ class Format2pdf extends CI_Controller
         $table->easyCell("");
         $table->easyCell("");
         $table->easyCell("");
+        $table->easyCell("");
+        $table->easyCell("");
+        $table->easyCell("");
+        $table->printRow(true);
+
+        $table->rowStyle('border:LBR');
+        $table->easyCell("");
+        $table->easyCell("");
+        $table->easyCell("");
+        $table->easyCell("");
+        $table->easyCell("");
+        $table->easyCell("");
+        $table->easyCell(" ");
+        $table->printRow(true);
+
+
+
+        $table->endTable(10);
+
+
+
+        // KWITANSI
+
+
+        $pdf->SetLeftMargin(23);
+        $pdf->SetRightMargin(23);
+        $pdf->SetTopMargin(23);
+        $pdf->AddPage();
+
+        $pdf->SetFont('Times', 'BU', 14);
+        $pdf->Cell(0, 6, 'K W I T A N S I', 0, 1, 'C');
+
+        $pdf->Cell(0, 6, '', 0, 1);
+
+        $pdf->SetFont('Arial', 'I', 11);
+        $pdf->Cell(50, 6, 'Sudah terima dari', 0, 0);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(4, 6, ':', 0, 0);
+        $pdf->MultiCell(0, 6, 'BENDAHARA UMUM DAERAH KAB. BONE BOLANGO', 0);
+        $pdf->Cell(0, 2, '', 0, 1);
+
+        $pdf->SetFont('Arial', 'I', 11);
+        $pdf->Cell(50, 6, 'Sejumlah Uang', 0, 0);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(4, 6, ':', 0, 0);
+        $pdf->MultiCell(0, 6, terbilang($get_spm['nilai']), 0);
+        $pdf->Cell(0, 2, '', 0, 1);
+
+        $pdf->SetFont('Arial', 'I', 11);
+        $pdf->Cell(50, 6, 'Yakni', 0, 0);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(4, 6, ':', 0, 0);
+        $pdf->MultiCell(0, 6, strtoupper($get_belanja['uraian_belanja']) . ' PADA SUB KEGIATAN ' . strtoupper($get_sub_kegiatan['nama_jenis_sub_kegiatan']), 0);
+        $pdf->Cell(0, 6, '', 0, 1);
+
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(0, 8, 'Suwawa,        ' . tanggalIndonesiaTanpaDay($tanggalskrg), 0, 1, 'R');
+
+        $pdf->Cell(50, 4, '', 0, 0, 'C');
+        $pdf->Cell(70, 4, '', 0, 0, 'C');
+        $pdf->Cell(0, 4, 'Yang Menerima', 0, 1, 'C');
+
+        $pdf->Cell(50, 4, '', 0, 0, 'C');
+        $pdf->Cell(70, 4, '', 0, 0, 'C');
+        $pdf->Cell(0, 4, 'BENDAHARA PENGELUARAN', 0, 1, 'C');
+        $pdf->Cell(0, 20, '', 0, 1, 'C');
+
+        $pdf->SetDrawColor(0, 0, 0);
+        $pdf->SetFont('Arial', 'I', 11);
+        $pdf->Cell(25, 8, 'Terbilang', 'B', 0);
+        $pdf->SetFont('Arial', '', 14);
+        $pdf->Cell(15, 8, 'Rp', 'B', 0);
+        $pdf->Cell(35, 8, number_format($get_spm['nilai']), 'B', 0, 'R');
+        $pdf->Cell(45, 4, '', 0, 0, 'C');
+        $pdf->SetFont('Arial', 'U', 9);
+        $pdf->Cell(0, 4, strtoupper($pegawai_tiga['nama']), 0, 1, 'C');
+
+        $pdf->Cell(50, 4, '', 0, 0, 'C');
+        $pdf->Cell(70, 4, '', 0, 0, 'C');
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(0, 4, strtoupper($pegawai_tiga['nip']), 0, 1, 'C');
+
+
+
+        $pdf->Cell(0, 4, '', 0, 1);
+
+
+        $pdf->SetFont('helvetica', '', 8);
+        $pdf->AddFont('FontUTF8', '', 'Arimo-Regular.php');
+        $pdf->AddFont('FontUTF8', 'B', 'Arimo-Bold.php');
+        $pdf->AddFont('FontUTF8', 'I', 'Arimo-Italic.php');
+        $pdf->AddFont('FontUTF8', 'BI', 'Arimo-BoldItalic.php');
+
+        $table = new easyTable($pdf, '{50, 30, 40, 40}', 'width:220; border-color:#000000; font-size:8; border:1; paddingY:2;');
+
+        $table->rowStyle('align:{CCCCCC}; font-style:B');
+        $table->easyCell("Tanda Tangan Setuju Membayar", 'colspan:1; align:C');
+        $table->easyCell("Pembebanan", 'colspan:1; align:C');
+        $table->easyCell("S.P.D", 'colspan:1; align:C');
+        $table->easyCell("Di SPM Kan", 'colspan:1; align:C');
+        $table->printRow();
+
+        $table->rowStyle('align:{CC}; border:LTR;');
+        $table->easyCell(strtoupper($jabatan_verif), 'align:C');
+        $table->easyCell($get_belanja['no_rek'], 'align:C');
+        $table->easyCell("Tggl");
+        $table->easyCell("Tggl");
+        $table->printRow(true);
+
+        $table->rowStyle('border:LR');
+        $table->easyCell("");
+        $table->easyCell("");
+        $table->easyCell("");
+        $table->easyCell("");
+        $table->printRow(true);
+
+        $table->rowStyle('border:LR');
+        $table->easyCell("");
+        $table->easyCell($get_belanja['nama_rek'], 'align:C');
+        $table->easyCell("No.");
+        $table->easyCell("");
+        $table->printRow(true);
+
+        $table->rowStyle('border:LR');
+        $table->easyCell(strtoupper($pegawai_satu['nama']), 'align:C; font-size:7; font-style:U');
+        $table->easyCell("");
+        $table->easyCell("");
+        $table->easyCell("");
+        $table->printRow(true);
+
+        $table->rowStyle('border:LR');
+        $table->easyCell(strtoupper($pegawai_satu['nip']), 'align:C');
         $table->easyCell("");
         $table->easyCell("");
         $table->easyCell("");
