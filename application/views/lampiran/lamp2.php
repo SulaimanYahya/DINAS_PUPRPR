@@ -109,7 +109,7 @@
 											<label for="rekening">Rekening</label>
 											<select class="form-control form-control-sm" id="rekening" name="rekening">
 												<?php foreach ($rekening as $r) : ?>
-													<option value="<?= $r->id_rek ?>" data-chained="<?= $r->id_jenis_tagihan ?>"><?= $r->nama_rek ?></option>
+													<option value="<?= $r->id_kp_belanja ?>" data-chained="<?= $r->id_jenis_tagihan ?>"><?= $r->nama_rek ?></option>
 												<?php endforeach; ?>
 											</select>
 										</div>
@@ -119,7 +119,7 @@
 											<label for="Uraian">Uraian</label>
 											<select class="form-control form-control-sm" id="uraian" name="id_belanja">
 												<?php foreach ($belanja as $r) : ?>
-													<option value="<?= $r->uraian_belanja ?>" data-chained="<?= $r->id_rek ?>"><?= $r->uraian_belanja ?></option>
+													<option value="<?= $r->uraian_belanja ?>" data-chained="<?= $r->id_kp_belanja ?>"><?= $r->uraian_belanja ?></option>
 												<?php endforeach; ?>
 											</select>
 										</div>

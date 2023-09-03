@@ -23,9 +23,10 @@ class Lampiran extends CI_Controller
 			'data'    		=> getData('tb_lampiran_format2'),
 			'pegawai' 		=> $this->db->get('tb_pegawai')->result(),
 			'jenis_tagihan' => $this->db->get('tb_jenis_tagihan')->result(),
-			'rekening'      => $this->db->get('tb_rek')->result(),
+			'rekening' 		=> $this->db->join('tb_kp_belanja', 'tb_kp_belanja.id_rek=tb_rek.id_rek')->group_by('tb_rek.id_rek')->get('tb_rek')->result(),
 			'belanja'       => $this->db->get('tb_belanja')->result(),
 		];
+
 		$this->load->view('lampiran/lamp2', $data);
 	}
 

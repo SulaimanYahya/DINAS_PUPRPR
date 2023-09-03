@@ -119,16 +119,12 @@ function getData($table)
 	return $ci->db->get($table)->result();
 }
 
-function masterGetId($select = '', $table, $where, $id)
+function masterGetId($select, $table, $where, $id)
 {
 	$ci = get_instance();
 	$ci->db->select($select);
 	$data = $ci->db->get_where($table, [$where => $id])->row_array();
-	if ($select == '*') {
-		return $data;
-	} else {
-		return $data[$select];
-	}
+	return $data[$select];
 }
 
 function getProgram($selected = '')
