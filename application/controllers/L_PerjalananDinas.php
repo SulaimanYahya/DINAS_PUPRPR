@@ -31,6 +31,7 @@ class L_PerjalananDinas extends CI_Controller
 			$pdf->SetFont('Arial', '', 9);
 			$pdf->Cell(0, 8, '', 0, 1, 'C');
 
+			$this->db->join('tb_pegawai', 'tb_pegawai.id=tb_lampiran_format2.id_pegawai');
 			$pegawai = $this->db->get_where('tb_lampiran_format2')->result();
 
 			foreach ($pegawai as $rowpg) {
@@ -52,11 +53,13 @@ class L_PerjalananDinas extends CI_Controller
 
 			$pdf->Cell(0, 8, '', 0, 1, 'C');
 
+			$this->db->join('tb_pegawai', 'tb_pegawai.id=tb_lampiran_format2.id_pegawai');
 			$this->db->select('*');
 			$this->db->select('SUM(total) as total_uang');
 			$this->db->group_by('golongan');
 			$totals = $this->db->get_where('tb_lampiran_format2')->row_array();
 
+			$this->db->join('tb_pegawai', 'tb_pegawai.id=tb_lampiran_format2.id_pegawai');
 			$this->db->select('*');
 			$this->db->select('SUM(total) as total_uang, COUNT(*) as total_pg');
 			$this->db->group_by('golongan');
