@@ -76,7 +76,7 @@
 			</div>
 
 			<div class="text-center">
-				<a href="javascript:void(0);" onclick="window.close();" class="btn btn-danger btn-sm mt-5">Kembali</a>
+				<a href="javascript:void(0);" onclick="window.close();" class="btn btn-danger btn-sm mt-5"><i class="fas fa-times-circle"></i> Close</a>
 			</div>
 			<!-- MODAL CETAK -->
 			<div class="modal fade" id="cetak" tabindex="-1" aria-labelledby="cetakLabel" aria-hidden="true">
