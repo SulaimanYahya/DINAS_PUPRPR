@@ -86,12 +86,12 @@
 							</button>
 						</div>
 						<form method="POST" action="<?= base_url('L_PerjalananDinas') ?>" target="_blank">
-							<input type="hidden" name="id_belanja" id="inputData">
+							<input type="text" name="id_belanjax" id="inputData" value="">
 							<div class="modal-body">
 								<div class="form-group row">
 									<label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
 									<div class="col-sm-10 row">
-										<input type="date" class="form-control form-control-sm w-25" name="tanggal" id="tanggal" autocomplete="off">
+										<input type="date" class="form-control form-control-sm w-25" name="tanggal" id="tanggal" autocomplete="off" required>
 									</div>
 								</div>
 								<div class="row">
