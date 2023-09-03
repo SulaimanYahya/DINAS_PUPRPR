@@ -12,11 +12,11 @@ class L_PerjalananDinas extends CI_Controller
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$tanggal = $_POST["tanggal"];
 			$tujuan = $_POST["tujuan"];
-			$id_belanja = $_POST["id_belanja"];
+			$id_belanja = $_POST["id_belanjax"];
 
 			$this->session->set_userdata('tanggal', $tanggal);
 			$this->session->set_userdata('tujuan', $tujuan);
-			$this->session->set_userdata('id_belanja', $id_belanja);
+			$this->session->set_userdata('id_belanjax', $id_belanja);
 
 			$this->db->join('tb_kp_belanja', 'tb_kp_belanja.id_kp_belanja=tb_belanja.id_kp_belanja');
 			$this->db->join('tb_renja_sub', 'tb_renja_sub.id_renja_sub=tb_kp_belanja.id_renja_sub');
