@@ -25,7 +25,7 @@
 					<td>
 						<a href="#" class="text-decoration-none badge badge-success">Ubah</a>
 						<a href="#" class="text-decoration-none badge badge-primary">Detail</a>
-						<a href="<?= base_url('Daftar_Tagihan/delete/' . enkrip($r->id)) ?>" class="text-decoration-none badge badge-danger">Hapus</a>
+						<a href="<?= base_url('Daftar_Tagihan/delete/' . enkrip($r->id) . '/F1') ?>" class="text-decoration-none badge badge-danger">Hapus</a>
 						<a href="<?= base_url('Format1pdf/cetak/') . $r->kode_spm; ?>" class="text-decoration-none badge badge-secondary" target="_blank">Cetak</a>
 					</td>
 				</tr>

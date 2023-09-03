@@ -123,7 +123,7 @@
 	</li>
 
 	<li class="nav-item <?php
-						if ($title == 'Daftar Tagihan') {
+						if ($title == 'Master Data') {
 							echo "active";
 						}
 						?> <?php
@@ -131,12 +131,28 @@
 								echo "d-none";
 							}
 							?>">
-		<a class="nav-link <?php if ($title == 'Daftar Tagihan') {
-								echo "bghover";
-							} ?>" href="<?= base_url('daftar_tagihan'); ?>">
+		<a class="nav-link" href="#" data-toggle="collapse" data-target="#daftar_tagihan" aria-expanded="true" aria-controls="daftar_tagihan">
 			<i class="fas fa-fw fa-book"></i>
-			<span>Daftar Tagihan</span></a>
+			<span>Daftar Tagihan</span>
+		</a>
+		<!--  langsung show taru di clas colapse -->
+		<div id="daftar_tagihan" class="collapse <?php
+													if ($title == 'Rekening' || $title == 'Satuan' || $title == 'Responsibility' || $title == 'Akun' || $title == 'Bidang' || $title == 'Potongan' || $title == 'Sasaran' || $title == 'Program' || $title == 'Kegiatan' || $title == 'Sub Kegiatan' || $title == 'Jenis Tagihan') {
+														echo "show";
+													}
+													?>" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
 
+				<a class="collapse-item <?php if ($title == 'Format 1') {
+											echo "bghover";
+										} ?>" href="<?= base_url('Daftar_Tagihan/F1'); ?>" target="_blank"><i class="fas fa-file-invoice-dollar"></i>&nbsp;Format 1</a>
+
+				<a class="collapse-item <?php if ($title == 'Format 2') {
+											echo "bghover";
+										} ?>" href="<?= base_url('Daftar_Tagihan/F2'); ?>" target="_blank"><i class="fas fa-file-invoice-dollar"></i>&nbsp;Format 2</a>
+
+			</div>
+		</div>
 	</li>
 
 

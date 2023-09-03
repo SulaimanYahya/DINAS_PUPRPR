@@ -91,6 +91,38 @@
 										<input type="date" class="form-control form-control-sm w-25" name="tanggal" id="tanggal" autocomplete="off">
 									</div>
 								</div>
+								<div class="row">
+									<div class="col-4">
+										<div class="form-group">
+											<label for="jenis_tagihan">Jenis Tagihan</label>
+											<select class="form-control form-control-sm" id="jenis_tagihan" name="jenis_tagihan">
+												<?php foreach ($jenis_tagihan as $r) : ?>
+													<option value="<?= $r->id_jenis_tagihan ?>"><?= $r->id_jenis_tagihan . '. ' . $r->nama_jenis_tagihan ?></option>
+												<?php endforeach; ?>
+											</select>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group">
+											<label for="rekening">Rekening</label>
+											<select class="form-control form-control-sm" id="rekening" name="rekening">
+												<?php foreach ($rekening as $r) : ?>
+													<option value="<?= $r->id_rek ?>" data-chained="<?= $r->id_jenis_tagihan ?>"><?= $r->nama_rek ?></option>
+												<?php endforeach; ?>
+											</select>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group">
+											<label for="Uraian">Uraian</label>
+											<select class="form-control form-control-sm" id="uraian" name="id_belanja">
+												<?php foreach ($belanja as $r) : ?>
+													<option value="<?= $r->uraian_belanja ?>" data-chained="<?= $r->id_rek ?>"><?= $r->uraian_belanja ?></option>
+												<?php endforeach; ?>
+											</select>
+										</div>
+									</div>
+								</div>
 								<div class="form-group row">
 									<label for="tujuan" class="col-sm-2 col-form-label">Tujuan </label>
 									<div class="col-sm-10 row">
@@ -218,6 +250,7 @@
 			$('#table').DataTable();
 		});
 
+
 		function formatAndCalculate() {
 			// TAMBAH
 			const biaya = document.getElementById("biaya");
@@ -325,6 +358,7 @@
 					$('#id_pegawaix option').removeAttr('selected');
 					// Menambahkan atribut 'selected' pada elemen option yang sesuai
 					$('#id_pegawaix option[value="' + id_pegawai + '"]').attr('selected', 'selected');
+
 				});
 			});
 		});
@@ -350,8 +384,24 @@
 
 	<script src="<?= base_url('assets/'); ?>js/my_js.js"></script>
 	<script src="<?= base_url('assets/'); ?>selek2/js/select2.js"></script>
+	<script src="<?= base_url('assets/'); ?>js/jquery.chained.min.js"></script>
 
+	<script>
+		// FILE 'pembayaran/index.php'
+		$("#rekening").chained("#jenis_tagihan");
+		$("#uraian").chained("#rekening");
 
+		// Dapatkan elemen select dan textarea
+		var selectElem = document.getElementById('uraian');
+		var textareaElem = document.getElementById('tujuan');
+
+		// Tambahkan event listener ke elemen select
+		selectElem.addEventListener('click', function() {
+			// Set nilai textarea menjadi nilai yang dipilih dari select
+			textareaElem.value = selectElem.value;
+		});
+		textareaElem.setAttribute("readonly", "readonly");
+	</script>
 </body>
 
 </html>
