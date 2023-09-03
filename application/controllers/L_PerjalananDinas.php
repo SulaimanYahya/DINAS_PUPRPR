@@ -12,9 +12,18 @@ class L_PerjalananDinas extends CI_Controller
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$tanggal = $_POST["tanggal"];
 			$tujuan = $_POST["tujuan"];
+			$id_belanja = $_POST["id_belanja"];
 
 			$this->session->set_userdata('tanggal', $tanggal);
 			$this->session->set_userdata('tujuan', $tujuan);
+			$this->session->set_userdata('id_belanja', $id_belanja);
+
+			$this->db->join('tb_kp_belanja', 'tb_kp_belanja.id_kp_belanja=tb_belanja.id_kp_belanja');
+			$this->db->join('tb_renja_sub', 'tb_renja_sub.id_renja_sub=tb_kp_belanja.id_renja_sub');
+			$this->db->join('tb_sub_kegiatan', 'tb_sub_kegiatan.id_sub_kegiatan=tb_renja_sub.id_sub_kegiatan');
+			$this->db->join('tb_jenis_sub_kegiatan', 'tb_jenis_sub_kegiatan.id_jenis_sub_kegiatan=tb_sub_kegiatan.id_jenis_sub_kegiatan');
+			$this->db->join('tb_rek', 'tb_rek.id_rek=tb_kp_belanja.id_rek');
+			$get_sub = $this->db->get_where('tb_belanja', ['tb_belanja.id_belanja' => $id_belanja])->row_array();
 
 			$pdf = new exFPDF('p', 'mm', array(210, 330));
 			$pdf->SetTitle('PERJALANAN DINAS');
@@ -49,7 +58,7 @@ class L_PerjalananDinas extends CI_Controller
 			$pdf->Cell(0, 5, strtoupper($tanggal), 0, 1);
 			$pdf->Cell(50, 5, 'Tujuan', 0, 0);
 			$pdf->Cell(10, 5, ':', 0, 0);
-			$pdf->MultiCell(0, 5, strtoupper($tujuan), 0);
+			$pdf->MultiCell(0, 5, strtoupper($tujuan . ' yang dipakai pada ' . $get_sub['nama_jenis_sub_kegiatan']), 0);
 
 			$pdf->Cell(0, 8, '', 0, 1, 'C');
 
