@@ -86,6 +86,7 @@
 							</button>
 						</div>
 						<form method="POST" action="<?= base_url('L_PerjalananDinas') ?>" target="_blank">
+							<input type="hidden" name="id_belanja" id="inputData">
 							<div class="modal-body">
 								<div class="form-group row">
 									<label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
@@ -119,7 +120,7 @@
 											<label for="Uraian">Uraian</label>
 											<select class="form-control form-control-sm" id="uraian" name="id_belanja">
 												<?php foreach ($belanja as $r) : ?>
-													<option value="<?= $r->uraian_belanja ?>" data-chained="<?= $r->id_kp_belanja ?>"><?= $r->uraian_belanja ?></option>
+													<option value="<?= $r->uraian_belanja ?>" data-idbelanja="<?= $r->id_belanja ?>" data-chained="<?= $r->id_kp_belanja ?>"><?= $r->uraian_belanja ?></option>
 												<?php endforeach; ?>
 											</select>
 										</div>
@@ -401,8 +402,25 @@
 		selectElem.addEventListener('click', function() {
 			// Set nilai textarea menjadi nilai yang dipilih dari select
 			textareaElem.value = selectElem.value;
+
 		});
 		textareaElem.setAttribute("readonly", "readonly");
+
+		// Mendapatkan referensi ke elemen select dan input
+		var selectElement = document.getElementById('uraian');
+		var inputData = document.getElementById('inputData');
+
+		// Menambahkan event listener ke elemen select
+		selectElement.addEventListener('change', function() {
+			// Mendapatkan opsi yang dipilih
+			var selectedOption = selectElement.options[selectElement.selectedIndex];
+
+			// Mendapatkan nilai atribut data-nama dari opsi yang dipilih
+			var dataNama = selectedOption.getAttribute('data-idbelanja');
+
+			// Menampilkan nilai atribut di elemen input
+			inputData.value = dataNama;
+		});
 	</script>
 </body>
 
