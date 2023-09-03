@@ -30,9 +30,7 @@ class Lampiran extends CI_Controller
 		if ($lamp == 'lamp1') {
 		} else {
 			$data = [
-				'nama' => $this->input->post("nama"),
-				'jabatan' => $this->input->post("jabatan"),
-				'golongan' => $this->input->post("golongan"),
+				'id_pegawai' => $this->input->post("id_pegawai"),
 				'biaya' => cleanKarakter($this->input->post("biaya")),
 				'hari' => $this->input->post("hari"),
 				'total' => $this->input->post("total"),

@@ -54,13 +54,13 @@
 						<?php foreach ($data as $r) : ?>
 							<tr>
 								<td><?= $no++ ?></td>
-								<td><?= $r->nama ?></td>
-								<td><?= $r->jabatan ?></td>
-								<td><?= $r->golongan ?></td>
+								<td><?= masterGetId('nama', 'tb_pegawai', 'id', $r->id_pegawai) ?></td>
+								<td><?= masterGetId('jabatan', 'tb_pegawai', 'id', $r->id_pegawai) ?></td>
+								<td><?= masterGetId('golongan', 'tb_pegawai', 'id', $r->id_pegawai) ?></td>
 								<td><?= 'Rp. ' . number_format($r->biaya) ?></td>
 								<td><?= $r->hari . " Hari" ?></td>
 								<td>
-									<a href="#" class="text-decoration-none badge badge-success" data-toggle="modal" data-target="#editData" data-id="<?= enkrip($r->id) ?>" data-nama="<?= $r->nama ?>" data-jabatan="<?= $r->jabatan ?>" data-golongan="<?= $r->golongan ?>" data-biaya="<?= $r->biaya ?>" data-hari="<?= $r->hari ?>" data-total="<?= $r->total ?> id=" edit">
+									<a href="#" class="text-decoration-none badge badge-success" data-toggle="modal" data-target="#editData" data-id="<?= enkrip($r->id) ?>" data-id_pegawai="<?= $r->id_pegawai ?>" data-biaya="<?= $r->biaya ?>" data-hari="<?= $r->hari ?>" data-total="<?= $r->total ?>" id="edit">
 										<i class="fas fa-fw fa-edit"></i>
 									</a>
 									<a href="<?= base_url('Lampiran/delete/lamp2/' . enkrip($r->id)) ?>" class="text-decoration-none badge badge-danger" data-toggle="tooltip" data-placement="top" title="Hapus Data">
@@ -121,24 +121,12 @@
 								<div class="form-group row">
 									<label for="nama" class="col-sm-2 col-form-label">Nama</label>
 									<div class="col-sm-10 row">
-										<input type="text" class="form-control form-control-sm" name="nama" id="nama" autocomplete="off">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label for="jabatan" class="col-sm-2 col-form-label">Jabatan</label>
-									<div class="col-sm-10 row">
-										<input type="text" class="form-control form-control-sm" name="jabatan" id="jabatan" autocomplete="off">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label for="golongan" class="col-sm-2 col-form-label">Golongan</label>
-									<div class="col-sm-10 row">
-										<select name="golongan" id="golongan" class="form-control form-control-sm">
-											<option value="I">Gol. I</option>
-											<option value="II">Gol. II</option>
-											<option value="III">Gol. III</option>
-											<option value="IV">Gol. IV</option>
-											<option value="PTT">PTT</option>
+										<select class="form-control form-control-sm" name="id_pegawai" id="id_pegawai">
+											<option value="">-Pilih-</option>
+											<?php $i = 1; ?>
+											<?php foreach ($pegawai as $r) : ?>
+												<option value="<?= $r->id ?>"><?= $i++ . '. ' . $r->nama ?></option>
+											<?php endforeach; ?>
 										</select>
 									</div>
 								</div>
@@ -186,24 +174,11 @@
 								<div class="form-group row">
 									<label for="nama" class="col-sm-2 col-form-label">Nama</label>
 									<div class="col-sm-10 row">
-										<input type="text" class="form-control form-control-sm" name="nama" id="namax" autocomplete="off">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label for="jabatan" class="col-sm-2 col-form-label">Jabatan</label>
-									<div class="col-sm-10 row">
-										<input type="text" class="form-control form-control-sm" name="jabatan" id="jabatanx" autocomplete="off">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label for="golongan" class="col-sm-2 col-form-label">Golongan</label>
-									<div class="col-sm-10 row">
-										<select name="golongan" id="golonganx" class="form-control form-control-sm">
-											<option value="I">Gol. I</option>
-											<option value="II">Gol. II</option>
-											<option value="III">Gol. III</option>
-											<option value="IV">Gol. IV</option>
-											<option value="PTT">PTT</option>
+										<select class="form-control form-control-sm" name="id_pegawai" id="id_pegawaix">
+											<?php $i = 1; ?>
+											<?php foreach ($pegawai as $r) : ?>
+												<option value="<?= $r->id ?>"><?= $i++ . '. ' . $r->nama ?></option>
+											<?php endforeach; ?>
 										</select>
 									</div>
 								</div>
@@ -336,24 +311,20 @@
 			editLinks.forEach(function(link) {
 				link.addEventListener('click', function() {
 					var id = this.getAttribute('data-id');
-					var nama = this.getAttribute('data-nama');
-					var jabatan = this.getAttribute('data-jabatan');
-					var golongan = this.getAttribute('data-golongan');
+					var id_pegawai = this.getAttribute('data-id_pegawai');
 					var biaya = this.getAttribute('data-biaya');
 					var hari = this.getAttribute('data-hari');
 					var total = this.getAttribute('data-total');
 
 					$('#idx').val(id);
-					$('#namax').val(nama);
-					$('#jabatanx').val(jabatan);
+					$('#id_pegawaix').val(id_pegawai);
 					$('#biayax').val(formatNumber(biaya));
 					$('#harix').val(hari);
 					$('#totalx').val(formatNumber(total));
 
-					$('#golonganx option').removeAttr('selected');
-
+					$('#id_pegawaix option').removeAttr('selected');
 					// Menambahkan atribut 'selected' pada elemen option yang sesuai
-					$('#golonganx option[value="' + golongan + '"]').attr('selected', 'selected');
+					$('#id_pegawaix option[value="' + id_pegawai + '"]').attr('selected', 'selected');
 				});
 			});
 		});
