@@ -656,6 +656,6 @@ class Format2pdf extends CI_Controller
 
 
 
-        $pdf->Output('I', 'Format1-' . time() . '.pdf');
+        $pdf->Output('I', 'Format2-' . time() . '.pdf');
     }
 }
