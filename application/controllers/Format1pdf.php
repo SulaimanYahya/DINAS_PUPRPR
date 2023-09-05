@@ -26,9 +26,9 @@ class Format1pdf extends CI_Controller
 		$pdf->SetFont('Arial', 'B', 10);
 		$pdf->Cell(0, 6, 'Alamat Jl. Makam Nani Wartabone Kec. Suwawa Kab. Bone Bolango', 0, 1, 'C');
 		$pdf->SetLineWidth(1);
-		$pdf->Line(23, 38, 180, 38);
+		$pdf->Line(23, 38, 187, 38);
 		$pdf->SetLineWidth(0);
-		$pdf->Line(23, 39, 180.3, 39);
+		$pdf->Line(23, 39, 187.3, 39);
 
 		$pdf->Cell(10, 8, '', 0, 1);
 		$pdf->SetFont('Arial', '', 11);
@@ -462,9 +462,9 @@ class Format1pdf extends CI_Controller
 		$pdf->SetFont('Arial', 'B', 10);
 		$pdf->Cell(0, 6, 'Alamat Jl. Makam Nani Wartabone Kec. Suwawa Kab. Bone Bolango', 0, 1, 'C');
 		$pdf->SetLineWidth(1);
-		$pdf->Line(23, 42, 180, 42);
+		$pdf->Line(23, 42, 187, 42);
 		$pdf->SetLineWidth(0);
-		$pdf->Line(23, 43, 180.3, 43);
+		$pdf->Line(23, 43, 187.3, 43);
 
 
 		$pdf->Cell(10, 8, '', 0, 1);
@@ -486,7 +486,6 @@ class Format1pdf extends CI_Controller
 		$pdf->Cell(5, 6, '3.', 0, 0);
 		$pdf->MultiCell(0, 6, 'Jumlah Belanja ' . $jenis_blnja . ' (' . $get_spm['jenis_spm'] . ') tersebut tidak akan dipergunakan untuk membiayai pengeluaran-pengeluaran menurut ketentuan yang berlaku harus dilakukan dengan pembayaran langsung.', 0);
 		$pdf->Cell(15, 6, '', 0, 1);
-		$pdf->Cell(13, 6, '', 0, 0);
 		$pdf->MultiCell(0, 6, '      Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan pengajuan SPP-LS SKPD Kami.', 0);
 		$pdf->Cell(10, 8, '', 0, 1);
 		$pdf->SetFont('Arial', '', 10);
@@ -527,9 +526,9 @@ class Format1pdf extends CI_Controller
 		$pdf->SetFont('Arial', 'B', 10);
 		$pdf->Cell(0, 6, 'Alamat Jl. Makam Nani Wartabone Kec. Suwawa Kab. Bone Bolango', 0, 1, 'C');
 		$pdf->SetLineWidth(1);
-		$pdf->Line(23, 42, 180, 42);
+		$pdf->Line(23, 42, 187, 42);
 		$pdf->SetLineWidth(0);
-		$pdf->Line(23, 43, 180.3, 43);
+		$pdf->Line(23, 43, 187.3, 43);
 
 		$pdf->Cell(10, 8, '', 0, 1);
 		$pdf->SetFont('Arial', 'BU', 11);
