@@ -1023,7 +1023,7 @@ class Format3pdf extends CI_Controller
         $pdf->Cell(90, 8, '', 0, 0);
         $pdf->Cell(0, 6, 'KEPALA DINAS', 0, 1, 'C');
         $pdf->Cell(10, 10, '', 0, 1);
-        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->SetFont('Arial', 'BU', 10);
         $pdf->Cell(35, 6, '', 0, 1);
         $pdf->Cell(90, 8, '', 0, 0);
 
