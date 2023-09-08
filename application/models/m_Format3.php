@@ -16,6 +16,7 @@ class m_Format3 extends CI_Model
 			'pptk'          => $this->input->post('pptk'),
 			'no_sppls'      => $this->input->post('no_sppls'),
 			'no_spm'        => $this->input->post('no_spm'),
+			'jenis_spm' 	=> $this->input->post('jenis_pembayaran'),
 			'tgl_spm'       => $this->input->post('tgl_spm'),
 			'jml_angg'      => $this->input->post('jml_angg'),
 			'nilai'         => cleanKarakter($this->input->post('nilai')),

@@ -253,11 +253,6 @@ class Homekeu extends CI_Controller
 		$this->db->join('tb_satuan', 'tb_satuan.id_satuan=tb_belanja.id_satuan');
 		$data['tagihan'] = $this->db->get_where('tb_belanja', ['id_kp_belanja' => $id])->result_array();
 
-		// $this->load->view('templates/header', $data);
-		// $this->load->view('templates/sidebar', $data);
-		// $this->load->view('templates/topbar', $data);
-		// $this->load->view('homekeu/tagihan', $data);
-		// $this->load->view('templates/footer');
 		$this->template->load('homekeu/tagihan', $data);
 	}
 }

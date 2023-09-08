@@ -15,7 +15,6 @@
 						<?= $uraian ?>
 					</h6>
 				</div>
-
 				<div class="row">
 					<div class="col-6">
 						<h6><strong>Yang Bertanda Tangan Kwitansi: </strong></h6>
