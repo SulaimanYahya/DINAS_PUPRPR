@@ -358,9 +358,9 @@ class Format2pdf extends CI_Controller
         $pdf->Cell(70, 4, strtoupper($pegawai_tiga['nama']), 0, 0, 'C');
         $pdf->Cell(0, 4, strtoupper($pegawai_dua['nama']), 0, 1, 'C');
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(50, 4, strtoupper($pegawai_satu['nip']), 0, 0, 'C');
-        $pdf->Cell(70, 4, strtoupper($pegawai_tiga['nip']), 0, 0, 'C');
-        $pdf->Cell(0, 4, strtoupper($pegawai_dua['nip']), 0, 1, 'C');
+        $pdf->Cell(50, 4, 'NIP.' . strtoupper($pegawai_satu['nip']), 0, 0, 'C');
+        $pdf->Cell(70, 4, 'NIP.' . strtoupper($pegawai_tiga['nip']), 0, 0, 'C');
+        $pdf->Cell(0, 4, 'NIP.' . strtoupper($pegawai_dua['nip']), 0, 1, 'C');
 
         $pdf->Cell(0, 20, '', 0, 1);
         $pdf->SetFont('Arial', 'BI', 12);
@@ -422,7 +422,7 @@ class Format2pdf extends CI_Controller
         $pdf->Cell(50, 6, 'Yakni', 0, 0);
         $pdf->SetFont('Arial', '', 9);
         $pdf->Cell(4, 6, ':', 0, 0);
-        $pdf->MultiCell(0, 6, strtoupper($get_belanja['uraian_belanja']) . ' PADA SUB KEGIATAN ' . strtoupper($get_sub_kegiatan['nama_jenis_sub_kegiatan']), 0);
+        $pdf->MultiCell(0, 6, strtoupper($get_belanja['uraian_belanja']) . ' PADA SUB KEGIATAN ' . strtoupper($get_sub_kegiatan['nama_jenis_sub_kegiatan']) . ' TAHUN ANGGARAN ' . $get_belanja['rs_tahun'], 0);
         $pdf->Cell(0, 6, '', 0, 1);
 
         $pdf->SetFont('Arial', 'I', 11);
@@ -447,9 +447,9 @@ class Format2pdf extends CI_Controller
         $pdf->Cell(70, 4, '', 0, 0, 'C');
         $pdf->Cell(0, 4, strtoupper($pegawai_dua['nama']), 0, 1, 'C');
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(50, 4, strtoupper($pegawai_tiga['nip']), 0, 0, 'C');
+        $pdf->Cell(50, 4, 'NIP.' . strtoupper($pegawai_tiga['nip']), 0, 0, 'C');
         $pdf->Cell(70, 4, '', 0, 0, 'C');
-        $pdf->Cell(0, 4, strtoupper($pegawai_dua['nip']), 0, 1, 'C');
+        $pdf->Cell(0, 4, 'NIP.' . strtoupper($pegawai_dua['nip']), 0, 1, 'C');
         $pdf->Cell(0, 6, '', 0, 1);
 
         $pdf->Cell(0, 4, 'MENYETUJUI', 0, 1, 'C');
@@ -458,7 +458,7 @@ class Format2pdf extends CI_Controller
         $pdf->SetFont('Arial', 'U', 9);
         $pdf->Cell(0, 4, strtoupper($pegawai_satu['nama']), 0, 1, 'C');
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(0, 4, strtoupper($pegawai_satu['nip']), 0, 1, 'C');
+        $pdf->Cell(0, 4, 'NIP.' . strtoupper($pegawai_satu['nip']), 0, 1, 'C');
         $pdf->Cell(0, 10, '', 0, 1);
 
         $pdf->SetFont('helvetica', '', 8);
@@ -553,7 +553,7 @@ class Format2pdf extends CI_Controller
         $pdf->Cell(50, 6, 'Yakni', 0, 0);
         $pdf->SetFont('Arial', '', 9);
         $pdf->Cell(4, 6, ':', 0, 0);
-        $pdf->MultiCell(0, 6, strtoupper($get_belanja['uraian_belanja']) . ' PADA SUB KEGIATAN ' . strtoupper($get_sub_kegiatan['nama_jenis_sub_kegiatan']), 0);
+        $pdf->MultiCell(0, 6, strtoupper($get_belanja['uraian_belanja']) . ' PADA SUB KEGIATAN ' . strtoupper($get_sub_kegiatan['nama_jenis_sub_kegiatan']) . ' TAHUN ANGGARAN ' . $get_belanja['rs_tahun'], 0);
         $pdf->Cell(0, 6, '', 0, 1);
 
         $pdf->SetFont('Arial', '', 9);
@@ -581,7 +581,7 @@ class Format2pdf extends CI_Controller
         $pdf->Cell(50, 4, '', 0, 0, 'C');
         $pdf->Cell(70, 4, '', 0, 0, 'C');
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(0, 4, strtoupper($pegawai_tiga['nip']), 0, 1, 'C');
+        $pdf->Cell(0, 4, 'NIP.' . strtoupper($pegawai_tiga['nip']), 0, 1, 'C');
 
 
 
@@ -632,7 +632,7 @@ class Format2pdf extends CI_Controller
         $table->printRow(true);
 
         $table->rowStyle('border:LR');
-        $table->easyCell(strtoupper($pegawai_satu['nip']), 'align:C');
+        $table->easyCell('NIP.' . strtoupper($pegawai_satu['nip']), 'align:C');
         $table->easyCell("");
         $table->easyCell("");
         $table->easyCell("");
@@ -656,6 +656,6 @@ class Format2pdf extends CI_Controller
 
 
 
-        $pdf->Output('I', 'Format1-' . time() . '.pdf');
+        $pdf->Output('I', 'Format2-' . time() . '.pdf');
     }
 }
