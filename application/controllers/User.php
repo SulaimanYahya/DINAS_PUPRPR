@@ -1,7 +1,7 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class User extends CI_Controller 
+class User extends CI_Controller
 {
 
 
@@ -12,7 +12,6 @@ class User extends CI_Controller
 			redirect('auth');
 		}
 	}
-
 
 	public function index()
 	{
@@ -39,13 +38,11 @@ class User extends CI_Controller
 		// $this->db->select('count(*) as total');
 		// $this->db->join('tb_prodi', 'tb_prodi.id_prodi=tb_mahasiswa.id_prodi');
 		// $data['untuk_mhs'] = $this->db->get_where('tb_mahasiswa')->result();
-		
+
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar', $data);
 		$this->load->view('templates/topbar', $data);
 		$this->load->view('user/index', $data);
 		$this->load->view('templates/footer');
-
 	}
-
-} 
+}
