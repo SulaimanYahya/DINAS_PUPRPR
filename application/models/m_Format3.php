@@ -7,6 +7,11 @@ class m_Format3 extends CI_Model
 		$this->db->set('kode', $kode);
 		$this->db->insert('tb_kode');
 
+		$id_belanja = $this->input->post('id_belanja');
+		$lalu = masterGetId('total_realisasi', 'tb_belanja', 'id_belanja', dekrip($id_belanja));
+		$sekarang = cleanKarakter($this->input->post('jml_diminta'));
+		$total_realisasi = $lalu + $sekarang;
+
 		$data = [
 			'id_belanja'    => dekrip($this->input->post('id_belanja')),
 			'bendahara'     => $this->input->post('bendahara'),
@@ -38,6 +43,14 @@ class m_Format3 extends CI_Model
 		];
 
 		$this->db->insert('tb_format3', $data);
+		if ($this->db->affected_rows() > 0) {
+			$this->db->where('id_belanja', dekrip($this->input->post('id_belanja'))); // Update the user with id = 1
+			$this->db->set('total_realisasi', $total_realisasi);
+			$this->db->update('tb_belanja');
+			return redirect(base_url('homekeu'));
+		} else {
+			echo "SISTEM GAGAL..!!";
+		}
 		return redirect(base_url('homekeu'));
 	}
 
