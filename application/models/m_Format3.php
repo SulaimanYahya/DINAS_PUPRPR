@@ -98,7 +98,20 @@ class m_Format3 extends CI_Model
 			'total_semua'     => cleanKarakter($this->input->post('total_semua')),
 			'kode_spm'        => $kode,
 			'status'          => 'PROCESS',
-			'rill_pp'     	  => cleanKarakter($this->input->post('rill_pp')),
+
+			'transport_qty1'   => cleanKarakter($this->input->post('transport_qty1')),
+			'transport_qty2'   => cleanKarakter($this->input->post('transport_qty2')),
+			'transport_qty3'   => cleanKarakter($this->input->post('transport_qty3')),
+			'transport_qty4'   => cleanKarakter($this->input->post('transport_qty4')),
+			'transport_jml1'   => cleanKarakter($this->input->post('transport_jml1')),
+			'transport_jml2'   => cleanKarakter($this->input->post('transport_jml2')),
+			'transport_jml3'   => cleanKarakter($this->input->post('transport_jml3')),
+			'transport_jml4'   => cleanKarakter($this->input->post('transport_jml4')),
+			'transport_hasil1' => cleanKarakter($this->input->post('transport_hasil1')),
+			'transport_hasil2' => cleanKarakter($this->input->post('transport_hasil2')),
+			'transport_hasil3' => cleanKarakter($this->input->post('transport_hasil3')),
+			'transport_hasil4' => cleanKarakter($this->input->post('transport_hasil4')),
+			'rill_pp'     	   => cleanKarakter($this->input->post('rill_pp')),
 		];
 
 		$this->db->insert('tb_lampiran_format3', $data);
