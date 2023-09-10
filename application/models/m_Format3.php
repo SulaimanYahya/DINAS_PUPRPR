@@ -129,6 +129,6 @@ class m_Format3 extends CI_Model
 		];
 
 		$this->db->insert('tb_lampiran_format3', $data);
-		return redirect(base_url('homekeu'));
+		return redirect(base_url('lampiran/lamp3'));
 	}
 }

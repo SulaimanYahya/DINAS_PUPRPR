@@ -224,7 +224,7 @@
 
 				<a class="collapse-item <?php if ($title == 'Lampiran 3') {
 											echo "bghover";
-										} ?>" href=""><i class="fas fa-file-invoice-dollar"></i></i>&nbsp;Lampiran 3</a>
+										} ?>" href="<?= base_url('lampiran/lamp3'); ?>"><i class="fas fa-file-invoice-dollar"></i></i>&nbsp;Lampiran 3</a>
 
 				<a class="collapse-item <?php if ($title == 'Lampiran 4') {
 											echo "bghover";
