@@ -281,7 +281,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form method="POST" action="<?= base_url('L_Format3') ?>" target="_blank">
+				<form class="text-gray-900" method="POST" action="<?= base_url('L_Format3') ?>" target="_blank">
 					<input type="hidden" name="id_belanjax" id="inputData" value="">
 					<div class="modal-body">
 						<div class="row">
