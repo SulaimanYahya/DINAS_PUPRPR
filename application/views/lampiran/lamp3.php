@@ -272,7 +272,7 @@
 	</div>
 
 	<!-- MODAL CETAK -->
-	<div class="modal fade" id="cetak" tabindex="-1" aria-labelledby="cetakLabel" aria-hidden="true">
+	<div class="modal fade text-gray-900" id="cetak" tabindex="-1" aria-labelledby="cetakLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -281,7 +281,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form class="text-gray-900" method="POST" action="<?= base_url('L_Format3') ?>" target="_blank">
+				<form method="POST" action="<?= base_url('L_Format3') ?>" target="_blank">
 					<input type="hidden" name="id_belanjax" id="inputData" value="">
 					<div class="modal-body">
 						<div class="row">
