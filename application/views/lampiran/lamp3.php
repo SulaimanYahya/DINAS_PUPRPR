@@ -33,9 +33,9 @@
 		<div class="pt-5 text-gray-900">
 			<label for=""><u><strong>Lampiran:</strong> <?= $title ?></u></label>
 			<button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#tambahData">Tambah Data</button>
-			<a href="<?= base_url('L_Format3') ?>" class="btn btn-sm btn-secondary float-right mr-2">
+			<button type="button" class="btn btn-sm btn-secondary float-right mr-2" data-toggle="modal" data-target="#cetak">
 				<i class="fas fa fa-fw fa-print"></i> Cetak
-			</a>
+			</button>
 			<div class="mt-3">
 				<table class="table table-sm text-gray-900" id="table">
 					<thead>
@@ -267,6 +267,70 @@
 			</div>
 		</div>
 	</div>
+	<div class="text-center">
+		<a href="javascript:void(0);" onclick="window.close();" class="btn btn-danger btn-sm mt-5"><i class="fas fa-times-circle"></i> Close</a>
+	</div>
+
+	<!-- MODAL CETAK -->
+	<div class="modal fade" id="cetak" tabindex="-1" aria-labelledby="cetakLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="cetakLabel"><strong>CETAK <?= $title ?></strong></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form method="POST" action="<?= base_url('L_Format3') ?>" target="_blank">
+					<input type="hidden" name="id_belanjax" id="inputData" value="">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-4">
+								<div class="form-group">
+									<label for="jenis_tagihan">Jenis Tagihan</label>
+									<select class="form-control form-control-sm" id="jenis_tagihan" name="jenis_tagihan">
+										<?php foreach ($jenis_tagihan as $r) : ?>
+											<option value="<?= $r->id_jenis_tagihan ?>"><?= $r->id_jenis_tagihan . '. ' . $r->nama_jenis_tagihan ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="form-group">
+									<label for="rekening">Rekening</label>
+									<select class="form-control form-control-sm" id="rekening" name="rekening">
+										<?php foreach ($rekening as $r) : ?>
+											<option value="<?= $r->id_kp_belanja ?>" data-chained="<?= $r->id_jenis_tagihan ?>"><?= $r->nama_rek ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="form-group">
+									<label for="Uraian">Uraian</label>
+									<select class="form-control form-control-sm" id="uraian" name="id_belanja">
+										<?php foreach ($belanja as $r) : ?>
+											<option value="<?= $r->uraian_belanja ?>" data-idbelanja="<?= $r->id_belanja ?>" data-chained="<?= $r->id_kp_belanja ?>"><?= $r->uraian_belanja ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="tujuan" class="col-sm-2 col-form-label">Tujuan </label>
+							<div class="col-sm-10 row">
+								<textarea class="form-control form-control-sm" name="tujuan" id="tujuan" autocomplete="off" rows="7"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">Cetak</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
 	<script>
 		$(document).ready(function() {
 			$('#table').DataTable();
@@ -583,6 +647,32 @@
 		}
 
 		window.onload = formatAndCalculate;
+
+		var selectElem = document.getElementById('uraian');
+		var textareaElem = document.getElementById('tujuan');
+		// Tambahkan event listener ke elemen select
+		selectElem.addEventListener('click', function() {
+			// Set nilai textarea menjadi nilai yang dipilih dari select
+			textareaElem.value = selectElem.value;
+
+		});
+		textareaElem.setAttribute("readonly", "readonly");
+
+		// Mendapatkan referensi ke elemen select dan input
+		var selectElement = document.getElementById('uraian');
+		var inputData = document.getElementById('inputData');
+
+		// Menambahkan event listener ke elemen select
+		selectElement.addEventListener('change', function() {
+			// Mendapatkan opsi yang dipilih
+			var selectedOption = selectElement.options[selectElement.selectedIndex];
+
+			// Mendapatkan nilai atribut data-nama dari opsi yang dipilih
+			var dataNama = selectedOption.getAttribute('data-idbelanja');
+
+			// Menampilkan nilai atribut di elemen input
+			inputData.value = dataNama;
+		});
 	</script>
 
 	<!-- <script src="<?= base_url('assets/'); ?>js/jquery_3.5.1.min.js"></script> -->
@@ -604,8 +694,14 @@
 
 	<script src="<?= base_url('assets/'); ?>js/my_js.js"></script>
 	<script src="<?= base_url('assets/'); ?>selek2/js/select2.js"></script>
+	<script src="<?= base_url('assets/'); ?>js/jquery.chained.min.js"></script>
 
 
+
+	<script>
+		$("#rekening").chained("#jenis_tagihan");
+		$("#uraian").chained("#rekening");
+	</script>
 </body>
 
 </html>

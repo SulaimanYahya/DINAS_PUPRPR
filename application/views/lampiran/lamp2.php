@@ -86,7 +86,7 @@
 							</button>
 						</div>
 						<form method="POST" action="<?= base_url('L_PerjalananDinas') ?>" target="_blank">
-							<input type="text" name="id_belanjax" id="inputData" value="">
+							<input type="hidden" name="id_belanjax" id="inputData" value="">
 							<div class="modal-body">
 								<div class="form-group row">
 									<label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
@@ -204,7 +204,7 @@
 							</button>
 						</div>
 						<form id="pjuForm" method="POST" action="<?= base_url('Lampiran/update/lamp2') ?>">
-							<input type="text" id="idx" name="id" value="" readonly hidden>
+							<input type="hidden" id="idx" name="id" value="" readonly hidden>
 							<div class="modal-body">
 								<div class="form-group row">
 									<label for="nama" class="col-sm-2 col-form-label">Nama</label>
@@ -390,7 +390,6 @@
 	<script src="<?= base_url('assets/'); ?>js/jquery.chained.min.js"></script>
 
 	<script>
-		// FILE 'pembayaran/index.php'
 		$("#rekening").chained("#jenis_tagihan");
 		$("#uraian").chained("#rekening");
 

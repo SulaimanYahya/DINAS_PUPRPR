@@ -36,13 +36,13 @@ class Lampiran extends CI_Controller
 		$data = [
 			'title'         => 'LAMPIRAN FORMAT 3',
 			'user'          => $this->db->get_where('tb_admin', ['username' => $this->session->userdata('username')])->row_array(),
-			'jenis_tagihan' => $this->db->get('tb_jenis_tagihan')->result(),
-			'rekening'      => $this->db->get('tb_rek')->result(),
-			'belanja'       => $this->db->get('tb_belanja')->result(),
 			'pegawai'       => $this->db->get('tb_pegawai')->result(),
 			'program'       => getProgram(),
 			'kegiatan'      => getKegiatan(),
 			'subKegiatan'   => getSubKegiatan(),
+			'jenis_tagihan' => $this->db->get('tb_jenis_tagihan')->result(),
+			'rekening' 		=> $this->db->join('tb_kp_belanja', 'tb_kp_belanja.id_rek=tb_rek.id_rek')->group_by('tb_rek.id_rek')->get('tb_rek')->result(),
+			'belanja'       => $this->db->get('tb_belanja')->result(),
 			'data'      	=> $this->db->group_by('kode_spm')->get('tb_lampiran_format3')->result(),
 		];
 		$this->load->view('lampiran/lamp3', $data);

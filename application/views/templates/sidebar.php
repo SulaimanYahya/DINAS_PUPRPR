@@ -224,11 +224,11 @@
 
 				<a class="collapse-item <?php if ($title == 'Lampiran 3') {
 											echo "bghover";
-										} ?>" href="<?= base_url('lampiran/lamp3'); ?>"><i class="fas fa-file-invoice-dollar"></i></i>&nbsp;Lampiran 3</a>
+										} ?>" href="<?= base_url('lampiran/lamp3'); ?>" target="_blank"><i class="fas fa-file-invoice-dollar"></i></i>&nbsp;Lampiran 3</a>
 
 				<a class="collapse-item <?php if ($title == 'Lampiran 4') {
 											echo "bghover";
-										} ?>" href="<?= base_url('format5'); ?>"><i class="fas fa-file-invoice-dollar"></i></i>&nbsp;Lampiran 4</a>
+										} ?>" href="<?= base_url('format5'); ?>" target="_blank"><i class="fas fa-file-invoice-dollar"></i></i>&nbsp;Lampiran 4</a>
 			</div>
 		</div>
 	</li>
