@@ -204,7 +204,7 @@ class L_Format3 extends CI_Controller
             $pdf->Cell(140, 6, 'NIP. .................................', 0, 0, 'C');
             $pdf->Cell(0, 6, 'NIP. .................................', 0, 1, 'C');
 
-            $pdf->Output('I', 'PerjalananDinas-' . time() . '.pdf');
+            $pdf->Output('I', 'PerjalananDinas2-' . time() . '.pdf');
         } else {
             echo "GAGAL";
         }
