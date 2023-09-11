@@ -416,6 +416,7 @@
 				input.value = value;
 			}
 
+
 			function calculate() {
 				const num1 = parseFloat(pergi_jumlah_satuan.value.replace(/\./g, ""));
 				const num2 = parseFloat(pergi_qty.value.replace(/\./g, ""));
