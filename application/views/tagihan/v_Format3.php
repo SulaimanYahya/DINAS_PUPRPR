@@ -194,7 +194,7 @@
 						</div>
 					</div>
 				</div>
-				<a href="<?= base_url('format3/lampiran') ?>" target="_blank" class="btn btn-secondary btn-sm">Lampiran</a>
+				<a href="<?= base_url('lampiran/lamp3') ?>" target="_blank" class="btn btn-secondary btn-sm">Lampiran</a>
 				<button type="submit" class="btn btn-primary btn-sm float-right">Simpan</button>
 			</div>
 		</div>

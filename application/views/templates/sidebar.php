@@ -145,11 +145,17 @@
 
 				<a class="collapse-item <?php if ($title == 'Format 1') {
 											echo "bghover";
-										} ?>" href="<?= base_url('Daftar_Tagihan/F1'); ?>" target="_blank"><i class="fas fa-file-invoice-dollar"></i>&nbsp;Format 1</a>
+										} ?>" href="<?= base_url('Daftar_Tagihan/F1'); ?>"><i class="fas fa-file-invoice-dollar"></i>&nbsp;Format 1</a>
 
 				<a class="collapse-item <?php if ($title == 'Format 2') {
 											echo "bghover";
-										} ?>" href="<?= base_url('Daftar_Tagihan/F2'); ?>" target="_blank"><i class="fas fa-file-invoice-dollar"></i>&nbsp;Format 2</a>
+										} ?>" href="<?= base_url('Daftar_Tagihan/F2'); ?>"><i class="fas fa-file-invoice-dollar"></i>&nbsp;Format 2</a>
+				<a class="collapse-item <?php if ($title == 'Format 3') {
+											echo "bghover";
+										} ?>" href="<?= base_url('Daftar_Tagihan/F3'); ?>"><i class="fas fa-file-invoice-dollar"></i>&nbsp;Format 3</a>
+				<a class="collapse-item <?php if ($title == 'Format 4') {
+											echo "bghover";
+										} ?>" href="<?= base_url('Daftar_Tagihan/F4'); ?>"><i class="fas fa-file-invoice-dollar"></i>&nbsp;Format 4</a>
 
 			</div>
 		</div>
@@ -228,7 +234,10 @@
 
 				<a class="collapse-item <?php if ($title == 'Lampiran 4') {
 											echo "bghover";
-										} ?>" href="<?= base_url('format5'); ?>" target="_blank"><i class="fas fa-file-invoice-dollar"></i></i>&nbsp;Lampiran 4</a>
+										} ?>" href="<?= base_url('lampiran/lamp4'); ?>" target="_blank"><i class="fas fa-file-invoice-dollar"></i></i>&nbsp;Lampiran 4</a>
+				<a class="collapse-item <?php if ($title == 'Lampiran 5') {
+											echo "bghover";
+										} ?>" href="<?= base_url('lampiran/lamp5'); ?>" target="_blank"><i class="fas fa-file-invoice-dollar"></i></i>&nbsp;Lampiran 5</a>
 			</div>
 		</div>
 	</li>
