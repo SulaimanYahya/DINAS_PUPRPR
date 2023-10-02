@@ -1,0 +1,120 @@
+<?php
+class L_Format3 extends CI_Controller
+{
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->library('Pdf');
+    }
+
+    function index()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+            $tgl_pembuatan = $_POST["tgl_pembuatan"];
+            $selang_bln = $_POST["selang_bln"];
+            $sampai_dengan = $_POST["sampai_dengan"];
+            $pejabat_pembuat_komite = $_POST["pejabat_pembuat_komite"];
+            $bendahara_pengeluaran = $_POST["bendahara_pengeluaran"];
+            $get_bidang = $this->db->get_where('tb_bidang', ['id_bidang' => $this->session->userdata('username')])->row_array();
+            $nama_bidang = $get_bidang['nama_bidang'];
+            $get_ppk = $this->db->get_where('tb_pegawai', ['id_pegawai' => $pejabat_pembuat_komite])->row_array();
+            $ppk = $get_ppk['nama'];
+            $get_lampiran = $this->db->get_where('tb_lampiran_format3')->row_array();
+            $tanggal = $get_lampiran['tanggal'];
+
+            $this->db->join('tb_pegawai', 'tb_pegawai.id=tb_lampiran_format3.id_pegawai');
+            $pegawai = $this->db->get_where('tb_lampiran_format3')->result();
+
+            $pdf = new exFPDF('p', 'mm', array(210, 330));
+            $pdf->SetTitle('LAMPIRAN FORMAT 4');
+            // membuat halaman baru
+
+            $pdf->SetLeftMargin(23);
+            $pdf->SetRightMargin(23);
+            $pdf->SetTopMargin(20);
+            $pdf->AddPage('O');
+
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(0, 6, 'LAMPIRAN PENERIMAAN PEMBAYARAN BIAYA', 0, 1, 'C');
+            $pdf->Cell(0, 6, 'PERJALANAN DINAS BIASA PADA BELANJA LANGSUNG', 0, 1, 'C');
+            $pdf->Cell(0, 6, 'DINAS PEKERJAAN UMUM, PENATAAN RUANG DAN PERUMAHAN RAKYAT KAB. BONE BOLANGO TAHUN ANGGARAN ' . date('Y', strtotime($tanggal)), 0, 1, 'C');
+
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(0, 10, '', 0, 1, 'C');
+            $pdf->Cell(10, 10, '', 0, 0, 'C');
+            $pdf->Cell(0, 10, 'Tanggal :', 0, 1);
+
+            $pdf->SetFont('Times', '', 10);
+            $pdf->AddFont('FontUTF8', '', 'Arimo-Regular.php');
+            $pdf->AddFont('FontUTF8', 'B', 'Arimo-Bold.php');
+            $pdf->AddFont('FontUTF8', 'I', 'Arimo-Italic.php');
+            $pdf->AddFont('FontUTF8', 'BI', 'Arimo-BoldItalic.php');
+
+            $table = new easyTable($pdf, '{10, 60, 30, 30, 30, 30, 30, 40}', 'width:220; border-color:#000000; font-size:10; border:1;');
+
+            $table->rowStyle('align:{CCCCCC};');
+            $table->easyCell("NO", 'rowspan:1');
+            $table->easyCell("NAMA", 'rowspan:1');
+            $table->easyCell("JABATAN", 'rowspan:1');
+            $table->easyCell("JUMLAH DITERIMA (Rp)", 'rowspan:1');
+            $table->easyCell("TRANSPORT", 'rowspan:1');
+            $table->easyCell("KET", 'rowspan:1');
+            $table->easyCell("JUMLAH", 'rowspan:1');
+            $table->easyCell("TANDA TANGAN", 'rowspan:1');
+            $table->printRow();
+
+            $nom = 1;
+            foreach ($pegawai as $rowpg) {
+
+                $table->easyCell($nom, 'align:C; paddingY:10;');
+                $table->easyCell($rowpg->nama, 'paddingY:10;');
+                $table->easyCell($rowpg->jabatan, 'align:C; paddingY:10;');
+                $table->easyCell(number_format($rowpg->total_semua), 'align:R; paddingY:10;');
+                $table->easyCell(number_format($rowpg->rill_pp), 'align:R; paddingY:10;');
+                $table->easyCell($rowpg->jml_huh1 . ' HARI', 'align:C; paddingY:10;');
+                $table->easyCell(number_format($rowpg->total_semua + $rowpg->rill_pp), 'align:R; paddingY:10;');
+                if ($nom % 2 == 0) {
+                    $posisi = 'align:C; paddingY:10;';
+                } else {
+                    $posisi = 'align:L; paddingY:10;';
+                }
+                $table->easyCell($nom, $posisi);
+                $table->printRow(true);
+
+                $nom++;
+            }
+
+            $pdf->SetFont('Times', '', 10);
+            $table->easyCell('', 'border:LB');
+            $table->easyCell('', 'border:B');
+            $table->easyCell('JUMLAH', 'border:RB');
+            $table->easyCell(number_format($get_lampiran['total_semua']), 'align:R');
+            $table->easyCell(number_format($get_lampiran['rill_pp']), 'align:R');
+            $table->easyCell('');
+            $table->easyCell(number_format($get_lampiran['rill_pp'] + $get_lampiran['total_semua']), 'align:R');
+            $table->easyCell('');
+            $table->printRow(true);
+
+            $table->endTable(10);
+
+            $pdf->Cell(140, 6, 'PENGGUNA ANGGARAN', 0, 0, 'C');
+            $pdf->Cell(0, 6, 'BENDAHARA PENGELUARAN', 0, 1, 'C');
+
+            $pdf->Cell(0, 15, '', 0, 1, 'C');
+            $pdf->SetFont('Times', 'U', 11);
+
+            $pdf->Cell(140, 6, '..........................................', 0, 0, 'C');
+            $pdf->Cell(0, 6, '..........................................', 0, 1, 'C');
+
+            $pdf->SetFont('Times', '', 11);
+            $pdf->Cell(140, 6, 'NIP. .................................', 0, 0, 'C');
+            $pdf->Cell(0, 6, 'NIP. .................................', 0, 1, 'C');
+
+
+            $pdf->Output('I', 'PerjalananDinas2-' . time() . '.pdf');
+        } else {
+            echo "GAGAL";
+        }
+    }
+}

@@ -83,7 +83,7 @@ class L_Format3 extends CI_Controller
             }
             $pdf->Cell(30, 5, 'Tanggal', 0, 0);
             $pdf->Cell(8, 5, ':', 0, 0);
-            $pdf->Cell(0, 5, strtoupper($tanggal), 0, 1);
+            $pdf->Cell(0, 5, tanggalIndonesia($tanggal), 0, 1);
             $pdf->Cell(30, 5, 'Tujuan', 0, 0);
             $pdf->Cell(8, 5, ':', 0, 0);
             $pdf->MultiCell(0, 5, strtoupper($tujuan . ' yang dipakai pada ' . $get_sub['nama_jenis_sub_kegiatan']), 0);
