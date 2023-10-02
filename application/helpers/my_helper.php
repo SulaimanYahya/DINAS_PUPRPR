@@ -21,6 +21,22 @@ function tanggalIndonesiaTanpaDay($date)
 	return $months[$month] . ' ' . $year;
 }
 
+function HanyaBulan($date)
+{
+
+	$months = [
+		'', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+	];
+
+	$dateComponents = explode('-', $date);
+	$year = $dateComponents[0];
+	$month = (int)$dateComponents[1];
+
+	$timestamp = mktime(0, 0, 0, $month, $year);
+
+	return $months[$month];
+}
+
 function tanggalIndonesia($date)
 {
 	$days = [
