@@ -15,7 +15,6 @@
 				</h6>
 			</div>
 
-
 			<hr>
 			<form method="POST" action="<?= base_url('Format4/simpan') ?>">
 				<input type="hidden" name="id_belanja" value="<?= enkrip($id_belanja) ?>" readonly>
@@ -262,6 +261,7 @@
 
 <script>
 	var jumlah = document.getElementById('jumlah');
+
 	//Format Angka dan Hitung
 	function formatAndCalculate() {
 		const numberInput1 = document.getElementById("jml_angg");

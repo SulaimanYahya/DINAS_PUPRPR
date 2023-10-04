@@ -19,7 +19,7 @@ class Format4 extends CI_Controller
 		$kd_rek = masterGetId('no_rek', 'tb_rek', 'id_rek', $id_rek);
 		$this->db->join('tb_role', 'tb_role.id_role=tb_admin.id_role');
 		$data = [
-			'title'         => 'FORMAT 4',
+			'title'         => 'FORM FORMAT 4',
 			'user'          => $this->db->get_where('tb_admin', ['username' => $this->session->userdata('username')])->row_array(),
 			'jenis_tagihan' => $this->db->get('tb_jenis_tagihan')->result(),
 			'rekening'      => $this->db->get('tb_rek')->result(),

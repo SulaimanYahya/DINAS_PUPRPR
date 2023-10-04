@@ -54,6 +54,7 @@ $route['tagihan/(:any)/(:any)/(:any)/(:any)'] = 'tagihan/index/$1/$2/$3/$4';
 $route['pembayaran/(:any)/(:any)/(:any)/(:any)'] = 'pembayaran/index/$1/$2/$3/$4';
 $route['Format3/(:any)/(:any)/(:any)/(:any)'] = 'Format3/index/$1/$2/$3/$4';
 $route['Format4/(:any)/(:any)/(:any)/(:any)'] = 'Format4/index/$1/$2/$3/$4';
+$route['Format5/(:any)/(:any)/(:any)/(:any)'] = 'Format5/index/$1/$2/$3/$4';
 $route['Daftar_Tagihan/(:any)'] = 'Daftar_Tagihan/index/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -70,6 +70,9 @@
 											<a href="<?= base_url('Format4/' . enkrip($i['id_belanja']) . '/' . enkrip($tagihan_data['id_jenis_program']) . '/' . enkrip($tagihan_data['id_jenis_kegiatan']) . '/' . enkrip($tagihan_data['id_jenis_sub_kegiatan'])) ?>" class="btn btn-info btn-sm">
 												<i class="fas fa-hand-holding-usd"></i> F4
 											</a>
+											<a href="<?= base_url('Format5/' . enkrip($i['id_belanja']) . '/' . enkrip($tagihan_data['id_jenis_program']) . '/' . enkrip($tagihan_data['id_jenis_kegiatan']) . '/' . enkrip($tagihan_data['id_jenis_sub_kegiatan'])) ?>" class="btn btn-secondary btn-sm">
+												<i class="fas fa-hand-holding-usd"></i> F5
+											</a>
 										</form>
 									</td>
 									<td><?= $i['kode_rup']; ?></td>
