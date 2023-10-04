@@ -103,7 +103,7 @@
 									</div>
 									<label for="sampai_dengan" class="col-form-label">Sampai dengan</label>
 									<div class="col-sm-4">
-										<input type="month" class="form-control form-control-sm" id="selang_bln" name="selang_bln">
+										<input type="month" class="form-control form-control-sm" id="selang_bln" name="sampai_dengan">
 									</div>
 								</div>
 								<div class="form-group row">
