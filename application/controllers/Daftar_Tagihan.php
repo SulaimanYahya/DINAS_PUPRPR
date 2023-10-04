@@ -39,10 +39,19 @@ class Daftar_Tagihan extends CI_Controller
 									  INNER JOIN tb_role ON tb_role.id_role=tb_admin.id_role 
 									  WHERE username='$_SESSION[username]'")->row_array(),
 			];
-		} else {
+		} elseif ($kode == 'F4') {
 			$data = [
 				'title'  => 'Daftar Tagihan Format 4',
 				'list' => $this->db->get('tb_format4')->result(),
+				'user'   => $this->db->query("SELECT * FROM tb_admin 
+									  INNER JOIN tb_role ON tb_role.id_role=tb_admin.id_role 
+									  WHERE username='$_SESSION[username]'")->row_array(),
+			];
+		} else {
+			$kode = 'F5';
+			$data = [
+				'title'  => 'Daftar Tagihan Format 5',
+				'list' => $this->db->get('tb_format5')->result(),
 				'user'   => $this->db->query("SELECT * FROM tb_admin 
 									  INNER JOIN tb_role ON tb_role.id_role=tb_admin.id_role 
 									  WHERE username='$_SESSION[username]'")->row_array(),
@@ -128,6 +137,26 @@ class Daftar_Tagihan extends CI_Controller
 			if ($this->db->affected_rows() > 0) {
 				$this->db->where('id', $id);
 				$this->db->delete('tb_format4');
+				$this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert"><a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Data Deleted Successfully..!!</strong></div>');
+				return redirect(base_url('Daftar_Tagihan/' . $kode));
+			} else {
+				$this->session->set_flashdata('msg', '<div class="alert alert-danger" role="alert"><a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Data Deleted Failed..!!</strong></div>');
+				return redirect(base_url('Daftar_Tagihan/' . $kode));
+			};
+		} else {
+			$id_belanja = masterGetId('id_belanja', 'tb_format5', 'id', $id);
+			$jml_diminta = masterGetId('jml_diminta', 'tb_format5', 'id', $id);
+			$total_realisasi = masterGetId('total_realisasi', 'tb_belanja', 'id_belanja', $id_belanja);
+
+			$total_realisasi_update = $total_realisasi - $jml_diminta;
+
+			$this->db->where('id_belanja', $id_belanja); // Update the user with id = 1
+			$this->db->set('total_realisasi', $total_realisasi_update);
+			$this->db->update('tb_belanja');
+
+			if ($this->db->affected_rows() > 0) {
+				$this->db->where('id', $id);
+				$this->db->delete('tb_format5');
 				$this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert"><a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Data Deleted Successfully..!!</strong></div>');
 				return redirect(base_url('Daftar_Tagihan/' . $kode));
 			} else {

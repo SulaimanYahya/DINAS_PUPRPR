@@ -156,6 +156,9 @@
 				<a class="collapse-item <?php if ($title == 'Format 4') {
 											echo "bghover";
 										} ?>" href="<?= base_url('Daftar_Tagihan/F4'); ?>"><i class="fas fa-file-invoice-dollar"></i>&nbsp;Format 4</a>
+				<a class="collapse-item <?php if ($title == 'Format 5') {
+											echo "bghover";
+										} ?>" href="<?= base_url('Daftar_Tagihan/F5'); ?>"><i class="fas fa-file-invoice-dollar"></i>&nbsp;Format 5</a>
 
 			</div>
 		</div>
