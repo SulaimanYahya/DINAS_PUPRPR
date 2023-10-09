@@ -56,7 +56,7 @@
                         <i class="fas fa-fw fa-trash"></i>
                       </span></a>
                   </td>
-                  <th scope="row"><?= $no++ ?></th>
+                  <th scope="row"><?= $no; ?></th>
                   <td><?= $i['nama_jenis_sub_kegiatan']; ?></td>
                   <td><?= $i['sasaran_sub_kegiatan']; ?></td>
                   <td><?= $i['indikator_kinerja_sub_kegiatan']; ?></td>

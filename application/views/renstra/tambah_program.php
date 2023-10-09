@@ -62,7 +62,7 @@
                   <td><?= $i['formulasi_indikator_program']; ?></td>
                   <td><?= $i['satuan_program']; ?></td>
                   <td><?= $i['tahun_program']; ?></td>
-                  <td><?= $i['target_anggaran']; ?></td>
+                  <td><?= number_format($i['target_anggaran']); ?></td>
                   <td><?= $i['target_fisik']; ?></td>
                 </tr>
 

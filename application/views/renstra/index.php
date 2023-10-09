@@ -138,7 +138,7 @@
                       <td><?= $i['formulasi_indikator_program']; ?></td>
                       <td><?= $i['satuan']; ?></td>
                       <td><?= $i['tahun_program']; ?></td>
-                      <td><?= $i['target_anggaran']; ?></td>
+                      <td><?= number_format($i['target_anggaran']); ?></td>
                       <td><?= $i['target_fisik']; ?></td>
 
                     </tr>
@@ -209,7 +209,7 @@
                       <td><?= $i['indikator_kinerja_kegiatan']; ?></td>
                       <td><?= $i['satuan_kegiatan']; ?></td>
                       <td><?= $i['tahun_kegiatan']; ?></td>
-                      <td><?= $i['target_anggaran_keg']; ?></td>
+                      <td><?= number_format($i['target_anggaran_keg']); ?></td>
                       <td><?= $i['target_fisik_keg']; ?></td>
 
                     </tr>
@@ -273,7 +273,7 @@
                             <i class="fas fa-fw fa-trash"></i>
                           </span></a>
                       </td>
-                      <th scope="row"><?= $no++ ?></th>
+                      <th scope="row"><?= $no; ?></th>
                       <td><?= $i['nama_jenis_sasaran']; ?></td>
                       <td><?= $i['nama_jenis_program']; ?></td>
                       <td><?= $i['nama_jenis_kegiatan']; ?></td>
@@ -282,7 +282,7 @@
                       <td><?= $i['indikator_kinerja_sub_kegiatan']; ?></td>
                       <td><?= $i['satuan_sub_kegiatan']; ?></td>
                       <td><?= $i['tahun_sub']; ?></td>
-                      <td><?= $i['target_anggaran_sub']; ?></td>
+                      <td><?= number_format($i['target_anggaran_sub']); ?></td>
                       <td><?= $i['target_fisik_sub']; ?></td>
 
                     </tr>
