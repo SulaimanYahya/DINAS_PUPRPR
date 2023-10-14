@@ -20,13 +20,10 @@ class User extends CI_Controller
 		$this->db->join('tb_role', 'tb_role.id_role=tb_admin.id_role');
 		$data['user'] = $this->db->get_where('tb_admin', ['username' => $this->session->userdata('username')])->row_array();
 
-		$data['jum_mhs'] = "19";
-		$data['jum_akun'] = "19";
-		$data['jum_syarat'] = "19";
-
-		// $data['jum_mhs'] = $this->db->get_where('tb_mahasiswa')->num_rows();
-		// $data['jum_akun'] = $this->db->get_where('tb_admin')->num_rows();
-		// $data['jum_syarat'] = $this->db->get_where('tb_syarat')->num_rows();
+		$data['jum_sasaran'] = $this->db->get_where('tb_sasaran')->num_rows();
+		$data['jum_program'] = $this->db->get_where('tb_program')->num_rows();
+		$data['jum_kegiatan'] = $this->db->get_where('tb_kegiatan')->num_rows();
+		$data['jum_sub_kegiatan'] = $this->db->get_where('tb_sub_kegiatan')->num_rows();
 
 		// $this->db->group_by('status_mhs');
 		// $this->db->select('status_mhs');
