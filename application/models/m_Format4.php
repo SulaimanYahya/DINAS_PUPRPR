@@ -47,7 +47,8 @@ class m_Format4 extends CI_Model
 			$this->db->where('id_belanja', dekrip($id_belanja)); // Update the user with id = 1
 			$this->db->set('total_realisasi', $total_realisasi);
 			$this->db->update('tb_belanja');
-			return redirect(base_url('homekeu'));
+			$this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert"><a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>Data Tagihan <strong>Berhasil</strong> Di input</div>');
+			return redirect('Daftar_Tagihan/F4');
 		} else {
 			echo "SISTEM GAGAL..!!";
 		}

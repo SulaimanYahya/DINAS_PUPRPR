@@ -84,12 +84,13 @@ class m_pju extends CI_Model
 					$this->db->where('id_belanja', dekrip($this->input->post('id_belanja'))); // Update the user with id = 1
 					$this->db->set('total_realisasi', $total_realisasi);
 					$this->db->update('tb_belanja');
-					return redirect(base_url('daftar_tagihan'));
+					$this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert"><a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>Data Tagihan <strong>Berhasil</strong> Diinput</div>');
+					return redirect(base_url('Daftar_Tagihan/F1'));
 				} else {
-					return redirect(base_url('daftar_tagihan'));
+					return redirect(base_url('Daftar_Tagihan/F1'));
 				}
 			}
-			return redirect(base_url('homekeu/program'));
+			return redirect(base_url('Daftar_Tagihan/F1'));
 		}
 	}
 

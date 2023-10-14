@@ -58,19 +58,19 @@
 										<form class="form-inline" method="post" action="format_tagihan">
 											<input type="hidden" name="kode" value="<?= $mykode; ?>">
 											<input type="hidden" name="id_belanja" value="<?= $i['id_belanja']; ?>">
-											<a href="<?= base_url('tagihan/' . enkrip($i['id_belanja']) . '/' . enkrip($tagihan_data['id_jenis_program']) . '/' . enkrip($tagihan_data['id_jenis_kegiatan']) . '/' . enkrip($tagihan_data['id_jenis_sub_kegiatan'])) ?>" class="btn btn-primary btn-sm">
+											<a target="_blank" href="<?= base_url('tagihan/' . enkrip($i['id_belanja']) . '/' . enkrip($tagihan_data['id_jenis_program']) . '/' . enkrip($tagihan_data['id_jenis_kegiatan']) . '/' . enkrip($tagihan_data['id_jenis_sub_kegiatan'])) ?>" class="btn btn-primary btn-sm">
 												<i class="fas fa-hand-holding-usd"></i> F1
 											</a>
-											<a href="<?= base_url('pembayaran/' . enkrip($i['id_belanja']) . '/' . enkrip($tagihan_data['id_jenis_program']) . '/' . enkrip($tagihan_data['id_jenis_kegiatan']) . '/' . enkrip($tagihan_data['id_jenis_sub_kegiatan'])) ?>" class="btn btn-success btn-sm">
+											<a target="_blank" href="<?= base_url('pembayaran/' . enkrip($i['id_belanja']) . '/' . enkrip($tagihan_data['id_jenis_program']) . '/' . enkrip($tagihan_data['id_jenis_kegiatan']) . '/' . enkrip($tagihan_data['id_jenis_sub_kegiatan'])) ?>" class="btn btn-success btn-sm">
 												<i class="fas fa-hand-holding-usd"></i> F2
 											</a>
-											<a href="<?= base_url('Format3/' . enkrip($i['id_belanja']) . '/' . enkrip($tagihan_data['id_jenis_program']) . '/' . enkrip($tagihan_data['id_jenis_kegiatan']) . '/' . enkrip($tagihan_data['id_jenis_sub_kegiatan'])) ?>" class="btn btn-warning btn-sm">
+											<a target="_blank" href="<?= base_url('Format3/' . enkrip($i['id_belanja']) . '/' . enkrip($tagihan_data['id_jenis_program']) . '/' . enkrip($tagihan_data['id_jenis_kegiatan']) . '/' . enkrip($tagihan_data['id_jenis_sub_kegiatan'])) ?>" class="btn btn-warning btn-sm">
 												<i class="fas fa-hand-holding-usd"></i> F3
 											</a>
-											<a href="<?= base_url('Format4/' . enkrip($i['id_belanja']) . '/' . enkrip($tagihan_data['id_jenis_program']) . '/' . enkrip($tagihan_data['id_jenis_kegiatan']) . '/' . enkrip($tagihan_data['id_jenis_sub_kegiatan'])) ?>" class="btn btn-info btn-sm">
+											<a target="_blank" href="<?= base_url('Format4/' . enkrip($i['id_belanja']) . '/' . enkrip($tagihan_data['id_jenis_program']) . '/' . enkrip($tagihan_data['id_jenis_kegiatan']) . '/' . enkrip($tagihan_data['id_jenis_sub_kegiatan'])) ?>" class="btn btn-info btn-sm">
 												<i class="fas fa-hand-holding-usd"></i> F4
 											</a>
-											<a href="<?= base_url('Format5/' . enkrip($i['id_belanja']) . '/' . enkrip($tagihan_data['id_jenis_program']) . '/' . enkrip($tagihan_data['id_jenis_kegiatan']) . '/' . enkrip($tagihan_data['id_jenis_sub_kegiatan'])) ?>" class="btn btn-secondary btn-sm">
+											<a target="_balnk" href="<?= base_url('Format5/' . enkrip($i['id_belanja']) . '/' . enkrip($tagihan_data['id_jenis_program']) . '/' . enkrip($tagihan_data['id_jenis_kegiatan']) . '/' . enkrip($tagihan_data['id_jenis_sub_kegiatan'])) ?>" class="btn btn-secondary btn-sm">
 												<i class="fas fa-hand-holding-usd"></i> F5
 											</a>
 										</form>
