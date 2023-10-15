@@ -230,25 +230,51 @@
 								<option value="<?= $subKegiatan ?>"> <?= $jenis_subkegiatan ?> </option>
 							</select>
 						</div>
-						<div class="form-group">
-							<label for="ppn">PPN</label>
-							<input type="number" min="0" oninput="formatAngka(this)" class="form-control form-control-sm" id="ppn" name="ppn" value="0">
-						</div>
-						<div class="form-group">
-							<label for="pph21">PPH Psl 21</label>
-							<input type="number" min="0" oninput="formatAngka(this)" class="form-control form-control-sm" id="pph21" name="pph21" value="0">
-						</div>
-						<div class="form-group">
-							<label for="pph22">PPH Psl 22</label>
-							<input type="number" min="0" oninput="formatAngka(this)" class="form-control form-control-sm" id="pph22" name="pph22" value="0">
-						</div>
-						<div class="form-group">
-							<label for="pph23">PPH Psl 23</label>
-							<input type="number" min="0" oninput="formatAngka(this)" class="form-control form-control-sm" id="pph23" name="pph23" value="0">
-						</div>
-						<div class="form-group">
-							<label for="pph25">PPH Psl 25</label>
-							<input type="number" min="0" oninput="formatAngka(this)" class="form-control form-control-sm" id="pph25" name="pph25" value="0">
+						<div class="col-12 row">
+							<div class="col-6">
+								<div class="form-group">
+									<label for="ppn">PPN</label>
+									<input type="text" oninput="rumusPersen1(this)" class="form-control form-control-sm" id="ppn" value="0">
+								</div>
+								<div class="form-group">
+									<label for="pph21">PPH Psl 21</label>
+									<input type="text" oninput="rumusPersen2(this)" class="form-control form-control-sm" id="pph21" value="0">
+								</div>
+								<div class="form-group">
+									<label for="pph22">PPH Psl 22</label>
+									<input type="text" oninput="rumusPersen3(this)" class="form-control form-control-sm" id="pph22" value="0">
+								</div>
+								<div class="form-group">
+									<label for="pph23">PPH Psl 23</label>
+									<input type="text" oninput="rumusPersen4(this)" class="form-control form-control-sm" id="pph23" value="0">
+								</div>
+								<div class="form-group">
+									<label for="pph25">PPH Psl 25</label>
+									<input type="text" oninput="rumusPersen5(this)" class="form-control form-control-sm" id="pph25" value="0">
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-group">
+									<label for="ppnPersen">.</label>
+									<input type="text" class="form-control form-control-sm" id="ppnPersen" name="ppn" value="0" readonly>
+								</div>
+								<div class="form-group">
+									<label for="ppnPersen21">.</label>
+									<input type="text" class="form-control form-control-sm" id="ppnPersen21" name="pph21" value="0" readonly>
+								</div>
+								<div class="form-group">
+									<label for="ppnPersen22">.</label>
+									<input type="text" class="form-control form-control-sm" id="ppnPersen22" name="pph22" value="0" readonly>
+								</div>
+								<div class="form-group">
+									<label for="ppnPersen23">.</label>
+									<input type="text" class="form-control form-control-sm" id="ppnPersen23" name="pph23" value="0" readonly>
+								</div>
+								<div class="form-group">
+									<label for="ppnPersen25">.</label>
+									<input type="text" class="form-control form-control-sm" id="ppnPersen25" name="pph25" value="0" readonly>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -305,6 +331,12 @@
 
 			const result2 = result - num3;
 			sisa_angg2.value = result2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+			rumusPersen1();
+			rumusPersen2();
+			rumusPersen3();
+			rumusPersen4();
+			rumusPersen5();
 		}
 
 		numberInput1.addEventListener("input", function() {
@@ -321,6 +353,9 @@
 			formatNumber(jml_diminta);
 			calculate();
 		});
+
+
+
 	}
 
 	window.onload = formatAndCalculate;
@@ -330,4 +365,43 @@
 		// Mengatur nilai input form kedua sama dengan input form pertama
 		jumlah.value = jml_diminta.value;
 	});
+
+
+	// POTONGAN 
+	function rumusPersen1() {
+		const nilai = document.getElementById("jml_diminta").value;
+		const ppn = document.getElementById("ppn").value;
+		const ppnPersen = document.getElementById("ppnPersen");
+		ppnPersen.value = formatNumber(nilai.replace(/,/g, '') * ppn / 100);
+	}
+
+	function rumusPersen2() {
+		const nilai2 = document.getElementById("jml_diminta").value;
+		const pph21 = document.getElementById("pph21").value;
+		const ppnPersen21 = document.getElementById("ppnPersen21");
+		ppnPersen21.value = formatNumber(nilai2.replace(/,/g, '') * pph21 / 100);
+
+	}
+
+	function rumusPersen3() {
+		const nilai3 = document.getElementById("jml_diminta").value;
+		const pph22 = document.getElementById("pph22").value;
+		const ppnPersen22 = document.getElementById("ppnPersen22");
+		ppnPersen22.value = formatNumber(nilai3.replace(/,/g, '') * pph22 / 100);
+	}
+
+	function rumusPersen4() {
+		const nilai4 = document.getElementById("jml_diminta").value;
+		const pph23 = document.getElementById("pph23").value;
+		const ppnPersen23 = document.getElementById("ppnPersen23");
+		ppnPersen23.value = formatNumber(nilai4.replace(/,/g, '') * pph23 / 100);
+
+	}
+
+	function rumusPersen5() {
+		const nilai5 = document.getElementById("jml_diminta").value;
+		const pph25 = document.getElementById("pph25").value;
+		const ppnPersen25 = document.getElementById("ppnPersen25");
+		ppnPersen25.value = formatNumber(nilai5.replace(/,/g, '') * pph25 / 100);
+	}
 </script>
