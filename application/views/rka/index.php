@@ -421,40 +421,64 @@
             <div class="card-body table-responsive">
 
               <?= $this->session->flashdata('message'); ?>
-
-              <table class="table table-hover" id="table5">
-                <thead class="">
-                  <tr>
-                    <th scope="col" class="">#</th>
-                    <th scope="col" class="">Belanja</th>
-                    <th scope="col" class="">Kode RUP</th>
-                    <th scope="col" class="">Rincian</th>
-                    <th scope="col" class="">Satuan</th>
-                    <th scope="col" class="">Volume</th>
-                    <th scope="col" class="">Harga Satuan</th>
-                    <th scope="col" class="">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php $no = 1; ?>
-                  <?php foreach ($belanja as $i) : ?>
-
+              <?php foreach ($belanja as $key) : ?>
+                <div class="alert alert-success">
+                  <table>
                     <tr>
-                      <th scope="row"><?= $no; ?></th>
-                      <td><?= $i['nama_rek']; ?></td>
-                      <td><?= $i['kode_rup']; ?></td>
-                      <td><?= $i['uraian_belanja']; ?></td>
-                      <td><?= $i['satuan']; ?></td>
-                      <td><?= number_format($i['volume']); ?></td>
-                      <td><?= number_format($i['harga_satuan']); ?></td>
-                      <td><?= number_format($i['total']); ?></td>
+                      <td>No. Rekening</td>
+                      <td>:</td>
+                      <td><?= $key['no_rek']; ?></td>
                     </tr>
+                    <tr>
+                      <td>Nama Rekening</td>
+                      <td>:</td>
+                      <td><?= $key['nama_rek']; ?></td>
+                    </tr>
+                  </table>
+                </div>
 
-                    <?php $no++; ?>
-                  <?php endforeach ?>
+                <table class="table table-bordered">
+                  <thead class="">
+                    <tr>
+                      <th scope="col" class="">#</th>
+                      <th scope="col" class="">Kode RUP</th>
+                      <th scope="col" class="">Rincian</th>
+                      <th scope="col" class="">Satuan</th>
+                      <th scope="col" class="">Volume</th>
+                      <th scope="col" class="">Harga Satuan</th>
+                      <th scope="col" class="">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $no = 1; ?>
+                    <?php
+                    $this->db->join('tb_kp_belanja', 'tb_kp_belanja.id_kp_belanja=tb_belanja.id_kp_belanja');
+                    $this->db->join('tb_renja_sub', 'tb_renja_sub.id_renja_sub=tb_kp_belanja.id_renja_sub');
+                    $this->db->join('tb_sub_kegiatan', 'tb_sub_kegiatan.id_sub_kegiatan=tb_renja_sub.id_sub_kegiatan');
+                    $this->db->join('tb_jenis_sub_kegiatan', 'tb_jenis_sub_kegiatan.id_jenis_sub_kegiatan=tb_sub_kegiatan.id_jenis_sub_kegiatan');
+                    $this->db->join('tb_target_sub', 'tb_target_sub.id_sub_kegiatan=tb_sub_kegiatan.id_sub_kegiatan');
+                    $this->db->join('tb_rek', 'tb_rek.id_rek=tb_kp_belanja.id_rek');
+                    $this->db->join('tb_satuan', 'tb_satuan.id_satuan=tb_belanja.id_satuan');
+                    $rincians = $this->db->get_where('tb_belanja', ['status_dua' => 'renwal', 'tahun_sub' => $key['tahun_sub'], 'tb_belanja.id_kp_belanja' => $key['id_kp_belanja']])->result_array();
+                    foreach ($rincians as $i) : ?>
 
-                </tbody>
-              </table>
+                      <tr>
+                        <th scope="row"><?= $no; ?></th>
+                        <td><?= $i['kode_rup']; ?></td>
+                        <td><?= $i['uraian_belanja']; ?></td>
+                        <td><?= $i['satuan']; ?></td>
+                        <td><?= number_format($i['volume']); ?></td>
+                        <td><?= number_format($i['harga_satuan']); ?></td>
+                        <td><?= number_format($i['total']); ?></td>
+                      </tr>
+
+                      <?php $no++; ?>
+                    <?php endforeach ?>
+
+                  </tbody>
+                </table>
+
+              <?php endforeach ?>
 
             </div>
           </div>

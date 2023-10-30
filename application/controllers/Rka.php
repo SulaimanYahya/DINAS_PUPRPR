@@ -76,7 +76,7 @@ class Rka extends CI_Controller
 
         // batas fungsi belanja
 
-        $this->db->order_by('tb_kp_belanja.id_kp_belanja', 'DESC');
+        $this->db->group_by('tb_kp_belanja.id_kp_belanja');
         $this->db->join('tb_kp_belanja', 'tb_kp_belanja.id_kp_belanja=tb_belanja.id_kp_belanja');
         $this->db->join('tb_renja_sub', 'tb_renja_sub.id_renja_sub=tb_kp_belanja.id_renja_sub');
         $this->db->join('tb_sub_kegiatan', 'tb_sub_kegiatan.id_sub_kegiatan=tb_renja_sub.id_sub_kegiatan');
@@ -159,8 +159,8 @@ class Rka extends CI_Controller
 
         // batas fungsi belanja
 
-        $this->db->order_by('tb_kp_belanja.id_kp_belanja', 'DESC');
-        $this->db->join('tb_kp_belanja', 'tb_kp_belanja.id_kp_belanja=tb_aktivitas.id_kp_belanja');
+        $this->db->group_by('tb_kp_belanja.id_kp_belanja');
+        $this->db->join('tb_kp_belanja', 'tb_kp_belanja.id_kp_belanja=tb_belanja.id_kp_belanja');
         $this->db->join('tb_renja_sub', 'tb_renja_sub.id_renja_sub=tb_kp_belanja.id_renja_sub');
         $this->db->join('tb_sub_kegiatan', 'tb_sub_kegiatan.id_sub_kegiatan=tb_renja_sub.id_sub_kegiatan');
         $this->db->join('tb_jenis_sub_kegiatan', 'tb_jenis_sub_kegiatan.id_jenis_sub_kegiatan=tb_sub_kegiatan.id_jenis_sub_kegiatan');
@@ -592,7 +592,6 @@ class Rka extends CI_Controller
         $this->db->join('tb_role', 'tb_role.id_role=tb_admin.id_role');
         $data['user'] = $this->db->get_where('tb_admin', ['username' => $this->session->userdata('username')])->row_array();
 
-        $this->db->join('tb_kp_belanja', 'tb_kp_belanja.id_kp_belanja=tb_aktivitas.id_kp_belanja');
         $this->db->join('tb_renja_sub', 'tb_renja_sub.id_renja_sub=tb_kp_belanja.id_renja_sub');
         $this->db->join('tb_sub_kegiatan', 'tb_sub_kegiatan.id_sub_kegiatan=tb_renja_sub.id_sub_kegiatan');
         $this->db->join('tb_kegiatan', 'tb_kegiatan.id_kegiatan=tb_sub_kegiatan.id_kegiatan');
@@ -604,11 +603,11 @@ class Rka extends CI_Controller
         $this->db->join('tb_jenis_sub_kegiatan', 'tb_jenis_sub_kegiatan.id_jenis_sub_kegiatan=tb_sub_kegiatan.id_jenis_sub_kegiatan');
         $this->db->join('tb_target_sub', 'tb_target_sub.id_sub_kegiatan=tb_sub_kegiatan.id_sub_kegiatan');
         $this->db->join('tb_rek', 'tb_rek.id_rek=tb_kp_belanja.id_rek');
-        $data['aktivitas_data'] = $this->db->get_where('tb_aktivitas', ['tb_aktivitas.id_aktivitas' => $id])->row_array();
+        $data['aktivitas_data'] = $this->db->get_where('tb_kp_belanja', ['tb_kp_belanja.id_kp_belanja' => $id])->row_array();
 
         $this->db->order_by('tb_belanja.id_belanja', 'DESC');
         $this->db->join('tb_satuan', 'tb_satuan.id_satuan=tb_belanja.id_satuan');
-        $data['belanja'] = $this->db->get_where('tb_belanja', ['tb_belanja.id_aktivitas' => $id])->result_array();
+        $data['belanja'] = $this->db->get_where('tb_belanja', ['tb_belanja.id_kp_belanja' => $id])->result_array();
 
         $data['satuan'] = $this->db->get_where('tb_satuan')->result_array();
 
