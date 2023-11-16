@@ -322,6 +322,18 @@
 		</div>
 	</li>
 
+	<li class="nav-item <?php
+						if ($title == 'File Dokumen') {
+							echo "active";
+						}
+						?>">
+		<a class="nav-link <?php if ($title == 'File Dokumen') {
+								echo "bghover";
+							} ?>" href="<?= base_url('buku'); ?>">
+			<i class="fas fa-fw fa-file text-light"></i>
+			<span>File Dokumen</span></a>
+	</li>
+
 
 	<!-- Divider -->
 	<hr class="sidebar-divider">
